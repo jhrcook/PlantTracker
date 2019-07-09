@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8489D93522D426C000E027A0 /* MyPlantsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */; };
+		8489D93722D4277200E027A0 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93622D4277200E027A0 /* MyPlant.swift */; };
+		8489D93922D4295B00E027A0 /* MyPlantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */; };
+		8489D93B22D42B2500E027A0 /* PlantLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93A22D42B2500E027A0 /* PlantLibraryViewController.swift */; };
+		84B5F08822D44D6A00EBED1B /* SucculentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5F08722D44D6A00EBED1B /* SucculentSource.swift */; };
 		84DCE42622D3DB1A00A89C93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCE42522D3DB1A00A89C93 /* AppDelegate.swift */; };
-		84DCE42822D3DB1A00A89C93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCE42722D3DB1A00A89C93 /* ViewController.swift */; };
 		84DCE42B22D3DB1A00A89C93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DCE42922D3DB1A00A89C93 /* Main.storyboard */; };
 		84DCE42D22D3DB1A00A89C93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DCE42C22D3DB1A00A89C93 /* Assets.xcassets */; };
 		84DCE43022D3DB1A00A89C93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DCE42E22D3DB1A00A89C93 /* LaunchScreen.storyboard */; };
@@ -17,9 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantsCollectionViewController.swift; sourceTree = "<group>"; };
+		8489D93622D4277200E027A0 /* MyPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlant.swift; sourceTree = "<group>"; };
+		8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantCollectionViewCell.swift; sourceTree = "<group>"; };
+		8489D93A22D42B2500E027A0 /* PlantLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantLibraryViewController.swift; sourceTree = "<group>"; };
+		84B5F08722D44D6A00EBED1B /* SucculentSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucculentSource.swift; sourceTree = "<group>"; };
 		84DCE42222D3DB1A00A89C93 /* PlantTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DCE42522D3DB1A00A89C93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84DCE42722D3DB1A00A89C93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84DCE42A22D3DB1A00A89C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84DCE42C22D3DB1A00A89C93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DCE42F22D3DB1A00A89C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,13 +67,17 @@
 			isa = PBXGroup;
 			children = (
 				84DCE42522D3DB1A00A89C93 /* AppDelegate.swift */,
-				84DCE42722D3DB1A00A89C93 /* ViewController.swift */,
-				84DCE43922D3E38200A89C93 /* PlantDetailViewController.swift */,
-				84DCE43722D3DBBF00A89C93 /* Plant.swift */,
-				84DCE42922D3DB1A00A89C93 /* Main.storyboard */,
 				84DCE42C22D3DB1A00A89C93 /* Assets.xcassets */,
-				84DCE42E22D3DB1A00A89C93 /* LaunchScreen.storyboard */,
 				84DCE43122D3DB1A00A89C93 /* Info.plist */,
+				84DCE42E22D3DB1A00A89C93 /* LaunchScreen.storyboard */,
+				84DCE42922D3DB1A00A89C93 /* Main.storyboard */,
+				8489D93622D4277200E027A0 /* MyPlant.swift */,
+				84B5F08722D44D6A00EBED1B /* SucculentSource.swift */,
+				8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */,
+				8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */,
+				84DCE43722D3DBBF00A89C93 /* Plant.swift */,
+				84DCE43922D3E38200A89C93 /* PlantDetailViewController.swift */,
+				8489D93A22D42B2500E027A0 /* PlantLibraryViewController.swift */,
 			);
 			path = PlantTracker;
 			sourceTree = "<group>";
@@ -141,10 +153,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84DCE42822D3DB1A00A89C93 /* ViewController.swift in Sources */,
+				8489D93522D426C000E027A0 /* MyPlantsCollectionViewController.swift in Sources */,
+				8489D93B22D42B2500E027A0 /* PlantLibraryViewController.swift in Sources */,
 				84DCE43822D3DBBF00A89C93 /* Plant.swift in Sources */,
 				84DCE42622D3DB1A00A89C93 /* AppDelegate.swift in Sources */,
 				84DCE43A22D3E38200A89C93 /* PlantDetailViewController.swift in Sources */,
+				8489D93922D4295B00E027A0 /* MyPlantCollectionViewCell.swift in Sources */,
+				8489D93722D4277200E027A0 /* MyPlant.swift in Sources */,
+				84B5F08822D44D6A00EBED1B /* SucculentSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Plant: NSObject {
+class Plant: NSObject, Codable {
     var scientificName: String?
     var commonName: String?
     

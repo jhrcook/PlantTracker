@@ -8,12 +8,9 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class PlantLibraryViewController: UITableViewController {
     
-    var plants = [
-        Plant(scientificName: "Planticus oneii", commonName: "Plant One"),
-        Plant(scientificName: nil, commonName: "Plant Two"),
-    ]
+    var plants = [Plant]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +18,17 @@ class ViewController: UITableViewController {
         
         // add new plant
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPlant))
+        
+        // load library
+        let defaults = UserDefaults.standard
+        if let savedPlants = defaults.object(forKey: "plants") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                plants = try jsonDecoder.decode([Plant].self, from: savedPlants)
+            } catch {
+                print("Failed to load `plants`")
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +44,9 @@ class ViewController: UITableViewController {
         } else {
             cell.imageView?.image = UIImage(named: "cactus")
         }
+        cell.detailTextLabel?.text = plants[indexPath.row].scientificName
+        cell.detailTextLabel?.textColor = .gray
+        cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
         return cell
     }
     
@@ -55,8 +66,19 @@ class ViewController: UITableViewController {
             let plant = Plant(scientificName: nil, commonName: newPlantName)
             self?.plants.append(plant)
             self?.tableView.reloadData()
+            self?.saveLibrary()
         })
         present(alertController, animated: true)
+    }
+    
+    func saveLibrary() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(plants) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "plants")
+        } else {
+            print("Failed to save `plants`.")
+        }
     }
 
 }
