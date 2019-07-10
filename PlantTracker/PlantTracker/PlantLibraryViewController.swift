@@ -18,7 +18,9 @@ class PlantLibraryViewController: UITableViewController {
         
         // add new plant
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPlant))
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // load library
         let defaults = UserDefaults.standard
         if let savedPlants = defaults.object(forKey: "plants") as? Data {
@@ -29,6 +31,7 @@ class PlantLibraryViewController: UITableViewController {
                 print("Failed to load `plants`")
             }
         }
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +57,8 @@ class PlantLibraryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: "PlantDetail") as? PlantDetailViewController {
             viewController.plant = plants[indexPath.row]
+            viewController.plants = plants
+            viewController.plantIndex = indexPath.row
             navigationController?.pushViewController(viewController, animated: true)
         }
     }

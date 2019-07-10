@@ -11,6 +11,8 @@ import UIKit
 class PlantDetailViewController: UIViewController {
     
     var plant: Plant!
+    var plants = [Plant]()
+    var plantIndex: Int? = nil
 
     var plantScrollView = UIScrollView()
     var scientificNameLabel = UILabel()
@@ -25,14 +27,18 @@ class PlantDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        print(plant.lightRequirements ?? "no light level")
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPlantDetail))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        plants[plantIndex!] = plant
+        savePlants()
         
         // ---- Layout ---- //
-        let scrollViewHeight = 300.0
-        let labelHeight = 24.0
-        
+        let scrollViewHeight:CGFloat = 300.0
+        let labelHeight:CGFloat = 24.0
+        let standardSpacing:CGFloat = 8.0
         
         // plant scrolling images
         view.addSubview(plantScrollView)
@@ -41,12 +47,13 @@ class PlantDetailViewController: UIViewController {
         plantScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         plantScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         plantScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        plantScrollView.heightAnchor.constraint(equalToConstant: CGFloat(scrollViewHeight)).isActive = true
+        plantScrollView.heightAnchor.constraint(equalToConstant: scrollViewHeight).isActive = true
         
         // scientific name
         view.addSubview(scientificNameLabel)
         if let scientificName = plant.scientificName {
             scientificNameLabel.text = scientificName
+            scientificNameLabel.textColor = .black
         } else {
             scientificNameLabel.text = "untitled"
             scientificNameLabel.textColor = .gray
@@ -54,23 +61,23 @@ class PlantDetailViewController: UIViewController {
         scientificNameLabel.font = UIFont.italicSystemFont(ofSize: 20.0)
         scientificNameLabel.translatesAutoresizingMaskIntoConstraints = false
         scientificNameLabel.topAnchor.constraint(equalTo: plantScrollView.bottomAnchor, constant: 8.0).isActive = true
-        scientificNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        scientificNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        scientificNameLabel.heightAnchor.constraint(equalToConstant: CGFloat(labelHeight)).isActive = true
+        scientificNameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        scientificNameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        scientificNameLabel.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         
         // scientific name
         view.addSubview(commonNameLabel)
         commonNameLabel.text = plant.commonName ?? "untitled"
         commonNameLabel.translatesAutoresizingMaskIntoConstraints = false
         commonNameLabel.topAnchor.constraint(equalTo: scientificNameLabel.bottomAnchor, constant: 8.0).isActive = true
-        commonNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        commonNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        commonNameLabel.heightAnchor.constraint(equalToConstant: CGFloat(labelHeight)).isActive = true
+        commonNameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        commonNameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        commonNameLabel.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         
         // "Details" section label
-        detailHeaderLabel.text = "Details"
+        detailHeaderLabel.text = " Details"
         detailHeaderLabel.numberOfLines = 1
-        detailHeaderLabel.backgroundColor = .lightGray
+        detailHeaderLabel.backgroundColor = UIColor(white: 0, alpha: 0.1)
         view.addSubview(detailHeaderLabel)
         detailHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         detailHeaderLabel.topAnchor.constraint(equalTo: commonNameLabel.bottomAnchor, constant: 8.0).isActive = true
@@ -84,9 +91,9 @@ class PlantDetailViewController: UIViewController {
             view.addSubview(difficultyLabel)
             difficultyLabel.text = "Difficulty: \(difficultyLevel)"
             difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
-            difficultyLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor).isActive = true
-            difficultyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            difficultyLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            difficultyLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor, constant: standardSpacing).isActive = true
+            difficultyLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+            difficultyLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             previousLabel = difficultyLabel
         }
         
@@ -94,9 +101,9 @@ class PlantDetailViewController: UIViewController {
             view.addSubview(waterLabel)
             waterLabel.text = "Water requirements: \(wateringRequirements)"
             waterLabel.translatesAutoresizingMaskIntoConstraints = false
-            waterLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor).isActive = true
-            waterLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            waterLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            waterLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor, constant: standardSpacing).isActive = true
+            waterLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+            waterLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             previousLabel = waterLabel
         }
         
@@ -104,19 +111,19 @@ class PlantDetailViewController: UIViewController {
             view.addSubview(lightLabel)
             lightLabel.text = "Light requirements: \(lightRequirements)"
             lightLabel.translatesAutoresizingMaskIntoConstraints = false
-            lightLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor).isActive = true
-            lightLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            lightLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            lightLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor, constant: standardSpacing).isActive = true
+            lightLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+            lightLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             previousLabel = lightLabel
         }
         
         if let growingSeason = plant.growingSeason {
             view.addSubview(growingSeasonLabel)
-            growingSeasonLabel.text = "Water requirements: \(growingSeason)"
+            growingSeasonLabel.text = "Growing season: \(growingSeason)"
             growingSeasonLabel.translatesAutoresizingMaskIntoConstraints = false
-            growingSeasonLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor).isActive = true
-            growingSeasonLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-            growingSeasonLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            growingSeasonLabel.topAnchor.constraint(equalTo: previousLabel.bottomAnchor, constant: standardSpacing).isActive = true
+            growingSeasonLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+            growingSeasonLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             previousLabel = growingSeasonLabel
         }
         // -------- //
@@ -126,22 +133,18 @@ class PlantDetailViewController: UIViewController {
             for i in 1..<plant.images.count {
                 let imageView = UIImageView(image: UIImage(named: plant.images[i]))
                 let x = view.frame.width * CGFloat(i)
-                imageView.frame = CGRect(x: x, y: 0, width: view.frame.width, height: CGFloat(scrollViewHeight))
+                imageView.frame = CGRect(x: x, y: 0, width: view.frame.width, height: scrollViewHeight)
                 imageView.contentMode = .scaleAspectFit
                 plantScrollView.addSubview(imageView)
             }
         } else {
             let imageView = UIImageView(image: UIImage(named: "cactus"))
-            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: CGFloat(scrollViewHeight))
+            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: scrollViewHeight)
             imageView.contentMode = .scaleAspectFit
             plantScrollView.addSubview(imageView)
         }
         plantScrollView.contentSize.width = CGFloat(plantScrollView.subviews.count) * view.frame.width
         // -------- //
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.viewDidLoad()
     }
     
     // edit information on the plant
@@ -169,7 +172,28 @@ class PlantDetailViewController: UIViewController {
     }
     
     func removePlant(_ alertAction: UIAlertAction) {
-        
+        let alertController = UIAlertController(title: "Delete plant?", message: "Are you certain you want to delete \(plant.scientificName ?? "this plant")?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.removePlantFromPlants()
+            self?.navigationController?.popToRootViewController(animated: true)
+        })
+        present(alertController, animated: true)
+    }
+    
+    func removePlantFromPlants() {
+        plants.remove(at: plantIndex!)
+        savePlants()
+    }
+    
+    func savePlants() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(plants) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "plants")
+        } else {
+            print("Failed to save `plants`.")
+        }
     }
 }
 

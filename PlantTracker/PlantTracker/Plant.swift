@@ -17,20 +17,22 @@ enum LightingLevel: String, Codable, CaseIterable {
     case indoors = "🏠"
 }
 
-enum WateringLevel: Int, Codable {
-    case drought = 1, dry, often, high
+enum WateringLevel: String, Codable, CaseIterable {
+    case drought = "🐪"
+    case dry = "🐘"
+    case often = "🐢"
+    case high = "🐠"
 }
 
-enum DifficultyLevel: Int, Codable {
+enum DifficultyLevel: Int, Codable, CaseIterable {
     case beginner = 1, intermediate, professional
 }
 
-enum Season: Int, Codable {
+enum Season: String, Codable, CaseIterable {
     case summer, fall, winter, spring
 }
 
 class Plant: NSObject, Codable {
-    
     // naming
     var scientificName: String?
     var commonName: String?
@@ -44,6 +46,7 @@ class Plant: NSObject, Codable {
     var wateringRequirements: WateringLevel?
     var difficultyLevel: DifficultyLevel?
     var growingSeason: Season?
+    var dormantSeason: Season?
     
     init(scientificName: String?, commonName: String) {
         self.scientificName = scientificName

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841DA15722D661E700077CA2 /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 841DA15622D661E700077CA2 /* icon.jpg */; };
 		8434D7DC22D5613800C01D43 /* PlantEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434D7DB22D5613800C01D43 /* PlantEditorViewController.swift */; };
 		8489D93522D426C000E027A0 /* MyPlantsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */; };
 		8489D93722D4277200E027A0 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93622D4277200E027A0 /* MyPlant.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841DA15622D661E700077CA2 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = SOURCE_ROOT; };
 		8434D7DB22D5613800C01D43 /* PlantEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantEditorViewController.swift; sourceTree = "<group>"; };
 		8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantsCollectionViewController.swift; sourceTree = "<group>"; };
 		8489D93622D4277200E027A0 /* MyPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlant.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			children = (
 				84DCE42522D3DB1A00A89C93 /* AppDelegate.swift */,
 				84DCE42C22D3DB1A00A89C93 /* Assets.xcassets */,
+				841DA15622D661E700077CA2 /* icon.jpg */,
 				84DCE43122D3DB1A00A89C93 /* Info.plist */,
 				84DCE42E22D3DB1A00A89C93 /* LaunchScreen.storyboard */,
 				84DCE42922D3DB1A00A89C93 /* Main.storyboard */,
@@ -143,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841DA15722D661E700077CA2 /* icon.jpg in Resources */,
 				84DCE43022D3DB1A00A89C93 /* LaunchScreen.storyboard in Resources */,
 				84DCE42D22D3DB1A00A89C93 /* Assets.xcassets in Resources */,
 				84DCE42B22D3DB1A00A89C93 /* Main.storyboard in Resources */,
