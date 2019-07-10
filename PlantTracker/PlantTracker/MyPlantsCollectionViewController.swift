@@ -48,7 +48,7 @@ class MyPlantsCollectionViewController: UICollectionViewController, UICollection
         cell.name.textAlignment = .center
         
         // cell image
-        cell.imageView.image = UIImage(named: plant.image ?? "cactus")
+        cell.imageView.image = UIImage(named: plant.images.count > 0 ? plant.images[0] : "cactus")
         cell.imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin, .flexibleRightMargin, .flexibleLeftMargin, .flexibleTopMargin]
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true

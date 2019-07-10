@@ -38,13 +38,14 @@ class PlantLibraryViewController: UITableViewController {
     // specify what each row should look like
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Plant", for: indexPath)
-        cell.textLabel?.text = plants[indexPath.row].commonName
-        if let imageName = plants[indexPath.row].image {
-            cell.imageView?.image = UIImage(named: imageName)
+        let plant = plants[indexPath.row]
+        cell.textLabel?.text = plant.commonName
+        if plant.images.count > 0 {
+            cell.imageView?.image = UIImage(named: plant.images[0])
         } else {
             cell.imageView?.image = UIImage(named: "cactus")
         }
-        cell.detailTextLabel?.text = plants[indexPath.row].scientificName
+        cell.detailTextLabel?.text = plant.scientificName
         cell.detailTextLabel?.textColor = .gray
         cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
         return cell

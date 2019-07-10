@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8434D7DC22D5613800C01D43 /* PlantEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434D7DB22D5613800C01D43 /* PlantEditorViewController.swift */; };
 		8489D93522D426C000E027A0 /* MyPlantsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */; };
 		8489D93722D4277200E027A0 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93622D4277200E027A0 /* MyPlant.swift */; };
 		8489D93922D4295B00E027A0 /* MyPlantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8434D7DB22D5613800C01D43 /* PlantEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantEditorViewController.swift; sourceTree = "<group>"; };
 		8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantsCollectionViewController.swift; sourceTree = "<group>"; };
 		8489D93622D4277200E027A0 /* MyPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlant.swift; sourceTree = "<group>"; };
 		8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -72,12 +74,13 @@
 				84DCE42E22D3DB1A00A89C93 /* LaunchScreen.storyboard */,
 				84DCE42922D3DB1A00A89C93 /* Main.storyboard */,
 				8489D93622D4277200E027A0 /* MyPlant.swift */,
-				84B5F08722D44D6A00EBED1B /* SucculentSource.swift */,
 				8489D93822D4295B00E027A0 /* MyPlantCollectionViewCell.swift */,
 				8489D93422D426C000E027A0 /* MyPlantsCollectionViewController.swift */,
 				84DCE43722D3DBBF00A89C93 /* Plant.swift */,
 				84DCE43922D3E38200A89C93 /* PlantDetailViewController.swift */,
+				8434D7DB22D5613800C01D43 /* PlantEditorViewController.swift */,
 				8489D93A22D42B2500E027A0 /* PlantLibraryViewController.swift */,
+				84B5F08722D44D6A00EBED1B /* SucculentSource.swift */,
 			);
 			path = PlantTracker;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				8489D93922D4295B00E027A0 /* MyPlantCollectionViewCell.swift in Sources */,
 				8489D93722D4277200E027A0 /* MyPlant.swift in Sources */,
 				84B5F08822D44D6A00EBED1B /* SucculentSource.swift in Sources */,
+				8434D7DC22D5613800C01D43 /* PlantEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

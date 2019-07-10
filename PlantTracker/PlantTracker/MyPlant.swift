@@ -17,10 +17,17 @@ class MyPlant: Plant {
     var purchasedFrom: SucculentSource?
     var purchasePrice: Float?
     
-    convenience init(scientificName: String?, commonName: String, dateOfPurchase: Date?, purchasedFrom: SucculentSource?, purchasePrice: Float?) {
-        self.init(scientificName: scientificName, commonName: commonName)
-        self.dateOfPurchase = dateOfPurchase
-        self.purchasedFrom = purchasedFrom
-        self.purchasePrice = purchasePrice
+    // tracking information
+    var lastWatered: Date?
+    var isAlive = true
+    
+    var age: TimeInterval? {
+        get {
+            if let birth = dateOfPurchase {
+                return birth.timeIntervalSinceNow
+            } else {
+                return nil
+            }
+        }
     }
 }

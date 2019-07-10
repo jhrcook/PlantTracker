@@ -10,6 +10,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Plant Editor View Controller-->
+        <scene sceneID="SIq-9C-kpG">
+            <objects>
+                <viewController storyboardIdentifier="PlantEditor" id="IdW-9p-csa" customClass="PlantEditorViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8zP-la-YaQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0oW-cJ-Csz"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yhl-ZM-rfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1880" y="-578"/>
+        </scene>
         <!--Plant Library View Controller-->
         <scene sceneID="Q4n-L0-E9v">
             <objects>
@@ -139,50 +154,13 @@
                     <view key="view" contentMode="scaleToFill" id="sEm-fv-4Mt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dva-ea-7eM">
-                                <rect key="frame" x="0.0" y="44" width="414" height="300"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="FKp-ZP-QJp"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="scientific name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVh-ng-paP">
-                                <rect key="frame" x="20" y="352" width="374" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="common name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf9-hw-Ci1">
-                                <rect key="frame" x="20" y="381" width="374" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="NVh-ng-paP" firstAttribute="top" secondItem="Dva-ea-7eM" secondAttribute="bottom" constant="8" id="A38-cO-p6D"/>
-                            <constraint firstItem="Dva-ea-7eM" firstAttribute="width" secondItem="sEm-fv-4Mt" secondAttribute="width" id="Eqd-Fy-Slf"/>
-                            <constraint firstItem="NVh-ng-paP" firstAttribute="centerX" secondItem="CZN-mb-qf6" secondAttribute="centerX" id="NE7-Se-t1i"/>
-                            <constraint firstItem="tf9-hw-Ci1" firstAttribute="height" secondItem="NVh-ng-paP" secondAttribute="height" id="NXj-Cn-ODH"/>
-                            <constraint firstItem="Dva-ea-7eM" firstAttribute="centerX" secondItem="CZN-mb-qf6" secondAttribute="centerX" id="QTT-Hq-O2i"/>
-                            <constraint firstItem="Dva-ea-7eM" firstAttribute="top" secondItem="CZN-mb-qf6" secondAttribute="top" id="atO-eN-8k9"/>
-                            <constraint firstItem="NVh-ng-paP" firstAttribute="width" secondItem="sEm-fv-4Mt" secondAttribute="width" constant="-40" id="b38-c7-Hc9"/>
-                            <constraint firstItem="tf9-hw-Ci1" firstAttribute="top" secondItem="NVh-ng-paP" secondAttribute="bottom" constant="8" id="gFs-c0-DC0"/>
-                            <constraint firstItem="tf9-hw-Ci1" firstAttribute="centerX" secondItem="CZN-mb-qf6" secondAttribute="centerX" id="sAU-PL-pSo"/>
-                            <constraint firstItem="tf9-hw-Ci1" firstAttribute="width" secondItem="NVh-ng-paP" secondAttribute="width" id="sgO-h1-T19"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="CZN-mb-qf6"/>
                     </view>
-                    <connections>
-                        <outlet property="commonNameLabel" destination="tf9-hw-Ci1" id="kbH-Tc-DP7"/>
-                        <outlet property="plantImage" destination="Dva-ea-7eM" id="W7z-Lh-H9y"/>
-                        <outlet property="scientificNameLabel" destination="NVh-ng-paP" id="Sit-sU-B1Z"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6C3-FX-MzB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2832" y="106"/>
+            <point key="canvasLocation" x="2830.434782608696" y="105.80357142857143"/>
         </scene>
         <!--Library-->
         <scene sceneID="fEL-f8-Xnb">
