@@ -9,6 +9,8 @@
 import UIKit
 
 class PlantDetailViewController: UIViewController {
+    
+    var plant: Plant!
 
     var plantScrollView = UIScrollView()
     var scientificNameLabel = UILabel()
@@ -19,11 +21,11 @@ class PlantDetailViewController: UIViewController {
     let lightLabel = UILabel()
     let growingSeasonLabel = UILabel()
     
-    var plant: Plant!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        print(plant.lightRequirements ?? "no light level")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPlantDetail))
         
@@ -136,6 +138,10 @@ class PlantDetailViewController: UIViewController {
         }
         plantScrollView.contentSize.width = CGFloat(plantScrollView.subviews.count) * view.frame.width
         // -------- //
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.viewDidLoad()
     }
     
     // edit information on the plant

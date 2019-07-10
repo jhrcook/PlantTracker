@@ -8,8 +8,13 @@
 
 import UIKit
 
-enum LightingLevel: Int, Codable {
-    case direct = 1, morning, indirect, shade, low, indoors
+enum LightingLevel: String, Codable, CaseIterable {
+    case direct = "☀️"
+    case morning = "🌞"
+    case indirect = "⛅️"
+    case shade = "🌲"
+    case low = "🌚"
+    case indoors = "🏠"
 }
 
 enum WateringLevel: Int, Codable {

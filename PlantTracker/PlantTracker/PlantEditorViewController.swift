@@ -11,15 +11,28 @@ import UIKit
 class PlantEditorViewController: UIViewController {
     var plant: Plant!
     
+    var lightSegmentedControl = UISegmentedControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let testLabel = UILabel()
-        testLabel.text = "test label"
-        testLabel.backgroundColor = .blue
-        view.addSubview(testLabel)
-        testLabel.translatesAutoresizingMaskIntoConstraints = false
-        testLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        testLabel.sizeToFit()
+        for (index, level) in LightingLevel.allCases.enumerated() {
+            lightSegmentedControl.insertSegment(withTitle: level.rawValue, at: index, animated: true)
+        }
+        lightSegmentedControl.selectedSegmentIndex = 0
+        view.addSubview(lightSegmentedControl)
+        lightSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        lightSegmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        lightSegmentedControl.sizeToFit()
+        lightSegmentedControl.addTarget(self, action: #selector(updateValue), for: UIControl.Event.valueChanged)
+    }
+    
+    @objc func updateValue() {
+        for lightLevel in LightingLevel.allCases {
+            if lightSegmentedControl.titleForSegment(at: lightSegmentedControl.selectedSegmentIndex) == lightLevel.rawValue {
+                print("setting new light level: \(lightLevel.rawValue)")
+                plant.lightRequirements = lightLevel
+            }
+        }
     }
 }
