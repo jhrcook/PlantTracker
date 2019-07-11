@@ -11,10 +11,13 @@ import UIKit
 class PlantLibraryViewController: UITableViewController {
     
     var plants = [Plant]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Plant Library"
         
         // add new plant
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPlant))
@@ -42,15 +45,15 @@ class PlantLibraryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Plant", for: indexPath)
         let plant = plants[indexPath.row]
-        cell.textLabel?.text = plant.commonName
         if plant.images.count > 0 {
             cell.imageView?.image = UIImage(named: plant.images[0])
         } else {
             cell.imageView?.image = UIImage(named: "cactus")
         }
-        cell.detailTextLabel?.text = plant.scientificName
+        cell.textLabel?.text = plant.scientificName
+        cell.textLabel?.font = UIFont.italicSystemFont(ofSize: cell.textLabel?.font.pointSize ?? UIFont.systemFontSize)
+        cell.detailTextLabel?.text = plant.commonName
         cell.detailTextLabel?.textColor = .gray
-        cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
         return cell
     }
     
