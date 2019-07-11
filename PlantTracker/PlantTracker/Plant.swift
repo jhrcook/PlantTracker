@@ -56,4 +56,8 @@ class Plant: NSObject, Codable {
     func simpleDescription() {
         print("\(scientificName ?? "untitled") (\(commonName ?? "untitled"))")
     }
+    
+    func deleteImage() {
+        // TODO
+    }
 }
