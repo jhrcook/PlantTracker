@@ -123,7 +123,6 @@ class PlantEditorViewController: UIViewController, UITextFieldDelegate {
         growingSeasonSegementedControl.addTarget(self, action: #selector(updateGrowingSeason), for: UIControl.Event.valueChanged)
 
         
-        
         let labelsAndSegementedControllers = [
             labelAndSegmentedControllerPair(label: lightLevelLabel, segmentedControl: lightSegmentedControl),
             labelAndSegmentedControllerPair(label: difficultyLevelLabel, segmentedControl: difficultySegmentedControl),
@@ -160,20 +159,6 @@ class PlantEditorViewController: UIViewController, UITextFieldDelegate {
                 previousBottomAnchor = label.bottomAnchor
             }
         }
-        
-//        lightLevelLabel.translatesAutoresizingMaskIntoConstraints = false
-//        lightLevelLabel.topAnchor.constraint(equalTo: thinLineLabel.bottomAnchor, constant: standardSpacing).isActive = true
-//        lightLevelLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-//        lightLevelLabel.widthAnchor.constraint(equalToConstant: 0.5 * view.frame.width).isActive = true
-//        lightLevelLabel.heightAnchor.constraint(equalToConstant: textHeight).isActive = true
-//
-//
-//        lightSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-//        lightSegmentedControl.centerYAnchor.constraint(equalTo: lightLevelLabel.centerYAnchor).isActive = true
-//        lightSegmentedControl.leadingAnchor.constraint(equalTo: lightLevelLabel.trailingAnchor).isActive = true
-//        lightSegmentedControl.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-//        lightSegmentedControl.sizeToFit()
-        
     }
     
     @objc func updateLighting() {
