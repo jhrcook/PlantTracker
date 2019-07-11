@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import AssetsPickerViewController
 
-class PlantDetailViewController: UIViewController {
+class PlantDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AssetsPickerViewControllerDelegate {
     
+    // objects
     var plant: Plant!
     var plants = [Plant]()
     var plantIndex: Int? = nil
 
+    // UI components
     var plantScrollView = UIScrollView()
     var scientificNameLabel = UILabel()
     var commonNameLabel = UILabel()
@@ -22,6 +25,11 @@ class PlantDetailViewController: UIViewController {
     let waterLabel = UILabel()
     let lightLabel = UILabel()
     let growingSeasonLabel = UILabel()
+    
+    // UI constants
+    let scrollViewHeight:CGFloat = 300.0
+    let labelHeight:CGFloat = 24.0
+    let standardSpacing:CGFloat = 8.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +44,6 @@ class PlantDetailViewController: UIViewController {
         savePlants()
         
         // ---- Layout ---- //
-        let scrollViewHeight:CGFloat = 300.0
-        let labelHeight:CGFloat = 24.0
-        let standardSpacing:CGFloat = 8.0
         
         // plant scrolling images
         view.addSubview(plantScrollView)
@@ -166,9 +171,21 @@ class PlantDetailViewController: UIViewController {
     
     func addPhotograph(_ alertAction: UIAlertAction) {
         // get photo from library or camera
+        let picker = AssetsPickerViewController()
+        picker.pickerDelegate = self as! AssetsPickerViewControllerDelegate
+        present(picker, animated: true, completion: nil)
         
         // save plant
         // reload view
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
     
     func removePlant(_ alertAction: UIAlertAction) {
