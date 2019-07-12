@@ -57,7 +57,15 @@ class Plant: NSObject, Codable {
         print("\(scientificName ?? "untitled") (\(commonName ?? "untitled"))")
     }
     
-    func deleteImage() {
-        // TODO
+    func deleteImageFiles() {
+        let fileManager = FileManager()
+        for image in images {
+            do {
+                try fileManager.removeItem(atPath: image)
+                print("Deleted file: \(image)")
+            } catch {
+                print("Failed to delete the file \(image).")
+            }
+        }
     }
 }

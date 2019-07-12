@@ -8,8 +8,9 @@
 
 import UIKit
 import AssetsPickerViewController
+import Photos
 
-class PlantDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AssetsPickerViewControllerDelegate {
+class PlantDetailViewController: UIViewController, UINavigationControllerDelegate, AssetsPickerViewControllerDelegate {
     
     // objects
     var plant: Plant!
@@ -39,15 +40,15 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         plants[plantIndex!] = plant
         savePlants()
         
         // ---- Layout ---- //
         
         // plant scrolling images
+        plantScrollView.isPagingEnabled = true
         view.addSubview(plantScrollView)
-        plantScrollView.backgroundColor = .lightGray
+        plantScrollView.backgroundColor = .black
         plantScrollView.translatesAutoresizingMaskIntoConstraints = false
         plantScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         plantScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -131,12 +132,15 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
             growingSeasonLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             previousLabel = growingSeasonLabel
         }
-        // -------- //
         
-        // ---- Fill in scrolling images ---- //
+        updateScrollView()
+    }
+    
+    func updateScrollView() {
+        for subview in plantScrollView.subviews { subview.removeFromSuperview() }
         if plant.images.count > 0 {
-            for i in 1..<plant.images.count {
-                let imageView = UIImageView(image: UIImage(named: plant.images[i]))
+            for i in 0..<plant.images.count {
+                let imageView = UIImageView(image: UIImage(contentsOfFile: plant.images[i]))
                 let x = view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: x, y: 0, width: view.frame.width, height: scrollViewHeight)
                 imageView.contentMode = .scaleAspectFit
@@ -149,7 +153,6 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
             plantScrollView.addSubview(imageView)
         }
         plantScrollView.contentSize.width = CGFloat(plantScrollView.subviews.count) * view.frame.width
-        // -------- //
     }
     
     // edit information on the plant
@@ -172,15 +175,11 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
     func addPhotograph(_ alertAction: UIAlertAction) {
         // get photo from library or camera
         let picker = AssetsPickerViewController()
-        picker.pickerDelegate = self as! AssetsPickerViewControllerDelegate
+        picker.pickerDelegate = self
         present(picker, animated: true, completion: nil)
         
         // save plant
         // reload view
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
     }
     
     func getDocumentsDirectory() -> URL {
@@ -199,6 +198,7 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func removePlantFromPlants() {
+        plant.deleteImageFiles()
         plants.remove(at: plantIndex!)
         savePlants()
     }
@@ -210,6 +210,33 @@ class PlantDetailViewController: UIViewController, UIImagePickerControllerDelega
             defaults.set(savedData, forKey: "plants")
         } else {
             print("Failed to save `plants`.")
+        }
+    }
+    
+    // pick photos
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+        for asset in assets {
+            let manager = PHImageManager.default()
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .highQualityFormat
+            options.resizeMode = .exact
+            options.isSynchronous = true
+            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+            manager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: options, resultHandler: addImageToPlant)
+        }
+        savePlants()
+        updateScrollView()
+    }
+    
+    func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
+        if let image = image {
+            let imageName = UUID().uuidString
+            let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                try? jpegData.write(to: imagePath)
+            }
+            plant.images.append(imagePath.relativePath)
         }
     }
 }
