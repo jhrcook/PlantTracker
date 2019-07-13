@@ -57,14 +57,14 @@ class PlantLibraryViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: "PlantDetail") as? PlantDetailViewController {
-            viewController.plant = plants[indexPath.row]
-            viewController.plants = plants
-            viewController.plantIndex = indexPath.row
-            navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let viewController = storyboard?.instantiateViewController(withIdentifier: "PlantDetail") as? PlantDetailViewController {
+//            viewController.plant = plants[indexPath.row]
+//            viewController.plants = plants
+//            viewController.plantIndex = indexPath.row
+//            navigationController?.pushViewController(viewController, animated: true)
+//        }
+//    }
     
     @objc func addNewPlant() {
         let alertController = UIAlertController(title: "New plant name", message: nil, preferredStyle: .alert)

@@ -10,22 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Plant Editor View Controller-->
-        <scene sceneID="SIq-9C-kpG">
-            <objects>
-                <viewController storyboardIdentifier="PlantEditor" id="IdW-9p-csa" customClass="PlantEditorViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8zP-la-YaQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="0oW-cJ-Csz"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yhl-ZM-rfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1880" y="-578"/>
-        </scene>
-        <!--Plant Library View Controller-->
+        <!--Library-->
         <scene sceneID="Q4n-L0-E9v">
             <objects>
                 <tableViewController id="eag-Od-MhO" customClass="PlantLibraryViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -57,6 +42,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="vrc-6i-5oi" kind="show" id="J1k-HY-ptd"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -64,108 +52,31 @@
                             <outlet property="delegate" destination="eag-Od-MhO" id="eMW-f8-WQI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="8K0-Hz-vLL"/>
+                    <navigationItem key="navigationItem" title="Library" id="8K0-Hz-vLL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhD-EX-ruJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="106"/>
+            <point key="canvasLocation" x="1880" y="-575"/>
         </scene>
-        <!--My Plants Collection View Controller-->
-        <scene sceneID="m6i-9K-3KS">
+        <!--View Controller-->
+        <scene sceneID="GvM-YT-QYT">
             <objects>
-                <collectionViewController id="ULL-RC-W7K" customClass="MyPlantsCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="GZ6-Fj-fdX">
+                <viewController id="vrc-6i-5oi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hnk-Zb-xdZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AA1-Zz-eFk">
-                            <size key="itemSize" width="134" height="105"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Plant" id="b2w-yk-bQ4" customClass="MyPlantCollectionViewCell" customModule="PlantTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5TQ-IV-3Ua">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aH8-jh-QfF">
-                                            <rect key="frame" x="0.0" y="200" width="200" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="QBj-3x-Fmk"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cB2-eW-Iwm">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                        </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tki-9Q-CBS">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                        </imageView>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="Tki-9Q-CBS" firstAttribute="bottom" secondItem="cB2-eW-Iwm" secondAttribute="bottom" id="2DK-2H-bwS"/>
-                                    <constraint firstItem="cB2-eW-Iwm" firstAttribute="leading" secondItem="5TQ-IV-3Ua" secondAttribute="leading" id="7to-Uy-WR5"/>
-                                    <constraint firstAttribute="bottom" secondItem="aH8-jh-QfF" secondAttribute="bottom" id="8RE-Le-75P"/>
-                                    <constraint firstItem="Tki-9Q-CBS" firstAttribute="top" secondItem="5TQ-IV-3Ua" secondAttribute="top" id="9ql-Cq-iu7"/>
-                                    <constraint firstItem="cB2-eW-Iwm" firstAttribute="leading" secondItem="b2w-yk-bQ4" secondAttribute="leading" id="NyR-Da-io5"/>
-                                    <constraint firstItem="5TQ-IV-3Ua" firstAttribute="trailing" secondItem="cB2-eW-Iwm" secondAttribute="trailing" id="TNg-UX-USY"/>
-                                    <constraint firstItem="5TQ-IV-3Ua" firstAttribute="leading" secondItem="Tki-9Q-CBS" secondAttribute="leading" id="bL9-Cz-qqS"/>
-                                    <constraint firstItem="aH8-jh-QfF" firstAttribute="top" secondItem="Tki-9Q-CBS" secondAttribute="bottom" id="gIe-1q-cKg"/>
-                                    <constraint firstItem="Tki-9Q-CBS" firstAttribute="trailing" secondItem="5TQ-IV-3Ua" secondAttribute="trailing" id="han-12-n55"/>
-                                    <constraint firstItem="5TQ-IV-3Ua" firstAttribute="bottom" secondItem="Tki-9Q-CBS" secondAttribute="bottom" id="j0c-J1-wKQ"/>
-                                    <constraint firstItem="cB2-eW-Iwm" firstAttribute="leading" secondItem="aH8-jh-QfF" secondAttribute="leading" id="k1h-4y-1Ys"/>
-                                    <constraint firstItem="Tki-9Q-CBS" firstAttribute="width" secondItem="b2w-yk-bQ4" secondAttribute="width" id="k2d-0S-N5f"/>
-                                    <constraint firstItem="Tki-9Q-CBS" firstAttribute="top" secondItem="b2w-yk-bQ4" secondAttribute="top" id="oqm-kk-r8e"/>
-                                    <constraint firstItem="aH8-jh-QfF" firstAttribute="width" secondItem="b2w-yk-bQ4" secondAttribute="width" id="pTF-L8-7ds"/>
-                                    <constraint firstItem="5TQ-IV-3Ua" firstAttribute="top" secondItem="cB2-eW-Iwm" secondAttribute="top" id="pnJ-AV-I8y"/>
-                                </constraints>
-                                <size key="customSize" width="200" height="250"/>
-                                <connections>
-                                    <outlet property="imageView" destination="Tki-9Q-CBS" id="lA2-iu-7BO"/>
-                                    <outlet property="name" destination="aH8-jh-QfF" id="Rp2-SU-p6f"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="ULL-RC-W7K" id="lyJ-wl-AqM"/>
-                            <outlet property="delegate" destination="ULL-RC-W7K" id="Pox-Pc-IiA"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="JKO-LD-TpR"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bd6-CT-c6j" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1879.7101449275365" y="835.71428571428567"/>
-        </scene>
-        <!--Plant Detail View Controller-->
-        <scene sceneID="PI2-sS-Xm7">
-            <objects>
-                <viewController storyboardIdentifier="PlantDetail" id="Wzp-9A-PUg" customClass="PlantDetailViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sEm-fv-4Mt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="CZN-mb-qf6"/>
+                        <viewLayoutGuide key="safeArea" id="Taw-Io-ErV"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6C3-FX-MzB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohY-0g-RDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2830.434782608696" y="105.80357142857143"/>
+            <point key="canvasLocation" x="2757" y="-575"/>
         </scene>
         <!--Library-->
         <scene sceneID="fEL-f8-Xnb">
             <objects>
-                <navigationController storyboardIdentifier="LibraryViewController" automaticallyAdjustsScrollViewInsets="NO" id="mE6-hM-1ht" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LibraryViewController" id="mE6-hM-1ht" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Library" id="rfN-HB-Yff"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Rf-Ij-xr1">
@@ -179,7 +90,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DDV-Bs-oWE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923.1884057971015" y="106.47321428571428"/>
+            <point key="canvasLocation" x="980" y="-575"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="x7s-th-G1w">
@@ -193,31 +104,11 @@
                     </tabBar>
                     <connections>
                         <segue destination="mE6-hM-1ht" kind="relationship" relationship="viewControllers" id="lhE-pn-Lco"/>
-                        <segue destination="G1j-1s-V76" kind="relationship" relationship="viewControllers" id="hTi-RN-jEA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZb-N6-q86" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="13.043478260869566" y="106.47321428571428"/>
-        </scene>
-        <!--My Plants-->
-        <scene sceneID="Xff-x8-IhM">
-            <objects>
-                <navigationController storyboardIdentifier="MyPlantsViewController" automaticallyAdjustsScrollViewInsets="NO" id="G1j-1s-V76" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Plants" id="BJx-VK-E0q"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fss-wv-i6u">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ULL-RC-W7K" kind="relationship" relationship="rootViewController" id="Zox-3p-p4W"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VHJ-WQ-WYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="923" y="836"/>
         </scene>
     </scenes>
 </document>

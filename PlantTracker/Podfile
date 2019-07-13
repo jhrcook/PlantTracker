@@ -7,6 +7,5 @@ target 'PlantTracker' do
 
   # Pods for PlantTracker
   pod 'AssetsPickerViewController', '~> 2.6'
-
 end
 
