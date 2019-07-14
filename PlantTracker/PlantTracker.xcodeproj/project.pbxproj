@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043A22DB8E0100AFD4B6 /* Plant.swift */; };
+		8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */; };
 		84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84444D1822D9974F00876F6D /* AppDelegate.swift */; };
 		84444D1B22D9974F00876F6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84444D1A22D9974F00876F6D /* ViewController.swift */; };
 		84444D1E22D9974F00876F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84444D1C22D9974F00876F6D /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* Begin PBXFileReference section */
 		04F284427149BAFB8ABF4D7C /* Pods-PlantTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTracker.debug.xcconfig"; path = "Target Support Files/Pods-PlantTracker/Pods-PlantTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		39E15E495EEF0063BC2EDBAB /* Pods-PlantTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTracker.release.xcconfig"; path = "Target Support Files/Pods-PlantTracker/Pods-PlantTracker.release.xcconfig"; sourceTree = "<group>"; };
+		8431043A22DB8E0100AFD4B6 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		84444D1522D9974F00876F6D /* PlantTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84444D1822D9974F00876F6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84444D1A22D9974F00876F6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +50,6 @@
 				04F284427149BAFB8ABF4D7C /* Pods-PlantTracker.debug.xcconfig */,
 				39E15E495EEF0063BC2EDBAB /* Pods-PlantTracker.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,7 +84,9 @@
 			children = (
 				84444D1822D9974F00876F6D /* AppDelegate.swift */,
 				84444D1A22D9974F00876F6D /* ViewController.swift */,
+				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
+				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
 				84444D1F22D9975100876F6D /* Assets.xcassets */,
 				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
 				84444D2422D9975100876F6D /* Info.plist */,
@@ -205,6 +210,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84444D1B22D9974F00876F6D /* ViewController.swift in Sources */,
+				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
+				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
