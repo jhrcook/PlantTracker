@@ -66,60 +66,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iO-TI-LdY">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4iO-TI-LdY">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhX-7g-W6g">
-                                        <rect key="frame" x="107" y="354" width="200" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="qQF-nw-VPn"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88Q-4v-vOz">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88Q-4v-vOz">
                                         <rect key="frame" x="0.0" y="-88" width="414" height="388"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XOV-I3-Pat">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XOV-I3-Pat">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="388"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="XOV-I3-Pat" firstAttribute="leading" secondItem="88Q-4v-vOz" secondAttribute="leading" id="3rJ-pT-EEG"/>
-                                            <constraint firstItem="XOV-I3-Pat" firstAttribute="bottom" secondItem="88Q-4v-vOz" secondAttribute="bottom" id="8AJ-Iv-FbS"/>
-                                            <constraint firstItem="XOV-I3-Pat" firstAttribute="top" secondItem="88Q-4v-vOz" secondAttribute="top" id="BBJ-1i-x4u"/>
-                                            <constraint firstAttribute="height" constant="300" id="Xbu-DO-6K2"/>
-                                            <constraint firstItem="XOV-I3-Pat" firstAttribute="trailing" secondItem="88Q-4v-vOz" secondAttribute="trailing" id="qk6-ra-s5u"/>
-                                        </constraints>
                                     </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-75-B04">
+                                        <rect key="frame" x="0.0" y="299" width="414" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="Information"/>
+                                            <segment title="Notes"/>
+                                            <segment title=""/>
+                                        </segments>
+                                    </segmentedControl>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="88Q-4v-vOz" firstAttribute="leading" secondItem="4iO-TI-LdY" secondAttribute="leading" id="53R-LX-3zE"/>
-                                    <constraint firstItem="88Q-4v-vOz" firstAttribute="top" secondItem="4iO-TI-LdY" secondAttribute="top" id="9NX-AH-h0L"/>
-                                    <constraint firstItem="AhX-7g-W6g" firstAttribute="centerX" secondItem="4iO-TI-LdY" secondAttribute="centerX" id="Lfm-H1-4Rd"/>
-                                    <constraint firstItem="88Q-4v-vOz" firstAttribute="centerX" secondItem="4iO-TI-LdY" secondAttribute="centerX" id="R05-FI-fRv"/>
-                                    <constraint firstItem="88Q-4v-vOz" firstAttribute="trailing" secondItem="4iO-TI-LdY" secondAttribute="trailing" id="TO9-Pl-Cfg"/>
-                                    <constraint firstAttribute="bottom" secondItem="AhX-7g-W6g" secondAttribute="bottom" constant="433" id="hAA-Oc-FnM"/>
-                                    <constraint firstItem="AhX-7g-W6g" firstAttribute="top" secondItem="88Q-4v-vOz" secondAttribute="bottom" constant="54" id="yZm-C4-y9o"/>
-                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="4iO-TI-LdY" firstAttribute="bottom" secondItem="TWj-zZ-XnM" secondAttribute="bottom" constant="34" id="8Dh-x3-7bw"/>
-                            <constraint firstItem="4iO-TI-LdY" firstAttribute="top" secondItem="fXR-Zc-mlS" secondAttribute="top" id="B9c-CP-9bN"/>
-                            <constraint firstItem="4iO-TI-LdY" firstAttribute="leading" secondItem="TWj-zZ-XnM" secondAttribute="leading" id="TKh-AB-hCX"/>
-                            <constraint firstItem="4iO-TI-LdY" firstAttribute="trailing" secondItem="TWj-zZ-XnM" secondAttribute="trailing" id="ozx-tP-MAN"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="TWj-zZ-XnM"/>
                     </view>
                     <connections>
                         <outlet property="headerImageView" destination="XOV-I3-Pat" id="DIh-2d-iZl"/>
                         <outlet property="headerView" destination="88Q-4v-vOz" id="Fqz-QR-XFF"/>
                         <outlet property="mainScrollView" destination="4iO-TI-LdY" id="cup-sV-kJ9"/>
-                        <outlet property="testLabel" destination="AhX-7g-W6g" id="DKi-6Q-AEb"/>
+                        <outlet property="segmentedControl" destination="Flo-75-B04" id="yaL-bS-aNI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqD-EW-li5" userLabel="First Responder" sceneMemberID="firstResponder"/>
