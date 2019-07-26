@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Plant: NSObject {
+class Plant: NSObject, Codable {
 
     // unique, unchanging identifier
     let uuid = UUID().uuidString
@@ -42,6 +42,7 @@ class Plant: NSObject {
         self.scientificName = scientificName
         self.commonName = commonName
     }
+    
     
     // ---- Deleting images ---- //
     // make sure to remove the file from the phone
@@ -78,26 +79,26 @@ class Plant: NSObject {
 
 // ---- Enums for information attributes ---- //
 
-enum Season: String {
+enum Season: String, Codable {
     case summer, fall, winter, spring
 }
 
-enum DifficultyLevel: Int {
+enum DifficultyLevel: Int, Codable {
     case easy = 1, medium, hard
 }
 
-enum WateringLevel: String {
+enum WateringLevel: String, Codable {
     case veryDry = "very dry", dry, moist, wet
 }
 
-enum LightLevel: String {
+enum LightLevel: String, Codable {
     case allDay = "all day", morning, afternoon, filtered, indirect, shade, low
 }
 
 // ---- ---- //
 
 
-class Seller {
+class Seller: Codable {
     var name: String?
     var business: String?
     

@@ -90,6 +90,11 @@
                                             <segment title=""/>
                                         </segments>
                                     </segmentedControl>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddf-I9-EGd">
+                                        <rect key="frame" x="0.0" y="327" width="414" height="456"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -99,6 +104,7 @@
                     <connections>
                         <outlet property="headerImageView" destination="XOV-I3-Pat" id="DIh-2d-iZl"/>
                         <outlet property="headerView" destination="88Q-4v-vOz" id="Fqz-QR-XFF"/>
+                        <outlet property="informationView" destination="ddf-I9-EGd" id="4DW-pv-Up9"/>
                         <outlet property="mainScrollView" destination="4iO-TI-LdY" id="cup-sV-kJ9"/>
                         <outlet property="segmentedControl" destination="Flo-75-B04" id="yaL-bS-aNI"/>
                     </connections>
