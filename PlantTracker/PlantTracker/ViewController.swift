@@ -10,15 +10,15 @@ import UIKit
 
 class PlantLibraryTableViewController: UITableViewController {
 
-    var plants = [Plant]()
+//    var plants = [Plant]()
     // Example `plants` data
-//    var plants = [
-//        Plant(scientificName: "Euphorbia obesa", commonName: "Basball cactus"),
-//        Plant(scientificName: "Frailea castanea", commonName: "Kirsten"),
-//        Plant(scientificName: nil, commonName: "split rock"),
-//        Plant(scientificName: "Lithops julii", commonName: nil),
-//        Plant(scientificName: nil, commonName: nil),
-//    ]
+    var plants = [
+        Plant(scientificName: "Euphorbia obesa", commonName: "Basball cactus"),
+        Plant(scientificName: "Frailea castanea", commonName: "Kirsten"),
+        Plant(scientificName: nil, commonName: "split rock"),
+        Plant(scientificName: "Lithops julii", commonName: nil),
+        Plant(scientificName: nil, commonName: nil),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
