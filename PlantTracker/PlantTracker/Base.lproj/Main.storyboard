@@ -81,11 +81,11 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-75-B04">
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="Flo-75-B04">
                                         <rect key="frame" x="0.0" y="299" width="414" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
-                                            <segment title="Information"/>
+                                            <segment title="Information" enabled="NO"/>
                                             <segment title="Notes"/>
                                             <segment title=""/>
                                         </segments>
@@ -106,7 +106,6 @@
                         <outlet property="headerView" destination="88Q-4v-vOz" id="Fqz-QR-XFF"/>
                         <outlet property="informationView" destination="ddf-I9-EGd" id="4DW-pv-Up9"/>
                         <outlet property="mainScrollView" destination="4iO-TI-LdY" id="cup-sV-kJ9"/>
-                        <outlet property="segmentedControl" destination="Flo-75-B04" id="yaL-bS-aNI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqD-EW-li5" userLabel="First Responder" sceneMemberID="firstResponder"/>

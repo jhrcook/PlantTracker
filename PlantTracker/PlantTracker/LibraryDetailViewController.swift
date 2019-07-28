@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import TwicketSegmentedControl
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -16,7 +17,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet var headerView: UIView!
     @IBOutlet var headerImageView: UIImageView!
-    @IBOutlet var segmentedControl: UISegmentedControl!
+    var twicketSegementedControl: TwicketSegmentedControl!
     @IBOutlet var informationView: UIView!
     
     var generalInfoTableView: UITableView!
@@ -40,7 +41,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         setupInformationTableViews()
         setupDetailView()
-        updateInformationView()
+        didSelect(0)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -68,47 +69,14 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         if scrollViewYDiff >= 0 {
             // scrolling up
-//            print("SCROLLING UP: scroll view difference: \(scrollViewYDiff)")
             blurEffectView.alpha = 0.0
         } else  if scrollViewYDiff < 0 {
             // scrolling down
-//            print("SCROLLING DOWN: scroll view difference: \(scrollViewYDiff)")
-            
             let frameHeight = CGFloat(headerView.frame.height)
             let maxHeight = CGFloat(headerImageHeight)
             let minHeight = CGFloat(minHeaderImageHeight)
             let blurAlpha = (frameHeight - maxHeight) / (maxHeight - minHeight) * (0.0 - 0.85) + 0.0
             blurEffectView.alpha = blurAlpha
-            
-        }
-    }
-    
-    
-    @objc func updateSegmentedControl() {
-        print("segment selection index: \(segmentedControl.selectedSegmentIndex)")
-        updateInformationView()
-    }
-    
-    
-    func updateInformationView() {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            // "Information"
-            generalInfoTableView.isHidden = false
-            notesTextView.isHidden = true
-            linksTableView.isHidden = true
-        case 1:
-            // "Notes"
-            generalInfoTableView.isHidden = true
-            notesTextView.isHidden = false
-            linksTableView.isHidden = true
-        case 2:
-            // "Links"
-            generalInfoTableView.isHidden = true
-            notesTextView.isHidden = true
-            linksTableView.isHidden = false
-        default:
-            break
         }
     }
 
@@ -147,13 +115,12 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             make.edges.equalTo(headerView)
         }
         
-        // segmented control setup
-        segmentedControl.setTitle("Information", forSegmentAt: 0)
-        segmentedControl.setTitle("Notes", forSegmentAt: 1)
-        segmentedControl.setTitle("Links", forSegmentAt: 2)
-        segmentedControl.setEnabled(true, forSegmentAt: 0)
-        segmentedControl.addTarget(self, action: #selector(updateSegmentedControl), for: .valueChanged)
-        segmentedControl.snp.makeConstraints { (make) in
+        // twicket slider segmented control
+        twicketSegementedControl = TwicketSegmentedControl(frame: CGRect(x: 5, y: 0, width: view.frame.height - 10, height: 40))
+        twicketSegementedControl.setSegmentItems(["Information", "Notes", "Links"])
+        twicketSegementedControl.delegate = self
+        view.addSubview(twicketSegementedControl)
+        twicketSegementedControl.snp.makeConstraints { (make) in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
@@ -162,7 +129,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         // information view (below segmented control)
         informationView.snp.makeConstraints { (make) in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(2)
+            make.top.equalTo(twicketSegementedControl.snp.bottom).offset(5)
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.bottom.equalTo(view.snp.bottom)
@@ -269,6 +236,34 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             return 75
         default:
             return 44
+        }
+    }
+}
+
+
+
+
+// add extension for Twicket segmented control
+extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
+    func didSelect(_ segmentIndex: Int) {
+        switch twicketSegementedControl.selectedSegmentIndex {
+        case 0:
+            // "Information"
+            generalInfoTableView.isHidden = false
+            notesTextView.isHidden = true
+            linksTableView.isHidden = true
+        case 1:
+            // "Notes"
+            generalInfoTableView.isHidden = true
+            notesTextView.isHidden = false
+            linksTableView.isHidden = true
+        case 2:
+            // "Links"
+            generalInfoTableView.isHidden = true
+            notesTextView.isHidden = true
+            linksTableView.isHidden = false
+        default:
+            break
         }
     }
 }
