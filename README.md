@@ -10,3 +10,10 @@
 [![jhc website](https://img.shields.io/badge/Website-JoshDoesaThing-5087B2.svg?style=flat&logo=telegram)](https://www.joshdoesathing.com)
 
 This is a simple iOS application to help my mom track her cacti and succulent collection. 
+
+**July 18, 2019**
+
+Making some good progress on the detail view of the Library.
+
+<img src="progress_screenshots/Jul-28-2019 11-34-45.gif" width="300"/>
+
