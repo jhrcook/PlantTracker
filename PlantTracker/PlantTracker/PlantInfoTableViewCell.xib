@@ -11,22 +11,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ACy-5j-L1p">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="generalInfoCell" id="ACy-5j-L1p" customClass="PlantInfoTableViewCell" customModule="PlantTracker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ACy-5j-L1p" id="yA6-I0-KNd">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sa-cg-RHG">
-                        <rect key="frame" x="20" y="11" width="116" height="21"/>
+                        <rect key="frame" x="20" y="18" width="116" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-lf-efV">
-                        <rect key="frame" x="156" y="11" width="238" height="21"/>
+                        <rect key="frame" x="156" y="17" width="238" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -34,6 +34,10 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="leftLabel" destination="1sa-cg-RHG" id="JQC-J1-192"/>
+                <outlet property="rightLabel" destination="i3c-lf-efV" id="LJr-PU-2KP"/>
+            </connections>
             <point key="canvasLocation" x="311.59420289855075" y="89.732142857142847"/>
         </tableViewCell>
     </objects>

@@ -74,6 +74,24 @@ class Plant: NSObject, Codable {
         return nil
     }
     
+    
+    func printableGrowingSeason() -> String {
+        return growingSeason.map { $0.rawValue }.joined(separator: ", ")
+    }
+    
+    func printableDormantSeason() -> String {
+        return dormantSeason.map { $0.rawValue }.joined(separator: ", ")
+    }
+    
+    func printableWatering() -> String {
+        return watering.map { $0.rawValue }.joined(separator: ", ")
+    }
+    
+    func printableLighting() -> String {
+        return lighting.map { $0.rawValue }.joined(separator: ", ")
+    }
+    
+    
 }
 
 

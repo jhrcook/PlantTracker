@@ -33,6 +33,11 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = plant.scientificName ?? plant.commonName ?? ""
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        
         setupInformationTableViews()
         setupDetailView()
         updateInformationView()
@@ -153,12 +158,11 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.height.equalTo(35)
-            
         }
         
         // information view (below segmented control)
         informationView.snp.makeConstraints { (make) in
-            make.top.equalTo(segmentedControl.snp.bottom)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(2)
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.bottom.equalTo(view.snp.bottom)
@@ -184,13 +188,14 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
 
 
 
+
 extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func setupInformationTableViews() {
         generalInfoTableView = UITableView.init(frame: CGRect.zero, style: .plain)
         generalInfoTableView.delegate = self
         generalInfoTableView.dataSource = self
-        generalInfoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "generalInfoCell")
+        generalInfoTableView.register(GeneralInformtationTableViewCell.self, forCellReuseIdentifier: "generalInfoCell")
         
         linksTableView = UITableView.init(frame: CGRect.zero, style: .plain)
         linksTableView.delegate = self
@@ -202,7 +207,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case generalInfoTableView:
-            return 30
+            return 7
         case linksTableView:
             return 3
         default:
@@ -215,7 +220,37 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
         switch tableView {
         case generalInfoTableView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
-            cell.textLabel?.text = "TEST GENERAL INFO - row \(indexPath.row)"
+            var main: String?
+            var detail: String?
+            switch indexPath.row {
+            case 0:
+                main = "Scientific name"
+                detail = plant.scientificName
+                cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: cell.detailTextLabel?.font.pointSize ?? UIFont.systemFontSize)
+            case 1:
+                main = "Common name"
+                detail = plant.commonName
+            case 2:
+                main = "Growing season(s)"
+                detail = plant.printableGrowingSeason()
+            case 3:
+                main = "Dormant season(s)"
+                detail = plant.printableDormantSeason()
+            case 4:
+                main = "Difficulty"
+                if let difficulty = plant.difficulty { detail = String(difficulty.rawValue) }
+            case 5:
+                main = "Watering level(s)"
+                detail = plant.printableWatering()
+            case 6:
+                main = "Lighting level(s)"
+                detail = plant.printableLighting()
+            default:
+                main = nil
+                detail = nil
+            }
+            cell.textLabel?.text = main
+            cell.detailTextLabel?.text = detail
             return cell
         case linksTableView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "linksCell", for: indexPath)
@@ -223,6 +258,17 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
         default:
             fatalError("Unforeseen table view requesting a `UITableViewCell`")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableView {
+        case generalInfoTableView:
+            return 50
+        case linksTableView:
+            return 75
+        default:
+            return 44
         }
     }
 }
