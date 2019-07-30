@@ -88,30 +88,38 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     func setupKeyboardObserver() {
         keyboard.observe { [weak self] (event) in
-            switch event.type {
-            case .willHide:
-                self?.notesTextView.contentInset = .zero
-                
-                if self?.notesTextView.text == "" {
-                    self?.notesTextView.text = "Notes"
-                    self?.notesTextView.textColor = .lightGray
+            
+            // for notes text view editing
+            if self?.notesTextView.isHidden == false {
+                switch event.type {
+                case .willHide:
+                    self?.notesTextView.contentInset = .zero
+                    
+                    if self?.notesTextView.text == "" {
+                        self?.notesTextView.text = "Notes"
+                        self?.notesTextView.textColor = .lightGray
+                    } else {
+                        self?.plant.notes = self?.notesTextView.text ?? ""
+                    }
+                    
+                case .willShow, .willChangeFrame:
+                    let keyboardScreenFrameEnd = event.keyboardFrameEnd
+                    let bottom = keyboardScreenFrameEnd.height - (self?.view.alignmentRectInsets.bottom)! + 8
+                    self?.notesTextView.contentInset.bottom = bottom
+                    
+                    if self?.notesTextView.text == "Notes" {
+                        self?.notesTextView.text = ""
+                        self?.notesTextView.textColor = .black
+                    }
+                    
+                    let scrollBottom = keyboardScreenFrameEnd.height
+                    self?.mainScrollView.setContentOffset(CGPoint(x: 0, y: scrollBottom), animated: true)
+                    
+                default:
+                    return
                 }
-                
-            case .willShow, .willChangeFrame:
-                let keyboardScreenFrameEnd = event.keyboardFrameEnd
-                let bottom = keyboardScreenFrameEnd.height - (self?.view.alignmentRectInsets.bottom)! + 8
-                self?.notesTextView.contentInset.bottom = bottom
-                
-                if self?.notesTextView.text == "Notes" {
-                    self?.notesTextView.text = ""
-                    self?.notesTextView.textColor = .black
-                }
-                
-            default:
-                return
             }
         }
-        
         notesTextView.scrollIndicatorInsets = notesTextView.contentInset
         notesTextView.scrollRangeToVisible(notesTextView.selectedRange)
     }
@@ -326,6 +334,7 @@ extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
         }
     }
 }
+
 
 
 // to dismiss keyboard with taps anywhere else in view
