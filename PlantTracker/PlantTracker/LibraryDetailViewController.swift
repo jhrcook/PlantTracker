@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import TwicketSegmentedControl
+import KeyboardObserver
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -21,8 +22,10 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var informationView: UIView!
     
     var generalInfoTableView: UITableView!
-    var notesTextView = UITextField()
+    var notesTextView: UITextView!
     var linksTableView: UITableView!
+    
+    let keyboard = KeyboardObserver()
     
     var startingYOffset: CGFloat? = nil
     
@@ -42,6 +45,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         setupInformationTableViews()
         setupDetailView()
         didSelect(0)
+        hideKeyboardWhenTappedAround()
+        setupKeyboardObserver()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -78,6 +83,37 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             let blurAlpha = (frameHeight - maxHeight) / (maxHeight - minHeight) * (0.0 - 0.85) + 0.0
             blurEffectView.alpha = blurAlpha
         }
+    }
+    
+    
+    func setupKeyboardObserver() {
+        keyboard.observe { [weak self] (event) in
+            switch event.type {
+            case .willHide:
+                self?.notesTextView.contentInset = .zero
+                
+                if self?.notesTextView.text == "" {
+                    self?.notesTextView.text = "Notes"
+                    self?.notesTextView.textColor = .lightGray
+                }
+                
+            case .willShow, .willChangeFrame:
+                let keyboardScreenFrameEnd = event.keyboardFrameEnd
+                let bottom = keyboardScreenFrameEnd.height - (self?.view.alignmentRectInsets.bottom)! + 8
+                self?.notesTextView.contentInset.bottom = bottom
+                
+                if self?.notesTextView.text == "Notes" {
+                    self?.notesTextView.text = ""
+                    self?.notesTextView.textColor = .black
+                }
+                
+            default:
+                return
+            }
+        }
+        
+        notesTextView.scrollIndicatorInsets = notesTextView.contentInset
+        notesTextView.scrollRangeToVisible(notesTextView.selectedRange)
     }
 
     
@@ -136,16 +172,26 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         }
         
         // information subviews
+        notesTextView = UITextView()
         informationView.addSubview(generalInfoTableView)
         informationView.addSubview(notesTextView)
         informationView.addSubview(linksTableView)
         generalInfoTableView.snp.makeConstraints { (make) in make.edges.equalTo(informationView)}
-        notesTextView.snp.makeConstraints { (make) in make.edges.equalTo(informationView) }
+        notesTextView.snp.makeConstraints { (make) in make.edges.equalTo(informationView).offset(8) }
         linksTableView.snp.makeConstraints { (make) in make.edges.equalTo(informationView) }
         
         // set up notes text view
-        notesTextView.placeholder = "Notes"
-        notesTextView.contentVerticalAlignment = .top
+        notesTextView.textAlignment = .left
+        notesTextView.returnKeyType = .default
+        notesTextView.font = UIFont.systemFont(ofSize: 17)
+        if plant.notes.count > 0 {
+            notesTextView.text = plant.notes
+            notesTextView.textColor = .black
+        } else {
+            notesTextView.text = "Notes"
+            notesTextView.textColor = .lightGray
+        }
+        
         
         // initalize content height of main scroll view
         let contentHeight = CGFloat(headerImageHeight) + view.frame.height - CGFloat(minHeaderImageHeight)
@@ -163,6 +209,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
         generalInfoTableView.delegate = self
         generalInfoTableView.dataSource = self
         generalInfoTableView.register(GeneralInformtationTableViewCell.self, forCellReuseIdentifier: "generalInfoCell")
+        generalInfoTableView.allowsSelection = false
         
         linksTableView = UITableView.init(frame: CGRect.zero, style: .plain)
         linksTableView.delegate = self
@@ -228,6 +275,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableView {
         case generalInfoTableView:
@@ -236,6 +284,15 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             return 75
         default:
             return 44
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        switch tableView {
+        case generalInfoTableView:
+            return true
+        default:
+            return false
         }
     }
 }
@@ -252,6 +309,7 @@ extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
             generalInfoTableView.isHidden = false
             notesTextView.isHidden = true
             linksTableView.isHidden = true
+            dismissKeyboard()
         case 1:
             // "Notes"
             generalInfoTableView.isHidden = true
@@ -262,8 +320,23 @@ extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
             generalInfoTableView.isHidden = true
             notesTextView.isHidden = true
             linksTableView.isHidden = false
+            dismissKeyboard()
         default:
             break
         }
+    }
+}
+
+
+// to dismiss keyboard with taps anywhere else in view
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

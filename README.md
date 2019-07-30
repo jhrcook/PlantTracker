@@ -17,3 +17,11 @@ Making some good progress on the detail view of the Library.
 
 <img src="progress_screenshots/Jul-28-2019 11-34-45.gif" width="300"/>
 
+
+
+---
+**External Libraries**
+
+* [SnapKit](http://snapkit.io)
+* [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
+* [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)

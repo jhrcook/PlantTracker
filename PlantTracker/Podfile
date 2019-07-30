@@ -8,6 +8,6 @@ target 'PlantTracker' do
   # Pods for PlantTracker
   pod 'AssetsPickerViewController', '~> 2.6'
   pod 'TwicketSegmentedControl'
-
+  pod "KeyboardObserver", '~> 2.1'
 end
 

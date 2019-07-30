@@ -3,26 +3,30 @@ PODS:
     - Device
     - SnapKit
   - Device (3.1.2)
+  - KeyboardObserver (2.1.0)
   - SnapKit (5.0.0)
   - TwicketSegmentedControl (0.1.2)
 
 DEPENDENCIES:
   - AssetsPickerViewController (~> 2.6)
+  - KeyboardObserver (~> 2.1)
   - TwicketSegmentedControl
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AssetsPickerViewController
     - Device
+    - KeyboardObserver
     - SnapKit
     - TwicketSegmentedControl
 
 SPEC CHECKSUMS:
   AssetsPickerViewController: ed908abbff9ff818c031b5c54cffa2f8efb93155
   Device: 62242076214c30fb5760174b3601cefafa70a481
+  KeyboardObserver: 338f87db88f4d6f4b4af334fe025bc824251d57b
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   TwicketSegmentedControl: 6d7a4cf243657e0ac3f00d06d873a25334c04042
 
-PODFILE CHECKSUM: cd551d534ab4de6f0292e55708e4d42c12db703d
+PODFILE CHECKSUM: f66ba947bb249ffd02d38b41f9e403613c3f2d99
 
 COCOAPODS: 1.7.4
