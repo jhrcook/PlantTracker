@@ -10,7 +10,7 @@
 		8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043A22DB8E0100AFD4B6 /* Plant.swift */; };
 		8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */; };
 		84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84444D1822D9974F00876F6D /* AppDelegate.swift */; };
-		84444D1B22D9974F00876F6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84444D1A22D9974F00876F6D /* ViewController.swift */; };
+		84444D1B22D9974F00876F6D /* PlantLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */; };
 		84444D1E22D9974F00876F6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84444D1C22D9974F00876F6D /* Main.storyboard */; };
 		84444D2022D9975100876F6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84444D1F22D9975100876F6D /* Assets.xcassets */; };
 		84444D2322D9975100876F6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84444D2122D9975100876F6D /* LaunchScreen.storyboard */; };
@@ -25,7 +25,7 @@
 		8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		84444D1522D9974F00876F6D /* PlantTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84444D1822D9974F00876F6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84444D1A22D9974F00876F6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantLibraryTableViewController.swift; sourceTree = "<group>"; };
 		84444D1D22D9974F00876F6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84444D1F22D9975100876F6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84444D2222D9975100876F6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,13 +86,13 @@
 			children = (
 				84444D1822D9974F00876F6D /* AppDelegate.swift */,
 				84444D1F22D9975100876F6D /* Assets.xcassets */,
+				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
 				84444D2422D9975100876F6D /* Info.plist */,
 				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
 				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
-				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
 				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
-				84444D1A22D9974F00876F6D /* ViewController.swift */,
+				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
 			);
 			path = PlantTracker;
 			sourceTree = "<group>";
@@ -213,7 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */,
-				84444D1B22D9974F00876F6D /* ViewController.swift in Sources */,
+				84444D1B22D9974F00876F6D /* PlantLibraryTableViewController.swift in Sources */,
 				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
 				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
