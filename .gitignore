@@ -129,3 +129,8 @@ iOSInjectionProject/
 
 # End of https://www.gitignore.io/api/xcode,swift,macos
 
+
+progress_screenshots/*MP4
+progress_screenshots/*mp4
+progress_screenshots/*MOV
+progress_screenshots/*mov
