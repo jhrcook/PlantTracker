@@ -100,7 +100,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     func pushImageCollectionView(_ alert: UIAlertAction) {
-        print("TODO")
+        performSegue(withIdentifier: "showImageCollectionView", sender: self)
     }
     
     
@@ -385,6 +385,7 @@ extension UIViewController {
 }
 
 
+
 extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINavigationControllerDelegate {
     
     func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {
@@ -399,13 +400,10 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     }
     
     func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
-        print("running didSelect")
+        // print("running didSelect")
     }
     
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
-        
-//        print("number of assets in `controller`: \(controller.selectedAssets.count)")
-        
         let imageManager = PHImageManager.default()
         let imageOptions = PHImageRequestOptions()
         imageOptions.deliveryMode = .highQualityFormat
@@ -434,4 +432,20 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
             setHeaderImage()
         }
     }
+}
+
+
+
+// handle segues
+extension LibraryDetailViewController {
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ImageCollectionViewController {
+            print("sending \(plant.images.count) images")
+            vc.imagePaths = plant.images
+        }
+    }
+    
+    
 }
