@@ -16,7 +16,7 @@ class ImageCollectionViewController: UICollectionViewController {
     var images = [UIImage]()
     
     let numberOfImagesPerRow: CGFloat = 4.0
-    let spacingBetweenCells: CGFloat = 0.0
+    let spacingBetweenCells: CGFloat = 0.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,10 @@ class ImageCollectionViewController: UICollectionViewController {
         // self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
+        collectionView.alwaysBounceVertical = true
+        
+        // load images
         for imagePath in imagePaths {
             if let image = UIImage(contentsOfFile: imagePath) { images.append(image) }
         }
@@ -59,7 +63,7 @@ class ImageCollectionViewController: UICollectionViewController {
     
         if let imageView = cell.viewWithTag(1000) as? UIImageView {
             imageView.image = images[indexPath.item]
-            imageView.contentMode = .scaleToFill
+            imageView.contentMode = .scaleAspectFill
         }
         
 //        cell.frame.width = view.frame.width / 4

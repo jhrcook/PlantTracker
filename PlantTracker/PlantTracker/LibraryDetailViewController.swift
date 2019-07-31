@@ -91,10 +91,12 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     @objc func editDetailAction() {
-        let alertController = UIAlertController(title: "Edit", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Add photo", style: .default, handler: addImages))
+
+        let alertController = UIAlertController(title: "Edit \(title ?? "plant")", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Add photos", style: .default, handler: addImages))
         alertController.addAction(UIAlertAction(title: "View photos", style: .default, handler: pushImageCollectionView))
         alertController.addAction(UIAlertAction(title: "Remove plant from library", style: .destructive, handler: removeFromLibrary))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alertController, animated: true)
     }
     
