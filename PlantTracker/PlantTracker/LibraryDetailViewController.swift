@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Photos
 import SnapKit
 import TwicketSegmentedControl
 import KeyboardObserver
+import AssetsPickerViewController
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -40,7 +42,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         title = plant.scientificName ?? plant.commonName ?? ""
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addImages))
         
         setupInformationTableViews()
         setupDetailView()
@@ -142,11 +144,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         }
         
         // header image
-        if let imageName = plant.bestSingleImage() {
-            headerImageView.image = UIImage(contentsOfFile: imageName)
-        } else {
-            headerImageView.image = UIImage(named: "cactus")
-        }
+        setHeaderImage()
         headerImageView.contentMode = .scaleAspectFill
         headerImageView.clipsToBounds = true
         headerImageView.snp.makeConstraints { (make) in make.edges.equalTo(headerView) }
@@ -204,6 +202,14 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         // initalize content height of main scroll view
         let contentHeight = CGFloat(headerImageHeight) + view.frame.height - CGFloat(minHeaderImageHeight)
         mainScrollView.contentSize = CGSize(width: view.frame.width, height: contentHeight)
+    }
+    
+    func setHeaderImage() {
+        if let imageName = plant.bestSingleImage() {
+            headerImageView.image = UIImage(contentsOfFile: imageName)
+        } else {
+            headerImageView.image = UIImage(named: "cactus")
+        }
     }
 }
 
@@ -347,5 +353,57 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+
+extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINavigationControllerDelegate {
+    
+    func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {
+        print("Need permission to access photo library.")
+    }
+    
+    @objc func addImages() {
+        let imagePicker = AssetsPickerViewController()
+        imagePicker.pickerDelegate = self
+        print("opening image picker")
+        present(imagePicker, animated: true)
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
+        print("running didSelect")
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+        
+//        print("number of assets in `controller`: \(controller.selectedAssets.count)")
+        
+        let imageManager = PHImageManager.default()
+        let imageOptions = PHImageRequestOptions()
+        imageOptions.deliveryMode = .highQualityFormat
+        imageOptions.isSynchronous = true
+        imageOptions.resizeMode = .exact
+        
+        print("number of assets: \(assets.count)")
+        
+        for asset in assets {
+            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+            imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+        }
+    }
+    
+    
+    func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
+        if let image = image {
+            let imageName = UUID().uuidString
+            let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+            
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                try? jpegData.write(to: imagePath)
+            }
+            plant.images.append(imagePath.relativePath)
+            print("saving image: \(imagePath.relativePath)")
+            setHeaderImage()
+        }
     }
 }

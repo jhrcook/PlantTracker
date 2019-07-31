@@ -43,7 +43,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="xeE-yM-Rfg" kind="show" id="zor-oh-ZlP"/>
+                                    <segue destination="xeE-yM-Rfg" kind="show" identifier="showLibraryDetail" id="zor-oh-ZlP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

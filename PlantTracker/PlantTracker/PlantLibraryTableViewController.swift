@@ -16,12 +16,16 @@ class PlantLibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newPlant))
+        
         loadPlants()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         savePlants()
+        
+        // TESTING
         if (plants.count == 0) {
             print("loading test plants")
             plants = [
@@ -32,6 +36,10 @@ class PlantLibraryTableViewController: UITableViewController {
                 Plant(scientificName: nil, commonName: nil),
             ]
         }
+        ///////////
+        
+        // so that image views are updated
+        tableView.reloadData()
     }
 
 
@@ -105,5 +113,28 @@ class PlantLibraryTableViewController: UITableViewController {
         }
     }
     
+    
+    @objc func newPlant() {
+        // add new (blank) plant instance
+        plants.append(Plant(scientificName: nil, commonName: nil))
+        savePlants()
+        tableView.reloadData()
+        
+        // "select" the new row in the table view
+        let indexPath = IndexPath(row: plants.count-1, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableView.ScrollPosition.none)
+        performSegue(withIdentifier: "showLibraryDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            plants[indexPath.row].deleteAllImages()
+            plants.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
+        savePlants()
+    }
 }
 
