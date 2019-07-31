@@ -31,6 +31,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var startingYOffset: CGFloat? = nil
     
+    var shouldDelete = false
+    
     // height of header image
     let headerImageHeight = 350
     let minHeaderImageHeight = 100
@@ -42,7 +44,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         title = plant.scientificName ?? plant.commonName ?? ""
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addImages))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editDetailAction))
         
         setupInformationTableViews()
         setupDetailView()
@@ -85,6 +87,32 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             let blurAlpha = (frameHeight - maxHeight) / (maxHeight - minHeight) * (0.0 - 0.85) + 0.0
             blurEffectView.alpha = blurAlpha
         }
+    }
+    
+    
+    @objc func editDetailAction() {
+        let alertController = UIAlertController(title: "Edit", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Add photo", style: .default, handler: addImages))
+        alertController.addAction(UIAlertAction(title: "View photos", style: .default, handler: pushImageCollectionView))
+        alertController.addAction(UIAlertAction(title: "Remove plant from library", style: .destructive, handler: removeFromLibrary))
+        present(alertController, animated: true)
+    }
+    
+    
+    func pushImageCollectionView(_ alert: UIAlertAction) {
+        print("TODO")
+    }
+    
+    
+    func removeFromLibrary(_ alert: UIAlertAction) {
+        let message = "Are you sure you want to remove \(title ?? "this plant") from your library?"
+        let alertControler = UIAlertController(title: "Remove plant?", message: message, preferredStyle: .alert)
+        alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            self?.shouldDelete = true
+            self?.performSegue(withIdentifier: "unwindToLibraryTableView", sender: self)
+        })
+        present(alertControler, animated: true)
     }
     
     
@@ -363,7 +391,7 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
         print("Need permission to access photo library.")
     }
     
-    @objc func addImages() {
+    @objc func addImages(_ alert: UIAlertAction) {
         let imagePicker = AssetsPickerViewController()
         imagePicker.pickerDelegate = self
         print("opening image picker")

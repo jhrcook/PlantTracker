@@ -106,9 +106,11 @@
                         <outlet property="headerView" destination="88Q-4v-vOz" id="Fqz-QR-XFF"/>
                         <outlet property="informationView" destination="ddf-I9-EGd" id="4DW-pv-Up9"/>
                         <outlet property="mainScrollView" destination="4iO-TI-LdY" id="cup-sV-kJ9"/>
+                        <segue destination="MPY-Bg-71q" kind="unwind" identifier="unwindToLibraryTableView" unwindAction="unwindToLibraryTableView:" id="qrQ-MQ-aip"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqD-EW-li5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="MPY-Bg-71q" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2834.7826086956525" y="26.785714285714285"/>
         </scene>

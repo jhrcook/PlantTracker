@@ -13,6 +13,8 @@ class PlantLibraryTableViewController: UITableViewController {
     var plants = [Plant]()
     // Example `plants` data
     
+    var lastSelectedRow: Int? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +28,7 @@ class PlantLibraryTableViewController: UITableViewController {
         savePlants()
         
         // TESTING
-        if (plants.count == 0) {
+        if (plants.count == 0 || false) {
             print("loading test plants")
             plants = [
                 Plant(scientificName: "Euphorbia obesa", commonName: "Basball cactus"),
@@ -74,6 +76,7 @@ class PlantLibraryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        lastSelectedRow = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -104,14 +107,7 @@ class PlantLibraryTableViewController: UITableViewController {
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? LibraryDetailViewController {
-            if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
-                print("sending index: \(index)")
-                vc.plant = plants[index]
-            }
-        }
-    }
+    
     
     
     @objc func newPlant() {
@@ -122,7 +118,7 @@ class PlantLibraryTableViewController: UITableViewController {
         
         // "select" the new row in the table view
         let indexPath = IndexPath(row: plants.count-1, section: 0)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableView.ScrollPosition.none)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         performSegue(withIdentifier: "showLibraryDetail", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -138,3 +134,28 @@ class PlantLibraryTableViewController: UITableViewController {
     }
 }
 
+
+// handle segues
+extension PlantLibraryTableViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? LibraryDetailViewController {
+            if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
+                print("sending index: \(index)")
+                vc.plant = plants[index]
+            }
+        }
+    }
+    
+    
+    @IBAction func unwindToLibraryTableView(_ unwindSegue: UIStoryboardSegue) {
+        guard let sourceViewController = unwindSegue.source as? LibraryDetailViewController else { return }
+        
+        // Indicated that this plant should be removed in the detail view controller
+        if sourceViewController.shouldDelete, let rowToDelete = lastSelectedRow {
+            let indexPath = IndexPath(row: rowToDelete, section: 0)
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            tableView(tableView, commit: .delete, forRowAt: indexPath)
+        }
+    }
+}
