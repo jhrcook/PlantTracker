@@ -395,8 +395,20 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     }
     
     @objc func addImages(_ alert: UIAlertAction) {
+        
+        // filter to only show photos
+        let options = PHFetchOptions()
+        options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        let pickerConfig = AssetsPickerConfig()
+        pickerConfig.assetFetchOptions = [
+            .album: options,
+            .smartAlbum: options
+        ]
+        
         let imagePicker = AssetsPickerViewController()
         imagePicker.pickerDelegate = self
+        imagePicker.pickerConfig = pickerConfig
+        
         print("opening image picker")
         present(imagePicker, animated: true)
     }
@@ -457,6 +469,7 @@ extension LibraryDetailViewController {
         if let vc = segue.destination as? ImageCollectionViewController {
             print("sending \(plant.images.count) images")
             vc.imagePaths = plant.images
+            vc.title = self.title
         }
     }
     
