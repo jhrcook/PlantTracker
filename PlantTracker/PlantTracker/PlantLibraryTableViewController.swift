@@ -126,9 +126,22 @@ class PlantLibraryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            plants[indexPath.row].deleteAllImages()
-            plants.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            let plant = plants[indexPath.row]
+            if UserDefaults.standard.bool(forKey: "in safe mode") {
+                let message = "Are you sure you want to remove \(title ?? "this plant") from your library?"
+                let alertControler = UIAlertController(title: "Remove plant?", message: message, preferredStyle: .alert)
+                alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self, weak plant] _ in
+                    plant?.deleteAllImages()
+                    self?.plants.remove(at: indexPath.row)
+                    self?.tableView.deleteRows(at: [indexPath], with: .left)
+                })
+                present(alertControler, animated: true)
+            } else {
+                plant.deleteAllImages()
+                plants.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .left)
+            }
         }
         savePlants()
     }
@@ -161,7 +174,7 @@ extension PlantLibraryTableViewController {
 }
 
 
-// resize an image
+// adjust an image
 extension UIViewController {
     func resize(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
@@ -188,6 +201,7 @@ extension UIViewController {
         
         return newImage!
     }
+    
     
     func crop(image: UIImage, toWidth width: Double, toHeight height: Double) -> UIImage {
         
@@ -223,3 +237,5 @@ extension UIViewController {
         return image
     }
 }
+
+
