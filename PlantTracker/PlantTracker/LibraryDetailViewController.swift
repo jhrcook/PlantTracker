@@ -408,11 +408,22 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
         let imageManager = PHImageManager.default()
         let imageOptions = PHImageRequestOptions()
-        imageOptions.deliveryMode = .highQualityFormat
+        
+        let defaults = UserDefaults.standard
+        switch defaults.string(forKey: "image quality") {
+        case "high":
+            imageOptions.deliveryMode = .highQualityFormat
+        case "medium":
+            imageOptions.deliveryMode = .opportunistic
+        case "low":
+            imageOptions.deliveryMode = .fastFormat
+        default:
+            imageOptions.deliveryMode = .highQualityFormat
+            print("value not entered for \"Image Quality\" setting.")
+        }
+        imageOptions.version = .current
         imageOptions.isSynchronous = true
         imageOptions.resizeMode = .exact
-        
-        print("number of assets: \(assets.count)")
         
         for asset in assets {
             let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
