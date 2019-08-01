@@ -126,9 +126,16 @@ class PlantLibraryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            plants[indexPath.row].deleteAllImages()
-            plants.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
+            let plant = plants[indexPath.row]
+            let message = "Are you sure you want to remove \(title ?? "this plant") from your library?"
+            let alertControler = UIAlertController(title: "Remove plant?", message: message, preferredStyle: .alert)
+            alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self, weak plant] _ in
+                plant?.deleteAllImages()
+                self?.plants.remove(at: indexPath.row)
+                self?.tableView.deleteRows(at: [indexPath], with: .left)
+            })
+            present(alertControler, animated: true)
         }
         savePlants()
     }
