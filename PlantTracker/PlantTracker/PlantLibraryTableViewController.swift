@@ -66,14 +66,20 @@ class PlantLibraryTableViewController: UITableViewController {
         cell.detailTextLabel?.text = cellPlant.commonName
         
         // cell image
-        var image: UIImage?
-        if let imageName = cellPlant.bestSingleImage() { image = UIImage(contentsOfFile: imageName) }
-        if image == nil { image = UIImage(named: "cactus") }
-        image = crop(image: image!, toWidth: 100, toHeight: 100)
-        image = resize(image: image!, targetSize: CGSize(width: 60, height: 60))
-        cell.imageView?.image = image
-        cell.imageView?.layer.cornerRadius = 30
-        cell.imageView?.layer.masksToBounds = true
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            var image: UIImage?
+            if let imageName = cellPlant.bestSingleImage() { image = UIImage(contentsOfFile: imageName) }
+            if image == nil { image = UIImage(named: "cactus") }
+            image = self?.crop(image: image!, toWidth: 100, toHeight: 100)
+            image = self?.resize(image: image!, targetSize: CGSize(width: 60, height: 60))
+            
+            // set image in main thread
+            DispatchQueue.main.async {
+                cell.imageView?.layer.cornerRadius = 30
+                cell.imageView?.layer.masksToBounds = true
+                cell.imageView?.image = image
+            }
+        }
         
         return cell
     }
