@@ -11,7 +11,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ImageCollectionViewController: UICollectionViewController {
-
+    
     var imagePaths = [String]()
     var images = [UIImage]()
     
@@ -70,6 +70,11 @@ class ImageCollectionViewController: UICollectionViewController {
     
         return cell
     }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected image at \(indexPath.item)")
+    }
 
     // MARK: UICollectionViewDelegate
 
@@ -116,8 +121,11 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return spacingBetweenCells
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return spacingBetweenCells
     }
+    
+    
     
 }

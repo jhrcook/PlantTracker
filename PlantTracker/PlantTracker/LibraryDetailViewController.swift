@@ -33,6 +33,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var shouldDelete = false
     
+    var headerImageIsSet = false
+    
     // height of header image
     let headerImageHeight = 350
     let minHeaderImageHeight = 100
@@ -237,6 +239,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     func setHeaderImage() {
         if let imageName = plant.bestSingleImage() {
             headerImageView.image = UIImage(contentsOfFile: imageName)
+            headerImageIsSet = true
         } else {
             headerImageView.image = UIImage(named: "cactus")
         }
@@ -395,8 +398,20 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     }
     
     @objc func addImages(_ alert: UIAlertAction) {
+        
+        // filter to only show photos
+        let options = PHFetchOptions()
+        options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        let pickerConfig = AssetsPickerConfig()
+        pickerConfig.assetFetchOptions = [
+            .album: options,
+            .smartAlbum: options
+        ]
+        
         let imagePicker = AssetsPickerViewController()
         imagePicker.pickerDelegate = self
+        imagePicker.pickerConfig = pickerConfig
+        
         print("opening image picker")
         present(imagePicker, animated: true)
     }
@@ -422,7 +437,7 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
             print("value not entered for \"Image Quality\" setting.")
         }
         imageOptions.version = .current
-        imageOptions.isSynchronous = true
+        imageOptions.isSynchronous = false
         imageOptions.resizeMode = .exact
         
         for asset in assets {
@@ -434,15 +449,20 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     
     func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
         if let image = image {
-            let imageName = UUID().uuidString
-            let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
-            
-            if let jpegData = image.jpegData(compressionQuality: 1.0) {
-                try? jpegData.write(to: imagePath)
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                let imageName = UUID().uuidString
+                let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                
+                if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                    try? jpegData.write(to: imagePath)
+                }
+                self?.plant.images.append(imagePath.relativePath)
+                print("saving image: \(imagePath.relativePath)")
+                
+                if !(self!.headerImageIsSet) {
+                    DispatchQueue.main.async { self?.setHeaderImage() }
+                }
             }
-            plant.images.append(imagePath.relativePath)
-            print("saving image: \(imagePath.relativePath)")
-            setHeaderImage()
         }
     }
 }
@@ -457,6 +477,7 @@ extension LibraryDetailViewController {
         if let vc = segue.destination as? ImageCollectionViewController {
             print("sending \(plant.images.count) images")
             vc.imagePaths = plant.images
+            vc.title = self.title
         }
     }
     

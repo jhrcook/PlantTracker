@@ -18,6 +18,9 @@ class PlantLibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // remoove the dark smudge behind the nav bar
+        navigationController?.view.backgroundColor = .white
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newPlant))
         
         loadPlants()
@@ -66,14 +69,29 @@ class PlantLibraryTableViewController: UITableViewController {
         cell.detailTextLabel?.text = cellPlant.commonName
         
         // cell image
-        var image: UIImage?
-        if let imageName = cellPlant.bestSingleImage() { image = UIImage(contentsOfFile: imageName) }
-        if image == nil { image = UIImage(named: "cactus") }
-        image = crop(image: image!, toWidth: 100, toHeight: 100)
-        image = resize(image: image!, targetSize: CGSize(width: 60, height: 60))
-        cell.imageView?.image = image
-        cell.imageView?.layer.cornerRadius = 30
-        cell.imageView?.layer.masksToBounds = true
+        if cell.imageView?.image == nil {
+            var blankImage = UIImage(named: "blankImage")!
+            blankImage = crop(image: blankImage, toWidth: 100, toHeight: 100)
+            cell.imageView?.image = resize(image: blankImage, targetSize: CGSize(width: 60, height: 60))
+            cell.imageView?.layer.masksToBounds = true
+            cell.imageView?.layer.cornerRadius = 30
+        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            var image: UIImage?
+            if let imageName = cellPlant.bestSingleImage() {
+                image = UIImage(contentsOfFile: imageName)
+            }
+            if image == nil { image = UIImage(named: "cactus") }
+            image = self.crop(image: image!, toWidth: 100, toHeight: 100)
+            image = self.resize(image: image!, targetSize: CGSize(width: 60, height: 60))
+
+            // set image in main thread
+            DispatchQueue.main.async {
+                cell.imageView?.layer.masksToBounds = true
+                cell.imageView?.layer.cornerRadius = 30
+                cell.imageView?.image = image
+            }
+        }
         
         return cell
     }
