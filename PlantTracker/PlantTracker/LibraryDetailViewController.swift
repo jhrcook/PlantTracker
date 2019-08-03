@@ -16,6 +16,7 @@ import AssetsPickerViewController
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
+    var plantsSaveDelegate: PlantsSaveDelegate?
     
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet var headerView: UIView!
@@ -449,6 +450,9 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
             let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
             imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
         }
+        
+        // save the plants array in parent view controller
+//        if let delegate = plantsSaveDelegate { delegate.savePlants() }
     }
     
     
@@ -467,9 +471,12 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
                 if !(self!.headerImageIsSet) {
                     DispatchQueue.main.async { self?.setHeaderImage() }
                 }
+                
+                if let delegate = self?.plantsSaveDelegate { delegate.savePlants() }
             }
         }
     }
+    
 }
 
 

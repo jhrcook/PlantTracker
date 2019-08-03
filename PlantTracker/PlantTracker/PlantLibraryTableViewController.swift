@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlantLibraryTableViewController: UITableViewController {
+class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate {
 
     var plants = [Plant]()
     // Example `plants` data
@@ -20,6 +20,8 @@ class PlantLibraryTableViewController: UITableViewController {
         
         // remoove the dark smudge behind the nav bar
         navigationController?.view.backgroundColor = .white
+        
+        navigationItem.largeTitleDisplayMode = .automatic
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newPlant))
         
@@ -200,6 +202,7 @@ extension PlantLibraryTableViewController {
             if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
                 print("sending index: \(index)")
                 vc.plant = plants[index]
+                vc.plantsSaveDelegate = self
             }
         }
     }
@@ -216,6 +219,10 @@ extension PlantLibraryTableViewController {
         }
     }
 }
+
+
+// saving data from the detail view controller
+
 
 
 // adjust an image

@@ -23,4 +23,3 @@ Making some good progress on the detail view of the Library. Can add new plants 
 * [SnapKit](http://snapkit.io)
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
-* [ImageTransition](https://github.com/shtnkgm/ImageTransition)

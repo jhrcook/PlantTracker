@@ -17,6 +17,7 @@
 		84444D2022D9975100876F6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84444D1F22D9975100876F6D /* Assets.xcassets */; };
 		84444D2322D9975100876F6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84444D2122D9975100876F6D /* LaunchScreen.storyboard */; };
 		8451739F22F3016000C3D8C7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8451739E22F3016000C3D8C7 /* Settings.bundle */; };
+		8455BFB922F63BF5004DEDA1 /* PlantsSaveDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */; };
 		846E003822F1BFA3000FAC5C /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */; };
 		8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */; };
 		A22EE2632C9C409BC97B2781 /* Pods_PlantTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E0C88DFD0554DE6FAE15C5 /* Pods_PlantTracker.framework */; };
@@ -37,6 +38,7 @@
 		84444D2222D9975100876F6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84444D2422D9975100876F6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8451739E22F3016000C3D8C7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsSaveDelegate.swift; sourceTree = "<group>"; };
 		846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInformtationTableViewCell.swift; sourceTree = "<group>"; };
 		C4E0C88DFD0554DE6FAE15C5 /* Pods_PlantTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
 				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
 				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
+				8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */,
 				8451739E22F3016000C3D8C7 /* Settings.bundle */,
 			);
 			path = PlantTracker;
@@ -233,6 +236,7 @@
 				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
 				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
+				8455BFB922F63BF5004DEDA1 /* PlantsSaveDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
