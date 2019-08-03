@@ -95,7 +95,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     @objc func editDetailAction() {
 
         let alertController = UIAlertController(title: "Edit \(title ?? "plant")", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Add photos", style: .default, handler: addImages))
+        alertController.addAction(UIAlertAction(title: "Add photos from library", style: .default, handler: addImages))
         alertController.addAction(UIAlertAction(title: "View photos", style: .default, handler: pushImageCollectionView))
         alertController.addAction(UIAlertAction(title: "Remove plant from library", style: .destructive, handler: removeFromLibrary))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -419,6 +419,10 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     
     func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
         // print("running didSelect")
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
+        // print("running didDeselect")
     }
     
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {

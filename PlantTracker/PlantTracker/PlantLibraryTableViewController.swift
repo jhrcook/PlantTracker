@@ -95,7 +95,7 @@ class PlantLibraryTableViewController: UITableViewController {
                     usedCactusImage = true
                     image = UIImage(named: "cactusSmall")
                 }
-                image = self.crop(image: image!, toWidth: 300, toHeight: 300)
+                image = self.crop(image: image!, toWidth: 100, toHeight: 100)
                 image = self.resize(image: image!, targetSize: CGSize(width: 60, height: 60))
                 
                 // set image in main thread
