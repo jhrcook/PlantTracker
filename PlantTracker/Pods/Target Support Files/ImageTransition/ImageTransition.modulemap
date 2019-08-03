@@ -1,0 +1,6 @@
+framework module ImageTransition {
+  umbrella header "ImageTransition-umbrella.h"
+
+  export *
+  module * { export * }
+}

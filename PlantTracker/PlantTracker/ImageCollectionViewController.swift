@@ -65,8 +65,6 @@ class ImageCollectionViewController: UICollectionViewController {
             imageView.image = images[indexPath.item]
             imageView.contentMode = .scaleAspectFill
         }
-        
-//        cell.frame.width = view.frame.width / 4
     
         return cell
     }
@@ -125,7 +123,20 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return spacingBetweenCells
     }
-    
-    
-    
+}
+
+
+
+// segue to paging view
+extension ImageCollectionViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? ImagePagingViewController{
+            // prepare for segue
+            destinationVC.images = images
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                destinationVC.startingIndex = indexPath.item
+            }
+            
+        }
+    }
 }

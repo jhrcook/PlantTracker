@@ -118,7 +118,7 @@
         <!--Image Collection View Controller-->
         <scene sceneID="d91-L4-qd2">
             <objects>
-                <collectionViewController id="Gqc-nl-Zzh" customClass="ImageCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController hidesBottomBarWhenPushed="YES" id="Gqc-nl-Zzh" customClass="ImageCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="Uen-Zk-fWv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,6 +148,9 @@
                                     <constraint firstItem="PDT-M6-Swd" firstAttribute="leading" secondItem="Ntb-If-QxE" secondAttribute="leading" id="Ug5-PO-WqT"/>
                                     <constraint firstAttribute="trailing" secondItem="PDT-M6-Swd" secondAttribute="trailing" id="Xff-ml-U6J"/>
                                 </constraints>
+                                <connections>
+                                    <segue destination="n0q-mh-Xox" kind="show" id="PZ1-XO-a3J"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -159,6 +162,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dxy-wR-atO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3730" y="-657"/>
+        </scene>
+        <!--Image Paging View Controller-->
+        <scene sceneID="g5Q-J3-zy8">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="n0q-mh-Xox" customClass="ImagePagingViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T1k-vz-D5A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLM-B1-fXu">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4Qm-BU-x4V"/>
+                    </view>
+                    <connections>
+                        <outlet property="mainScrollView" destination="BLM-B1-fXu" id="Esd-DF-3LX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KdZ-Yv-Uh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4614.4927536231889" y="-657.58928571428567"/>
         </scene>
         <!--Library-->
         <scene sceneID="kyD-w8-zrI">
