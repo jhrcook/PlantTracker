@@ -241,6 +241,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             headerImageView.image = UIImage(contentsOfFile: imageName)
             headerImageIsSet = true
         } else {
+            print("deafult header image")
             headerImageView.image = UIImage(named: "cactus")
         }
     }
@@ -472,7 +473,7 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
 // handle segues
 extension LibraryDetailViewController {
     
-    
+    // seque into image collection view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
             print("sending \(plant.images.count) images")

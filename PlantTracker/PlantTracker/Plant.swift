@@ -21,6 +21,7 @@ class Plant: NSObject, Codable {
     var images = [String]()
     var favoriteImages = [String]()
     var profileImage: String?
+    var smallRoundProfileImage: String?
     
     // information
     var growingSeason = [Season]()
@@ -47,7 +48,7 @@ class Plant: NSObject, Codable {
     // ---- Deleting images ---- //
     // make sure to remove the file from the phone
     
-    func deleteImage(imageName: String) {
+    func deleteImage(named imageName: String) {
         do {
             let fileManager = FileManager()
             try fileManager.removeItem(atPath: imageName)
@@ -59,8 +60,9 @@ class Plant: NSObject, Codable {
     
     func deleteAllImages() {
         for image in images {
-            deleteImage(imageName: image)
+            deleteImage(named: image)
         }
+        if let image = smallRoundProfileImage { deleteImage(named: image) }
     }
     
     func printSimpleDescription() {

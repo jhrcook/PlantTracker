@@ -76,20 +76,46 @@ class PlantLibraryTableViewController: UITableViewController {
             cell.imageView?.layer.masksToBounds = true
             cell.imageView?.layer.cornerRadius = 30
         }
-        DispatchQueue.global(qos: .userInitiated).async {
-            var image: UIImage?
-            if let imageName = cellPlant.bestSingleImage() {
-                image = UIImage(contentsOfFile: imageName)
-            }
-            if image == nil { image = UIImage(named: "cactus") }
-            image = self.crop(image: image!, toWidth: 100, toHeight: 100)
-            image = self.resize(image: image!, targetSize: CGSize(width: 60, height: 60))
-
-            // set image in main thread
-            DispatchQueue.main.async {
-                cell.imageView?.layer.masksToBounds = true
-                cell.imageView?.layer.cornerRadius = 30
-                cell.imageView?.image = image
+        
+        if let profileImagePath = cellPlant.smallRoundProfileImage {
+            // load profile image
+            print("loading profile image")
+            cell.imageView?.layer.masksToBounds = true
+            cell.imageView?.layer.cornerRadius = 30
+            cell.imageView?.image = UIImage(contentsOfFile: profileImagePath)
+            
+        } else {
+            DispatchQueue.global(qos: .userInitiated).async { [weak cellPlant, weak cell] in
+                var image: UIImage?
+                var usedCactusImage = false
+                if let imageName = cellPlant?.bestSingleImage() {
+                    image = UIImage(contentsOfFile: imageName)
+                }
+                if image == nil {
+                    image = UIImage(named: "cactus")
+                    usedCactusImage = true
+                }
+                image = self.crop(image: image!, toWidth: 100, toHeight: 100)
+                image = self.resize(image: image!, targetSize: CGSize(width: 60, height: 60))
+                
+                // set image in main thread
+                DispatchQueue.main.async {
+                    cell?.imageView?.layer.masksToBounds = true
+                    cell?.imageView?.layer.cornerRadius = 30
+                    cell?.imageView?.image = image
+                }
+                
+                // save image for future use
+                if !usedCactusImage {
+                    print("saving new profile image")
+                    let imageName = UUID().uuidString
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                    
+                    if let jpegData = image!.jpegData(compressionQuality: 1.0) {
+                        try? jpegData.write(to: imagePath)
+                    }
+                    cellPlant?.smallRoundProfileImage = imagePath.relativePath
+                }
             }
         }
         

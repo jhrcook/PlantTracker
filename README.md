@@ -15,7 +15,7 @@ This is a simple iOS application to help my mom track her cacti and succulent co
 
 Making some good progress on the detail view of the Library. Can add new plants and add Notes and Images to the plant. These are saved and correctly deleted when desired.
 
-<img src="progress_screenshots/RPReplay_Final1564538439.gif" width="300"/>
+<img src="progress_screenshots/Jul-31-2019 9-03-53.gif" width="300"/>
 
 ---
 **External Libraries**
