@@ -238,8 +238,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setHeaderImage() {
-        if let imageName = plant.bestSingleImage() {
-            headerImageView.image = UIImage(contentsOfFile: imageName)
+        if let imageID = plant.bestSingleImage() {
+            headerImageView.image = UIImage(contentsOfFile: getFilePathWith(id: imageID))
             headerImageIsSet = true
         } else {
             print("deafult header image")
@@ -446,27 +446,26 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
         imageOptions.isSynchronous = false
         imageOptions.resizeMode = .exact
         
+        print("selected \(assets.count) images")
         for asset in assets {
             let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
             imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
         }
         
-        // save the plants array in parent view controller
-//        if let delegate = plantsSaveDelegate { delegate.savePlants() }
     }
     
     
     func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
         if let image = image {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                let imageName = UUID().uuidString
-                let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                let imageID = UUID().uuidString
+                let imageURL = getFileURLWith(id: imageID)
                 
                 if let jpegData = image.jpegData(compressionQuality: 1.0) {
-                    try? jpegData.write(to: imagePath)
+                    try? jpegData.write(to: imageURL)
                 }
-                self?.plant.images.append(imagePath.relativePath)
-                print("saving image: \(imagePath.relativePath)")
+                self?.plant.images.append(imageID)
+                print("saving image: \(imageID)")
                 
                 if !(self!.headerImageIsSet) {
                     DispatchQueue.main.async { self?.setHeaderImage() }
@@ -488,7 +487,7 @@ extension LibraryDetailViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
             print("sending \(plant.images.count) images")
-            vc.imagePaths = plant.images
+            vc.imageIDs = plant.images
             vc.title = self.title
         }
     }

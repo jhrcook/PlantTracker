@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class ImageCollectionViewController: UICollectionViewController {
     
-    var imagePaths = [String]()
+    var imageIDs = [String]()
     var images = [UIImage]()
     
     let numberOfImagesPerRow: CGFloat = 4.0
@@ -32,8 +32,8 @@ class ImageCollectionViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         
         // load images
-        for imagePath in imagePaths {
-            if let image = UIImage(contentsOfFile: imagePath) { images.append(image) }
+        for imageID in imageIDs {
+            if let image = UIImage(contentsOfFile: getFilePathWith(id: imageID)) { images.append(image) }
         }
     }
 

@@ -48,21 +48,22 @@ class Plant: NSObject, Codable {
     // ---- Deleting images ---- //
     // make sure to remove the file from the phone
     
-    func deleteImage(named imageName: String) {
+    func deleteImage(at imageUUID: String) {
+        let filePath = getFilePathWith(id: imageUUID)
         do {
             let fileManager = FileManager()
-            try fileManager.removeItem(atPath: imageName)
-            print("deleted image: \(imageName)")
+            try fileManager.removeItem(atPath: filePath)
+            print("deleted image: \(filePath)")
         } catch {
-            print("Unable to delete image: \(imageName)")
+            print("Unable to delete image: \(filePath)")
         }
     }
     
     func deleteAllImages() {
         for image in images {
-            deleteImage(named: image)
+            deleteImage(at: image)
         }
-        if let image = smallRoundProfileImage { deleteImage(named: image) }
+        if let image = smallRoundProfileImage { deleteImage(at: image) }
     }
     
     func printSimpleDescription() {

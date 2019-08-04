@@ -25,6 +25,7 @@ class ImagePagingViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        updateTitleBy(CGPoint(x: 0, y: 0))
         setupMainScrollView()
         
         // tap gesture
