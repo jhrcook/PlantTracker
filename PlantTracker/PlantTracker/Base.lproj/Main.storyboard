@@ -149,7 +149,7 @@
                                     <constraint firstAttribute="trailing" secondItem="PDT-M6-Swd" secondAttribute="trailing" id="Xff-ml-U6J"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="n0q-mh-Xox" kind="show" id="PZ1-XO-a3J"/>
+                                    <segue destination="n0q-mh-Xox" kind="presentation" id="PZ1-XO-a3J"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -181,9 +181,11 @@
                     </view>
                     <connections>
                         <outlet property="mainScrollView" destination="BLM-B1-fXu" id="Esd-DF-3LX"/>
+                        <segue destination="RVy-Vf-Gg9" kind="unwind" identifier="unwindToImageCollectionViewController" unwindAction="unwindToImageCollectionViewController:" id="SqP-3L-GQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KdZ-Yv-Uh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RVy-Vf-Gg9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4614.4927536231889" y="-657.58928571428567"/>
         </scene>

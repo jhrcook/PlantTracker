@@ -127,8 +127,10 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 
 
-// segue to paging view
+
 extension ImageCollectionViewController {
+    
+    // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? ImagePagingViewController{
             // prepare for segue
@@ -138,5 +140,12 @@ extension ImageCollectionViewController {
             }
             
         }
+    }
+    
+    // unwind segue from paging view
+    @IBAction func unwindToImageCollectionViewController(_ unwindSegue: UIStoryboardSegue) {
+//        if let sourceViewController = unwindSegue.source as? ImagePagingViewController {
+//            // can pass information here
+//        }
     }
 }

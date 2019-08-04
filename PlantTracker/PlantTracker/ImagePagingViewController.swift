@@ -16,9 +16,10 @@ class ImagePagingViewController: UIViewController {
     @IBOutlet var mainScrollView: UIScrollView!
     
     // hide the status bar when the navigation controller hides, too
-    override var prefersStatusBarHidden: Bool {
-        return navigationController!.isNavigationBarHidden
-    }
+    // not in use if segue is modal
+//    override var prefersStatusBarHidden: Bool {
+//        return navigationController!.isNavigationBarHidden
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +30,15 @@ class ImagePagingViewController: UIViewController {
         setupMainScrollView()
         
         // tap gesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleGesture))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
+        
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        downSwipe.direction = .down
+        upSwipe.direction = .up
+        view.addGestureRecognizer(downSwipe)
+        view.addGestureRecognizer(upSwipe)
     }
     
     
@@ -52,7 +60,8 @@ class ImagePagingViewController: UIViewController {
     }
     */
     
-    @objc func handleGesture() {
+    @objc func handleTap() {
+        print("tap")
         let animationDuration = 0.2
         if mainScrollView.backgroundColor == .white {
             UIView.animate(withDuration: animationDuration) { self.mainScrollView.backgroundColor = .black }
@@ -62,6 +71,15 @@ class ImagePagingViewController: UIViewController {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
+    
+    @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        print("swipe")
+        if gestureRecognizer.state == .ended {
+            if gestureRecognizer.direction == .up || gestureRecognizer.direction == .down {
+                performSegue(withIdentifier: "unwindToImageCollectionViewController", sender: self)
+            }
+        }
+    }
 }
 
 
@@ -69,14 +87,13 @@ class ImagePagingViewController: UIViewController {
 extension ImagePagingViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scroll view offset - x: \(scrollView.contentOffset.x), y: \(scrollView.contentOffset.y)")
+//        print("scroll view offset - x: \(scrollView.contentOffset.x), y: \(scrollView.contentOffset.y)")
         updateTitleBy(scrollView.contentOffset)
     }
     
     // update title with which image is currently in view
     func updateTitleBy(_ contentOffset: CGPoint) {
         var imageNumber = Float((contentOffset.x - 0.5 * view.frame.width) / view.frame.width)
-        print("imageNumber: \(imageNumber)")
         imageNumber.round(.up)
         title = "Image \(Int(imageNumber) + 1) of \(images.count)"
     }
