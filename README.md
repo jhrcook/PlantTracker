@@ -13,9 +13,9 @@ This is a simple iOS application to help my mom track her cacti and succulent co
 
 **July 18, 2019**
 
-Making some good progress on the detail view of the Library. Can add new plants and add Notes and Images to the plant. These are saved and correctly deleted when desired.
+Making some good progress on the detail view of the Library (new screenshot videos to come, soon!).
 
-<img src="progress_screenshots/Jul-31-2019 9-03-53.gif" width="300"/>
+<img src="progress_screenshots/" width="300"/>
 
 ---
 **External Libraries**
@@ -23,3 +23,8 @@ Making some good progress on the detail view of the Library. Can add new plants 
 * [SnapKit](http://snapkit.io)
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
+* [Floaty](https://github.com/kciter/Floaty)
+
+**Assets**
+
+The icon for the Library tab was made by [Freepik]("https://www.flaticon.com/authors/freepik") from [Flaticon](https://www.flaticon.com/) and is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).

@@ -10,5 +10,6 @@ target 'PlantTracker' do
   pod 'TwicketSegmentedControl'
   pod "KeyboardObserver", '~> 2.1'
   pod 'ImageTransition'
+  pod 'Floaty', '~> 4.2.0'
 end
 

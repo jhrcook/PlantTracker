@@ -193,7 +193,7 @@
         <scene sceneID="kyD-w8-zrI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q2J-mU-3rP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Library" id="Ot1-7E-u8h"/>
+                    <tabBarItem key="tabBarItem" title="Library" image="flowersPotOfYard" id="Ot1-7E-u8h"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="53l-e3-qrv">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -227,4 +227,7 @@
             <point key="canvasLocation" x="90" y="730"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="flowersPotOfYard" width="25" height="25"/>
+    </resources>
 </document>

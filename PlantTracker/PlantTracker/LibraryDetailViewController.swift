@@ -12,6 +12,7 @@ import SnapKit
 import TwicketSegmentedControl
 import KeyboardObserver
 import AssetsPickerViewController
+import Floaty
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -23,7 +24,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var headerImageView: UIImageView!
     var twicketSegementedControl: TwicketSegmentedControl!
     @IBOutlet var informationView: UIView!
-    
+    var floatyButton = Floaty()
     var generalInfoTableView: UITableView!
     var notesTextView: UITextView!
     var linksTableView: UITableView!
@@ -202,6 +203,20 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.height.equalTo(35)
+        }
+        
+        // floatly button
+        setUpFloatlyButton()
+        let padding = 20
+        floatyButton.paddingX = CGFloat(padding)
+        floatyButton.paddingY = CGFloat(padding)
+        let floatlyFrame = floatyButton.frame
+        headerView.addSubview(floatyButton)
+        floatyButton.snp.makeConstraints { make in
+            make.bottom.equalTo(headerView.snp.bottom).inset(padding)
+            make.right.equalTo(headerView.snp.right).inset(padding)
+            make.width.equalTo(floatlyFrame.width)
+            make.height.equalTo(floatlyFrame.height)
         }
         
         // information view (below segmented control)
@@ -547,5 +562,45 @@ extension LibraryDetailViewController {
             vc.imageIDs = plant.images
             vc.title = self.title
         }
+    }
+}
+
+
+// floaty button
+extension LibraryDetailViewController {
+    func setUpFloatlyButton() {
+        
+        // set self to delegate (maybe)
+//        floatyButton.fabDelegate = self
+        
+        // stlying
+        floatyButton.relativeToSafeArea = false
+        floatyButton.sticky = true
+        floatyButton.hasShadow = true
+        floatyButton.buttonShadowColor = .darkGray
+        floatyButton.buttonColor = .gray
+        
+        floatyButton.autoCloseOnTap = true
+        floatyButton.isUserInteractionEnabled = true
+        floatyButton.isHidden = false
+        floatyButton.openAnimationType = .slideUp
+        floatyButton.animationSpeed = 1.0
+        
+        // item 1: add photos
+        let addPhotosItem = FloatyItem()
+        addPhotosItem.title = "Add photos"
+        addPhotosItem.icon = UIImage(named: "cameraIconBW")
+        addPhotosItem.titleColor = .white
+        addPhotosItem.buttonColor = .lightGray
+//        addPhotosItem.handler = addImages()
+        floatyButton.addItem(item: addPhotosItem)
+        
+        // item 2: view all photos
+        let viewPhotosItem = FloatyItem()
+        viewPhotosItem.title = "View photos"
+        viewPhotosItem.titleColor = .white
+        viewPhotosItem.buttonColor = .lightGray
+        viewPhotosItem.icon = UIImage(named: "albumIconBW")
+        floatyButton.addItem(item: viewPhotosItem)
     }
 }
