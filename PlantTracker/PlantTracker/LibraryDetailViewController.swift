@@ -36,6 +36,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var headerImageIsSet = false
     
+    var assetTracker = AssetIndexIDTracker()
+    
     // height of header image
     let headerImageHeight = 350
     let minHeaderImageHeight = 100
@@ -419,14 +421,6 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     }
     
     func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
-        // print("running didSelect")
-    }
-    
-    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
-        // print("running didDeselect")
-    }
-    
-    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
         let imageManager = PHImageManager.default()
         let imageOptions = PHImageRequestOptions()
         
@@ -446,32 +440,95 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
         imageOptions.isSynchronous = false
         imageOptions.resizeMode = .exact
         
-        print("selected \(assets.count) images")
-        for asset in assets {
-            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
-            imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+        let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+        let requestIndex = imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+        assetTracker.add(requestIndex: Int(requestIndex), withIndexPathItem: indexPath.item)
+        print("saving request ID '\(requestIndex)' to index path '\(indexPath.item)'")
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
+        if let uuid = assetTracker.uuidFrom(indexPathItem: indexPath.item) {
+            print("deleting image uuid '\(uuid)' at index path '\(indexPath.item)'")
+            plant.deleteImage(at: uuid)
+        } else {
+            assetTracker.didNotDeleteAtRequestIndex.append(indexPath.item)
         }
-        
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+//        let imageManager = PHImageManager.default()
+//        let imageOptions = PHImageRequestOptions()
+//
+//        let defaults = UserDefaults.standard
+//        switch defaults.string(forKey: "image quality") {
+//        case "high":
+//            imageOptions.deliveryMode = .highQualityFormat
+//        case "medium":
+//            imageOptions.deliveryMode = .opportunistic
+//        case "low":
+//            imageOptions.deliveryMode = .fastFormat
+//        default:
+//            imageOptions.deliveryMode = .highQualityFormat
+//            print("value not entered for \"Image Quality\" setting.")
+//        }
+//        imageOptions.version = .current
+//        imageOptions.isSynchronous = false
+//        imageOptions.resizeMode = .exact
+//
+//        print("selected \(assets.count) images")
+//        for asset in assets {
+//            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+//            imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+//        }
+        for index in assetTracker.didNotDeleteAtRequestIndex {
+            if let uuid = assetTracker.uuidFrom(indexPathItem: index) {
+                print("deleting image uuid '\(uuid)' at index path '\(index)'")
+                plant.deleteImage(at: uuid)
+            }
+        }
+        assetTracker.reset()
+        if let delegate = plantsSaveDelegate { delegate.savePlants() }
+        setHeaderImage()
+    }
+    
+    func assetsPickerDidCancel(controller: AssetsPickerViewController) {
+        print("user canceled asset getting")
+        if let allUUIDs = assetTracker.allUUIDs() {
+            for uuid in allUUIDs {
+                print("deleting UUID '\(uuid)'")
+                plant.deleteImage(at: uuid)
+            }
+        }
+        assetTracker.reset()
     }
     
     
     func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
+        
         if let image = image {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                let imageID = UUID().uuidString
-                let imageURL = getFileURLWith(id: imageID)
+                let uuid = UUID().uuidString
+                print("saving image: \(uuid)")
+                let imageURL = getFileURLWith(id: uuid)
                 
                 if let jpegData = image.jpegData(compressionQuality: 1.0) {
                     try? jpegData.write(to: imageURL)
                 }
-                self?.plant.images.append(imageID)
-                print("saving image: \(imageID)")
-                
-                if !(self!.headerImageIsSet) {
-                    DispatchQueue.main.async { self?.setHeaderImage() }
+                self?.plant.images.append(uuid)
+                if let info = info, let requestIndex = info["PHImageResultRequestIDKey"] as? Int {
+                    print("setting uuid '\(uuid)' as request index '\(requestIndex)'")
+                    self?.assetTracker.add(uuid: uuid, withRequestIndex: requestIndex)
+                } else {
+                    print("failed to set request index for image UUID, dumping `info`:")
+                    print("-----------------")
+                    if let info = info { print(info) }
+                    print("-----------------")
                 }
+//                if !(self!.headerImageIsSet) {
+//                    DispatchQueue.main.async { self?.setHeaderImage() }
+//                }
                 
-                if let delegate = self?.plantsSaveDelegate { delegate.savePlants() }
+//                if let delegate = self?.plantsSaveDelegate { delegate.savePlants() }
             }
         }
     }
@@ -491,6 +548,4 @@ extension LibraryDetailViewController {
             vc.title = self.title
         }
     }
-    
-    
 }

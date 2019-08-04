@@ -21,6 +21,7 @@
 		8455BFBC22F66886004DEDA1 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFBB22F66886004DEDA1 /* utilities.swift */; };
 		846E003822F1BFA3000FAC5C /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */; };
 		8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */; };
+		84D3C59122F7197C005FC1C0 /* AssetIndexIDTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */; };
 		A22EE2632C9C409BC97B2781 /* Pods_PlantTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E0C88DFD0554DE6FAE15C5 /* Pods_PlantTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		8455BFBB22F66886004DEDA1 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
 		846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInformtationTableViewCell.swift; sourceTree = "<group>"; };
+		84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetIndexIDTracker.swift; sourceTree = "<group>"; };
 		C4E0C88DFD0554DE6FAE15C5 /* Pods_PlantTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 				842809BC22F12ACA002BB246 /* icon.jpg */,
 				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
 				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
+				84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
 				8417E18322F5C6F60048C2EE /* ImagePagingViewController.swift */,
 				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
@@ -237,6 +240,7 @@
 				8417E18422F5C6F60048C2EE /* ImagePagingViewController.swift in Sources */,
 				8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */,
 				84444D1B22D9974F00876F6D /* PlantLibraryTableViewController.swift in Sources */,
+				84D3C59122F7197C005FC1C0 /* AssetIndexIDTracker.swift in Sources */,
 				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
 				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
