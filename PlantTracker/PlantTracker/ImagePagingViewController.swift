@@ -15,6 +15,9 @@ class ImagePagingViewController: UIViewController {
     
     @IBOutlet var mainScrollView: UIScrollView!
     
+    var currentIndex = 0
+    var isZoomedIn = false
+    
     // hide the status bar when the navigation controller hides, too
     // not in use if segue is modal
 //    override var prefersStatusBarHidden: Bool {
@@ -26,19 +29,23 @@ class ImagePagingViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        currentIndex = startingIndex
         updateTitleBy(CGPoint(x: 0, y: 0))
         setupMainScrollView()
         
         // tap gesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.numberOfTapsRequired = 1
         view.addGestureRecognizer(tap)
         
+//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+//        doubleTap.numberOfTapsRequired = 2
+//        view.addGestureRecognizer(doubleTap)
+//        tap.require(toFail: doubleTap)
+        
         let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
         downSwipe.direction = .down
-        upSwipe.direction = .up
         view.addGestureRecognizer(downSwipe)
-        view.addGestureRecognizer(upSwipe)
     }
     
     
@@ -60,7 +67,7 @@ class ImagePagingViewController: UIViewController {
     }
     */
     
-    @objc func handleTap() {
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         print("tap")
         let animationDuration = 0.2
         if mainScrollView.backgroundColor == .white {
@@ -72,10 +79,28 @@ class ImagePagingViewController: UIViewController {
         }
     }
     
+//    @objc func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+//        print("tap tap")
+//        if isZoomedIn {
+//            // zoom out
+//
+////            isZoomedIn = false
+//        } else {
+//            //zoom in
+//            let tapLocation = gestureRecognizer.location(in: mainScrollView.subviews[currentIndex])
+//            print("zooming in to \(tapLocation)")
+//            let zoomRect = CGRect(center: tapLocation, size: CGSize(width: view.frame.width/1.5, height: view.frame.height/1.5))
+//            print("zoom rect: \(zoomRect)")
+//            mainScrollView.zoom(to: zoomRect, animated: true)
+//            isZoomedIn = true
+////            print("zoom scale: \(mainScrollView.zoomScale)")
+//        }
+//    }
+    
     @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
         print("swipe")
         if gestureRecognizer.state == .ended {
-            if gestureRecognizer.direction == .up || gestureRecognizer.direction == .down {
+            if gestureRecognizer.direction == .down {
                 performSegue(withIdentifier: "unwindToImageCollectionViewController", sender: self)
             }
         }
@@ -95,9 +120,13 @@ extension ImagePagingViewController: UIScrollViewDelegate {
     func updateTitleBy(_ contentOffset: CGPoint) {
         var imageNumber = Float((contentOffset.x - 0.5 * view.frame.width) / view.frame.width)
         imageNumber.round(.up)
+        currentIndex = Int(imageNumber)
         title = "Image \(Int(imageNumber) + 1) of \(images.count)"
     }
-
+    
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return mainScrollView.subviews[currentIndex]
+//    }
 }
 
 
@@ -124,11 +153,22 @@ extension ImagePagingViewController {
         }
         
         for i in 0..<images.count {
+            // set up image view
             let imageView = UIImageView()
             imageView.frame = CGRect(x: viewWidth * CGFloat(i), y: 0, width: viewWidth, height: viewHeight)
             imageView.image = images[i]
             imageView.contentMode = .scaleAspectFit
-            mainScrollView.addSubview(imageView)
+            
+            // set up scroll view to put it in
+            let imageScrollView = UIScrollView()
+            imageScrollView.delegate = self
+            imageScrollView.isScrollEnabled = true
+            imageScrollView.contentSize = imageView.image?.size ?? view.frame.size
+            
+            // nest as follows: mainScrollView[ imageScrollView[ imageView ] ]
+            imageScrollView.addSubview(imageView)
+            imageView.snp.makeConstraints { make in make.edges.equalTo(imageScrollView) }
+            mainScrollView.addSubview(imageScrollView)
         }
         
         // set starting point at the image that was tapped

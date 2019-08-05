@@ -90,3 +90,14 @@ func crop(image: UIImage, toWidth width: Double, toHeight height: Double) -> UII
     
     return image
 }
+
+
+
+// initialze `CGRect` with a center point
+extension CGRect {
+    init(center: CGPoint, size: CGSize) {
+        let originX = center.x - (size.width / 2)
+        let originY = center.y - (size.height / 2)
+        self.init(origin: CGPoint(x: originX, y: originY), size: size)
+    }
+}

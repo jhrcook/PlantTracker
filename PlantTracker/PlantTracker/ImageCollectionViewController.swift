@@ -138,6 +138,14 @@ extension ImageCollectionViewController {
                 destinationVC.startingIndex = indexPath.item
             }
         }
+        
+        if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
+            // prepare for segue
+            destinationVC.images = images
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                destinationVC.startingIndex = indexPath.item
+            }
+        }
     }
     
     // unwind segue from paging view
