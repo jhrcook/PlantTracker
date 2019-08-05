@@ -12,7 +12,7 @@ private let reuseIdentifier = "scrollingImageCell"
 
 class ImagePagingCollectionViewController: UICollectionViewController {
 
-    var startingIndex = 0
+    var startingIndex: Int = 0
     var images = [UIImage]()
     
     override func viewDidLoad() {
@@ -26,7 +26,6 @@ class ImagePagingCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         setupCollectionView()
-        collectionView.scrollToItem(at: IndexPath(item: startingIndex, section: 0), at: .centeredVertically, animated: false)
     }
 
     /*
@@ -46,22 +45,22 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         collectionView.alwaysBounceHorizontal = true
         collectionView.alwaysBounceVertical = false
         
-//        collectionView.contentSize = CGSize(width: view.frame.width * CGFloat(images.count), height: 0.0)
+        collectionView.contentSize = CGSize(width: view.frame.width * CGFloat(images.count), height: 0.0)
         
-//        collectionView.delegate = self
+        // collectionView.delegate = self
         collectionView.dataSource = self
+        
+        // set initial index at `startingIndex`
+        collectionView.scrollToItem(at: IndexPath(item: startingIndex, section: 0), at: .right, animated: false)
     }
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return images.count
     }
 
@@ -75,6 +74,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     
         return cell
     }
+
 
     // MARK: UICollectionViewDelegate
 

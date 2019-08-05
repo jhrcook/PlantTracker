@@ -131,18 +131,11 @@ extension ImageCollectionViewController {
     
     // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? ImagePagingViewController{
-            // prepare for segue
-            destinationVC.images = images
-            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                destinationVC.startingIndex = indexPath.item
-            }
-        }
-        
         if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
             // prepare for segue
             destinationVC.images = images
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                print("sending view controller starting index \(indexPath.item)")
                 destinationVC.startingIndex = indexPath.item
             }
         }

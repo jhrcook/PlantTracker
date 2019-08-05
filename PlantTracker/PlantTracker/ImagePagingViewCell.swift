@@ -16,8 +16,12 @@ class ImagePagingViewCell: UICollectionViewCell {
             configureForNewImage(animated: false)
         }
     }
+    
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
+    
+    // factor to zoom in by
+    var zoomFactor: CGFloat = 3.0
     
     override init(frame: CGRect) {
         
@@ -30,7 +34,8 @@ class ImagePagingViewCell: UICollectionViewCell {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceHorizontal = true
-        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceVertical = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         contentView.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in make.edges.equalTo(contentView) }
         
@@ -43,7 +48,7 @@ class ImagePagingViewCell: UICollectionViewCell {
         scrollView.contentSize = imageView.frame.size
         
         // double tap to zoom
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapAction(recognizer:)))
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapAction))
         doubleTap.numberOfTapsRequired = 2
         addGestureRecognizer(doubleTap)
         
@@ -71,11 +76,15 @@ class ImagePagingViewCell: UICollectionViewCell {
 
 
 extension ImagePagingViewCell {
-    @objc func doubleTapAction(recognizer: UIGestureRecognizer) {
+    @objc func doubleTapAction(_ gestureRecognizer: UIGestureRecognizer) {
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         } else {
-            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+            let tapLocation = gestureRecognizer.location(in: imageView)
+            guard let imageSize = imageView.image?.size else { return }
+            let zoomWidth = imageSize.width  / zoomFactor
+            let zoomHeight = imageSize.height / zoomFactor
+            scrollView.zoom(to: CGRect(center: tapLocation, size: CGSize(width: zoomWidth, height: zoomHeight)), animated: true)
         }
     }
 }
@@ -85,6 +94,8 @@ extension ImagePagingViewCell {
 extension ImagePagingViewCell: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        print("cell scroll: x = \(scrollView.contentOffset.x), y = \(scrollView.contentOffset.y)")
+        
         let imageViewSize = imageView.frame.size
         let scrollViewSize = scrollView.bounds.size
         
