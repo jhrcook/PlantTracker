@@ -15,6 +15,8 @@ class ImageCollectionViewController: UICollectionViewController {
     var imageIDs = [String]()
     var images = [UIImage]()
     
+    var selectedIndex = 0
+    
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
     
@@ -59,19 +61,16 @@ class ImageCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath)
-    
-        if let imageView = cell.viewWithTag(1000) as? UIImageView {
-            imageView.image = images[indexPath.item]
-            imageView.contentMode = .scaleAspectFill
-        }
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath) as! ImageCollectionViewCell
+        cell.imageView.image = images[indexPath.item]
+        cell.imageView.contentMode = .scaleAspectFill
         return cell
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("selected image at \(indexPath.item)")
+        selectedIndex = indexPath.item
     }
 
     // MARK: UICollectionViewDelegate
@@ -138,7 +137,6 @@ extension ImageCollectionViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 destinationVC.startingIndex = indexPath.item
             }
-            
         }
     }
     
@@ -149,3 +147,21 @@ extension ImageCollectionViewController {
 //        }
     }
 }
+
+
+//extension ImageCollectionViewController: UIViewControllerTransitioningDelegate {
+//
+//    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+//        return DimmingPresentationController(presentedViewController: presented, presenting: presenting)
+//    }
+//
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        guard let selectedCellFrame = self.collectionView?.cellForItem(at: IndexPath(item: selectedIndex, section: 0))?.frame else { return nil }
+//        return PresentingAnimator(pageIndex: selectedIndex, originFrame: selectedCellFrame)
+//    }
+//
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        guard let returnCellFrame = self.collectionView?.cellForItem(at: IndexPath(item: selectedIndex, section: 0))?.frame else { return nil }
+//        return DismissingAnimator(pageIndex: selectedIndex, finalFrame: returnCellFrame)
+//    }
+//}
