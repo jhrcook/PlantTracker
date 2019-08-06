@@ -15,6 +15,12 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     var startingIndex: Int = 0
     var images = [UIImage]()
     
+    var currentIndex: Int = 0 {
+        didSet {
+            self.title = "Image \(Int(currentIndex) + 1) of \(images.count)"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,12 +51,11 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     func setupCollectionView() {
         
         collectionView.backgroundColor = .black
-        collectionView.backgroundView?.alpha = 0.0
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.alwaysBounceHorizontal = true
-        collectionView.alwaysBounceVertical = false
+        collectionView.alwaysBounceVertical = true
         
         collectionView.contentSize = CGSize(width: view.frame.width * CGFloat(images.count), height: 0.0)
         
@@ -59,6 +64,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         
         // set initial index at `startingIndex`
         collectionView.scrollToItem(at: IndexPath(item: startingIndex, section: 0), at: .right, animated: false)
+        currentIndex = startingIndex
     }
 
     // MARK: UICollectionViewDataSource
@@ -74,12 +80,21 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImagePagingViewCell
         
-        print("configuring cell number \(indexPath.item)")
-        
         // Configure the cell
         cell.image = images[indexPath.item]
     
         return cell
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        print("paging collection vertical view scrolling: y = \(scrollView.contentOffset.y)")
+        if (abs(scrollView.contentOffset.y) > 100.0) { dismiss(animated: true) }
+        
+        var imageNumber = Float((scrollView.contentOffset.x - 0.5 * view.frame.width) / view.frame.width)
+        imageNumber.round(.up)
+        currentIndex = Int(imageNumber)
+        print("current index: \(imageNumber)")
     }
 }
 

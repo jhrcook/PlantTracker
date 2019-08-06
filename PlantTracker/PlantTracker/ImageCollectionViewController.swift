@@ -76,6 +76,7 @@ class ImageCollectionViewController: UICollectionViewController {
         selectedIndex = indexPath.item
     }
 
+
     // MARK: UICollectionViewDelegate
 
     /*
@@ -170,17 +171,20 @@ extension ImageCollectionViewController {
 //    }
 //}
 
+// transitions
 extension ImageCollectionViewController: UIViewControllerTransitioningDelegate {
+    
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
+        // get selected cell
         guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
-            let selectedItem = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell,
-            let selectedCellSuperview = selectedItem.superview else { return nil }
+            let selectedCell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell,
+            let selectedCellSuperview = selectedCell.superview else { return nil }
         
-        transition.originFrame = selectedCellSuperview.convert(selectedItem.frame, to: nil)
+        transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
         let origin = transition.originFrame.origin
         let size = transition.originFrame.size
-        transition.originFrame = CGRect(x: origin.x + 20, y: origin.y + 20, width: size.width - 40, height: size.height - 40)
+        transition.originFrame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
         
         transition.presenting = true
         
