@@ -20,6 +20,8 @@ class ImageCollectionViewController: UICollectionViewController {
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
     
+    let transition = ZoomAnimator()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +40,7 @@ class ImageCollectionViewController: UICollectionViewController {
             if let image = UIImage(contentsOfFile: getFilePathWith(id: imageID)) { images.append(image) }
         }
     }
+    
 
     /*
     // MARK: - Navigation
@@ -134,8 +137,8 @@ extension ImageCollectionViewController {
         if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
             // prepare for segue
             destinationVC.images = images
+            destinationVC.transitioningDelegate = self
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                print("sending view controller starting index \(indexPath.item)")
                 destinationVC.startingIndex = indexPath.item
             }
         }
@@ -166,3 +169,26 @@ extension ImageCollectionViewController {
 //        return DismissingAnimator(pageIndex: selectedIndex, finalFrame: returnCellFrame)
 //    }
 //}
+
+extension ImageCollectionViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+            let selectedItem = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell,
+            let selectedCellSuperview = selectedItem.superview else { return nil }
+        
+        transition.originFrame = selectedCellSuperview.convert(selectedItem.frame, to: nil)
+        let origin = transition.originFrame.origin
+        let size = transition.originFrame.size
+        transition.originFrame = CGRect(x: origin.x + 20, y: origin.y + 20, width: size.width - 40, height: size.height - 40)
+        
+        transition.presenting = true
+        
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.presenting = false
+        return transition
+    }
+}
