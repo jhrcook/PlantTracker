@@ -12,17 +12,19 @@ import SnapKit
 import TwicketSegmentedControl
 import KeyboardObserver
 import AssetsPickerViewController
+import Floaty
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
+    var plantsSaveDelegate: PlantsSaveDelegate?
     
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet var headerView: UIView!
     @IBOutlet var headerImageView: UIImageView!
     var twicketSegementedControl: TwicketSegmentedControl!
     @IBOutlet var informationView: UIView!
-    
+    var floatyButton = Floaty()
     var generalInfoTableView: UITableView!
     var notesTextView: UITextView!
     var linksTableView: UITableView!
@@ -34,6 +36,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     var shouldDelete = false
     
     var headerImageIsSet = false
+    
+    var assetTracker = AssetIndexIDTracker()
     
     // height of header image
     let headerImageHeight = 350
@@ -201,6 +205,20 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
             make.height.equalTo(35)
         }
         
+        // floatly button
+        setUpFloatlyButton()
+        let padding = 20
+        floatyButton.paddingX = CGFloat(padding)
+        floatyButton.paddingY = CGFloat(padding)
+        let floatlyFrame = floatyButton.frame
+        headerView.addSubview(floatyButton)
+        floatyButton.snp.makeConstraints { make in
+            make.bottom.equalTo(headerView.snp.bottom).inset(padding)
+            make.right.equalTo(headerView.snp.right).inset(padding)
+            make.width.equalTo(floatlyFrame.width)
+            make.height.equalTo(floatlyFrame.height)
+        }
+        
         // information view (below segmented control)
         informationView.snp.makeConstraints { (make) in
             make.top.equalTo(twicketSegementedControl.snp.bottom).offset(5)
@@ -237,8 +255,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setHeaderImage() {
-        if let imageName = plant.bestSingleImage() {
-            headerImageView.image = UIImage(contentsOfFile: imageName)
+        if let imageID = plant.bestSingleImage() {
+            headerImageView.image = UIImage(contentsOfFile: getFilePathWith(id: imageID))
             headerImageIsSet = true
         } else {
             print("deafult header image")
@@ -418,14 +436,6 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
     }
     
     func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
-        // print("running didSelect")
-    }
-    
-    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
-        // print("running didDeselect")
-    }
-    
-    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
         let imageManager = PHImageManager.default()
         let imageOptions = PHImageRequestOptions()
         
@@ -445,31 +455,99 @@ extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINav
         imageOptions.isSynchronous = false
         imageOptions.resizeMode = .exact
         
-        for asset in assets {
-            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
-            imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+        let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+        let requestIndex = imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+        assetTracker.add(requestIndex: Int(requestIndex), withIndexPathItem: indexPath.item)
+        print("saving request ID '\(requestIndex)' to index path '\(indexPath.item)'")
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
+        if let uuid = assetTracker.uuidFrom(indexPathItem: indexPath.item) {
+            print("deleting image uuid '\(uuid)' at index path '\(indexPath.item)'")
+            plant.deleteImage(at: uuid)
+        } else {
+            assetTracker.didNotDeleteAtRequestIndex.append(indexPath.item)
         }
+    }
+    
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+//        let imageManager = PHImageManager.default()
+//        let imageOptions = PHImageRequestOptions()
+//
+//        let defaults = UserDefaults.standard
+//        switch defaults.string(forKey: "image quality") {
+//        case "high":
+//            imageOptions.deliveryMode = .highQualityFormat
+//        case "medium":
+//            imageOptions.deliveryMode = .opportunistic
+//        case "low":
+//            imageOptions.deliveryMode = .fastFormat
+//        default:
+//            imageOptions.deliveryMode = .highQualityFormat
+//            print("value not entered for \"Image Quality\" setting.")
+//        }
+//        imageOptions.version = .current
+//        imageOptions.isSynchronous = false
+//        imageOptions.resizeMode = .exact
+//
+//        print("selected \(assets.count) images")
+//        for asset in assets {
+//            let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
+//            imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
+//        }
+        for index in assetTracker.didNotDeleteAtRequestIndex {
+            if let uuid = assetTracker.uuidFrom(indexPathItem: index) {
+                print("deleting image uuid '\(uuid)' at index path '\(index)'")
+                plant.deleteImage(at: uuid)
+            }
+        }
+        assetTracker.reset()
+        if let delegate = plantsSaveDelegate { delegate.savePlants() }
+        setHeaderImage()
+    }
+    
+    func assetsPickerDidCancel(controller: AssetsPickerViewController) {
+        print("user canceled asset getting")
+        if let allUUIDs = assetTracker.allUUIDs() {
+            for uuid in allUUIDs {
+                print("deleting UUID '\(uuid)'")
+                plant.deleteImage(at: uuid)
+            }
+        }
+        assetTracker.reset()
     }
     
     
     func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
+        
         if let image = image {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                let imageName = UUID().uuidString
-                let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(imageName)
+                let uuid = UUID().uuidString
+                print("saving image: \(uuid)")
+                let imageURL = getFileURLWith(id: uuid)
                 
                 if let jpegData = image.jpegData(compressionQuality: 1.0) {
-                    try? jpegData.write(to: imagePath)
+                    try? jpegData.write(to: imageURL)
                 }
-                self?.plant.images.append(imagePath.relativePath)
-                print("saving image: \(imagePath.relativePath)")
+                self?.plant.images.append(uuid)
+                if let info = info, let requestIndex = info["PHImageResultRequestIDKey"] as? Int {
+                    print("setting uuid '\(uuid)' as request index '\(requestIndex)'")
+                    self?.assetTracker.add(uuid: uuid, withRequestIndex: requestIndex)
+                } else {
+                    print("failed to set request index for image UUID, dumping `info`:")
+                    print("-----------------")
+                    if let info = info { print(info) }
+                    print("-----------------")
+                }
+//                if !(self!.headerImageIsSet) {
+//                    DispatchQueue.main.async { self?.setHeaderImage() }
+//                }
                 
-                if !(self!.headerImageIsSet) {
-                    DispatchQueue.main.async { self?.setHeaderImage() }
-                }
+//                if let delegate = self?.plantsSaveDelegate { delegate.savePlants() }
             }
         }
     }
+    
 }
 
 
@@ -481,10 +559,48 @@ extension LibraryDetailViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
             print("sending \(plant.images.count) images")
-            vc.imagePaths = plant.images
+            vc.imageIDs = plant.images
             vc.title = self.title
         }
     }
-    
-    
+}
+
+
+// floaty button
+extension LibraryDetailViewController {
+    func setUpFloatlyButton() {
+        
+        // set self to delegate (maybe)
+//        floatyButton.fabDelegate = self
+        
+        // stlying
+        floatyButton.relativeToSafeArea = false
+        floatyButton.sticky = true
+        floatyButton.hasShadow = true
+        floatyButton.buttonShadowColor = .darkGray
+        floatyButton.buttonColor = .gray
+        
+        floatyButton.autoCloseOnTap = true
+        floatyButton.isUserInteractionEnabled = true
+        floatyButton.isHidden = false
+        floatyButton.openAnimationType = .slideUp
+        floatyButton.animationSpeed = 1.0
+        
+        // item 1: add photos
+        let addPhotosItem = FloatyItem()
+        addPhotosItem.title = "Add photos"
+        addPhotosItem.icon = UIImage(named: "cameraIconBW")
+        addPhotosItem.titleColor = .white
+        addPhotosItem.buttonColor = .lightGray
+//        addPhotosItem.handler = addImages()
+        floatyButton.addItem(item: addPhotosItem)
+        
+        // item 2: view all photos
+        let viewPhotosItem = FloatyItem()
+        viewPhotosItem.title = "View photos"
+        viewPhotosItem.titleColor = .white
+        viewPhotosItem.buttonColor = .lightGray
+        viewPhotosItem.icon = UIImage(named: "albumIconBW")
+        floatyButton.addItem(item: viewPhotosItem)
+    }
 }

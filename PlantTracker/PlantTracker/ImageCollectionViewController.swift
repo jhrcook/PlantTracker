@@ -12,8 +12,10 @@ private let reuseIdentifier = "Cell"
 
 class ImageCollectionViewController: UICollectionViewController {
     
-    var imagePaths = [String]()
+    var imageIDs = [String]()
     var images = [UIImage]()
+    
+    var currentIndex = 0
     
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
@@ -32,22 +34,11 @@ class ImageCollectionViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         
         // load images
-        for imagePath in imagePaths {
-            if let image = UIImage(contentsOfFile: imagePath) { images.append(image) }
+        for imageID in imageIDs {
+            if let image = UIImage(contentsOfFile: getFilePathWith(id: imageID)) { images.append(image) }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
+    
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -59,53 +50,19 @@ class ImageCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath)
-    
-        if let imageView = cell.viewWithTag(1000) as? UIImageView {
-            imageView.image = images[indexPath.item]
-            imageView.contentMode = .scaleAspectFill
-        }
-        
-//        cell.frame.width = view.frame.width / 4
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath) as! ImageCollectionViewCell
+        cell.imageView.image = images[indexPath.item]
+        cell.imageView.contentMode = .scaleAspectFill
         return cell
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("selected image at \(indexPath.item)")
+        currentIndex = indexPath.item
     }
 
-    // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 }
 
 
@@ -125,7 +82,77 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return spacingBetweenCells
     }
+}
+
+
+
+
+extension ImageCollectionViewController {
+    
+    // segue to paging view
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? ImagePagingCollectionViewController{
+            
+            // pass data
+            destinationViewController.images = images
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                destinationViewController.startingIndex = indexPath.item
+            }
+            
+            // container delegate to pass information backwards
+            destinationViewController.containerDelegate = self
+            
+            // set delegates
+            self.navigationController?.delegate = destinationViewController.transitionController
+            
+            destinationViewController.transitionController.fromDelegate = self
+            destinationViewController.transitionController.toDelegate = destinationViewController
+        }
+    }
+}
+
+
+extension ImageCollectionViewController: ZoomAnimatorDelegate {
+    func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
+        // code to run before the transition animation
+    }
+    
+    func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
+        // code to run after the transition animation
+    }
+    
+    func getCell(for zoomAnimator: ZoomAnimator) -> ImageCollectionViewCell? {
+        let indexPath = zoomAnimator.isPresenting ? collectionView.indexPathsForSelectedItems?.first : IndexPath(item: currentIndex, section: 0)
+        
+        if let cell = collectionView.cellForItem(at: indexPath!) as? ImageCollectionViewCell {
+            return cell
+        } else {
+            return nil
+        }
+    }
+    
+    func referenceImageView(for zoomAnimator: ZoomAnimator) -> UIImageView? {
+        if let cell = getCell(for: zoomAnimator) {
+            return cell.imageView
+        }
+        return nil
+    }
+    
+    func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect? {
+        if let cell = getCell(for: zoomAnimator) {
+            return cell.contentView.convert(cell.imageView.frame, to: view)
+        }
+        return nil
+    }
     
     
-    
+}
+
+
+
+extension ImageCollectionViewController: ImagePagingCollectionViewControllerDelegate {
+    func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int) {
+        self.currentIndex = currentIndex
+        collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
+    }
 }

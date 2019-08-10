@@ -118,7 +118,7 @@
         <!--Image Collection View Controller-->
         <scene sceneID="d91-L4-qd2">
             <objects>
-                <collectionViewController id="Gqc-nl-Zzh" customClass="ImageCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController hidesBottomBarWhenPushed="YES" id="Gqc-nl-Zzh" customClass="ImageCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="Uen-Zk-fWv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,7 +130,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="image" id="Ntb-If-QxE">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="image" id="Ntb-If-QxE" customClass="ImageCollectionViewCell" customModule="PlantTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -148,6 +148,10 @@
                                     <constraint firstItem="PDT-M6-Swd" firstAttribute="leading" secondItem="Ntb-If-QxE" secondAttribute="leading" id="Ug5-PO-WqT"/>
                                     <constraint firstAttribute="trailing" secondItem="PDT-M6-Swd" secondAttribute="trailing" id="Xff-ml-U6J"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="PDT-M6-Swd" id="Pqc-bT-BeG"/>
+                                    <segue destination="Z2S-R9-xHA" kind="show" id="5wa-dt-HZg"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -160,11 +164,61 @@
             </objects>
             <point key="canvasLocation" x="3730" y="-657"/>
         </scene>
+        <!--Image Paging Collection View Controller-->
+        <scene sceneID="fjq-oW-5fj">
+            <objects>
+                <collectionViewController id="Z2S-R9-xHA" customClass="ImagePagingCollectionViewController" customModule="PlantTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="eMP-e7-pAV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="neE-NQ-NAH">
+                            <size key="itemSize" width="150" height="133"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="scrollingImageCell" id="zgM-kK-2ZG" customClass="ImagePagingViewCell" customModule="PlantTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="133"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="133"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnO-dT-IGR">
+                                            <rect key="frame" x="0.0" y="2" width="150" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eQi-Al-WyS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </scrollView>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="imageView" destination="eQi-Al-WyS" id="92p-0u-vT8"/>
+                                    <outlet property="scrollView" destination="vnO-dT-IGR" id="xkz-CG-Ivl"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Z2S-R9-xHA" id="RTR-mD-adu"/>
+                            <outlet property="delegate" destination="Z2S-R9-xHA" id="B7E-4G-XTX"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="21H-yl-fag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4594" y="-658"/>
+        </scene>
         <!--Library-->
         <scene sceneID="kyD-w8-zrI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q2J-mU-3rP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Library" id="Ot1-7E-u8h"/>
+                    <tabBarItem key="tabBarItem" title="Library" image="flowersPotOfYard" id="Ot1-7E-u8h"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="53l-e3-qrv">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -198,4 +252,7 @@
             <point key="canvasLocation" x="90" y="730"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="flowersPotOfYard" width="25" height="25"/>
+    </resources>
 </document>

@@ -48,21 +48,35 @@ class Plant: NSObject, Codable {
     // ---- Deleting images ---- //
     // make sure to remove the file from the phone
     
-    func deleteImage(named imageName: String) {
+    func deleteImage(at imageUUID: String) {
+        let filePath = getFilePathWith(id: imageUUID)
         do {
             let fileManager = FileManager()
-            try fileManager.removeItem(atPath: imageName)
-            print("deleted image: \(imageName)")
+            try fileManager.removeItem(atPath: filePath)
+            print("deleted image: \(filePath)")
         } catch {
-            print("Unable to delete image: \(imageName)")
+            print("Unable to delete image: \(filePath)")
         }
+        
+        // remove all cases where the image UUID is used
+        images.removeAll(where: { $0 == imageUUID })
+        favoriteImages.removeAll(where: { $0 == imageUUID })
+        if profileImage == imageUUID { profileImage = nil }
+        if smallRoundProfileImage == imageUUID { smallRoundProfileImage = nil }
     }
     
     func deleteAllImages() {
+        // delete files
         for image in images {
-            deleteImage(named: image)
+            deleteImage(at: image)
         }
-        if let image = smallRoundProfileImage { deleteImage(named: image) }
+        if let image = smallRoundProfileImage { deleteImage(at: image) }
+
+        // empty arrays
+        images.removeAll()
+        favoriteImages.removeAll()
+        profileImage = nil
+        smallRoundProfileImage = nil
     }
     
     func printSimpleDescription() {
