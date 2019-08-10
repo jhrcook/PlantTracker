@@ -15,12 +15,10 @@ class ImageCollectionViewController: UICollectionViewController {
     var imageIDs = [String]()
     var images = [UIImage]()
     
-    var selectedIndex = 0
+    var currentIndex = 0
     
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
-    
-    let transition = ZoomAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,18 +40,6 @@ class ImageCollectionViewController: UICollectionViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -73,40 +59,10 @@ class ImageCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("selected image at \(indexPath.item)")
-        selectedIndex = indexPath.item
+        currentIndex = indexPath.item
     }
 
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 }
 
 
@@ -135,64 +91,68 @@ extension ImageCollectionViewController {
     
     // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
-            // prepare for segue
-            destinationVC.images = images
-            destinationVC.transitioningDelegate = self
+        if let destinationViewController = segue.destination as? ImagePagingCollectionViewController{
+            
+            // pass data
+            destinationViewController.images = images
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                destinationVC.startingIndex = indexPath.item
+                destinationViewController.startingIndex = indexPath.item
             }
+            
+            // container delegate to pass information backwards
+            destinationViewController.containerDelegate = self
+            
+            // set delegates
+            self.navigationController?.delegate = destinationViewController.transitionController
+            
+            destinationViewController.transitionController.fromDelegate = self
+            destinationViewController.transitionController.toDelegate = destinationViewController
         }
-    }
-    
-    // unwind segue from paging view
-    @IBAction func unwindToImageCollectionViewController(_ unwindSegue: UIStoryboardSegue) {
-//        if let sourceViewController = unwindSegue.source as? ImagePagingViewController {
-//            // can pass information here
-//        }
     }
 }
 
 
-//extension ImageCollectionViewController: UIViewControllerTransitioningDelegate {
-//
-//    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-//        return DimmingPresentationController(presentedViewController: presented, presenting: presenting)
-//    }
-//
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        guard let selectedCellFrame = self.collectionView?.cellForItem(at: IndexPath(item: selectedIndex, section: 0))?.frame else { return nil }
-//        return PresentingAnimator(pageIndex: selectedIndex, originFrame: selectedCellFrame)
-//    }
-//
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        guard let returnCellFrame = self.collectionView?.cellForItem(at: IndexPath(item: selectedIndex, section: 0))?.frame else { return nil }
-//        return DismissingAnimator(pageIndex: selectedIndex, finalFrame: returnCellFrame)
-//    }
-//}
-
-// transitions
-extension ImageCollectionViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        // get selected cell
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
-            let selectedCell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell,
-            let selectedCellSuperview = selectedCell.superview else { return nil }
-        
-        transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
-        let origin = transition.originFrame.origin
-        let size = transition.originFrame.size
-        transition.originFrame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
-        
-        transition.presenting = true
-        
-        return transition
+extension ImageCollectionViewController: ZoomAnimatorDelegate {
+    func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
+        // code to run before the transition animation
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.presenting = false
-        return transition
+    func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
+        // code to run after the transition animation
+    }
+    
+    func getCell(for zoomAnimator: ZoomAnimator) -> ImageCollectionViewCell? {
+        let indexPath = zoomAnimator.isPresenting ? collectionView.indexPathsForSelectedItems?.first : IndexPath(item: currentIndex, section: 0)
+        
+        if let cell = collectionView.cellForItem(at: indexPath!) as? ImageCollectionViewCell {
+            return cell
+        } else {
+            return nil
+        }
+    }
+    
+    func referenceImageView(for zoomAnimator: ZoomAnimator) -> UIImageView? {
+        if let cell = getCell(for: zoomAnimator) {
+            return cell.imageView
+        }
+        return nil
+    }
+    
+    func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect? {
+        if let cell = getCell(for: zoomAnimator) {
+            return cell.contentView.convert(cell.imageView.frame, to: view)
+        }
+        return nil
+    }
+    
+    
+}
+
+
+
+extension ImageCollectionViewController: ImagePagingCollectionViewControllerDelegate {
+    func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int) {
+        self.currentIndex = currentIndex
+        collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
     }
 }

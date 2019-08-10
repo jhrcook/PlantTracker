@@ -10,6 +10,10 @@ import UIKit
 
 private let reuseIdentifier = "scrollingImageCell"
 
+protocol ImagePagingCollectionViewControllerDelegate {
+    func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
+}
+
 class ImagePagingCollectionViewController: UICollectionViewController {
 
     var startingIndex: Int = 0
@@ -20,6 +24,10 @@ class ImagePagingCollectionViewController: UICollectionViewController {
             self.title = "Image \(Int(currentIndex) + 1) of \(images.count)"
         }
     }
+    
+    var hideCellImageViews = false
+    var transitionController = ZoomTransitionController()
+    var containerDelegate: ImagePagingCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,39 +40,31 @@ class ImagePagingCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         setupCollectionView()
+        currentIndex = startingIndex
         
-        // swipe to dismiss
-        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-        downSwipe.direction = .down
-        collectionView.addGestureRecognizer(downSwipe)
-    }
-    
-    
-    @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        print("swipe")
-        if gestureRecognizer.state == .ended && gestureRecognizer.direction == .down {
-            dismiss(animated: true)
-        }
+        // pan to dismiss
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(userDidPanWith(gestureRecognizer:)))
+        view.addGestureRecognizer(panGesture)
     }
     
     
     func setupCollectionView() {
         
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isPagingEnabled = true
+        collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.alwaysBounceHorizontal = true
-        collectionView.alwaysBounceVertical = true
+        collectionView.alwaysBounceVertical = false
         
         collectionView.contentSize = CGSize(width: view.frame.width * CGFloat(images.count), height: 0.0)
         
-        // collectionView.delegate = self
+        collectionView.delegate = self
         collectionView.dataSource = self
         
         // set initial index at `startingIndex`
         collectionView.scrollToItem(at: IndexPath(item: startingIndex, section: 0), at: .right, animated: false)
-        currentIndex = startingIndex
     }
 
     // MARK: UICollectionViewDataSource
@@ -82,19 +82,21 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         cell.image = images[indexPath.item]
+        
+        cell.imageView.isHidden = hideCellImageViews
     
         return cell
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print("paging collection vertical view scrolling: y = \(scrollView.contentOffset.y)")
-        if (abs(scrollView.contentOffset.y) > 100.0) { dismiss(animated: true) }
-        
         var imageNumber = Float((scrollView.contentOffset.x - 0.5 * view.frame.width) / view.frame.width)
         imageNumber.round(.up)
         currentIndex = Int(imageNumber)
-        print("current index: \(imageNumber)")
+    }
+    
+    // change the base view controller's index, too
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        containerDelegate?.containerViewController(self, indexDidChangeTo: currentIndex)
     }
 }
 
@@ -115,4 +117,59 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
+}
+
+
+extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
+    func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
+        // add code here to be run just before the transition animation
+        hideCellImageViews = zoomAnimator.isPresenting
+    }
+    
+    func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
+        // add code here to be run just after the transition animation
+        hideCellImageViews = false
+        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
+            cell.imageView.isHidden = hideCellImageViews
+        }
+    }
+    
+    func referenceImageView(for zoomAnimator: ZoomAnimator) -> UIImageView? {
+        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
+            return cell.imageView
+        }
+        return nil
+    }
+    
+    func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect? {
+        if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
+            return cell.scrollView.convert(cell.imageView.frame, to: view)
+        }
+        return nil
+    }
+    
+    
+}
+
+
+// handle pan gesture
+extension ImagePagingCollectionViewController {
+    
+    @objc func userDidPanWith(gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            transitionController.isInteractive = true
+            let _ = navigationController?.popViewController(animated: true)
+        case .ended:
+            if transitionController.isInteractive {
+                transitionController.isInteractive = false
+                transitionController.didPanWith(gestureRecognizer: gestureRecognizer)
+            }
+        default:
+            if transitionController.isInteractive {
+                transitionController.didPanWith(gestureRecognizer: gestureRecognizer)
+            }
+        }
+    }
+    
 }

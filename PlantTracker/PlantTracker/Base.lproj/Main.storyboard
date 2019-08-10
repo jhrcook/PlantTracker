@@ -150,7 +150,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="PDT-M6-Swd" id="Pqc-bT-BeG"/>
-                                    <segue destination="Z2S-R9-xHA" kind="presentation" id="5wa-dt-HZg"/>
+                                    <segue destination="Z2S-R9-xHA" kind="show" id="5wa-dt-HZg"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

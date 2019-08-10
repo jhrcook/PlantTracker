@@ -31,10 +31,9 @@ class ImagePagingViewCell: UICollectionViewCell {
         scrollView = UIScrollView()
         scrollView.frame = frame
         scrollView.delegate = self
-        scrollView.backgroundColor = .black
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.alwaysBounceHorizontal = true
+        scrollView.alwaysBounceHorizontal = false
         scrollView.alwaysBounceVertical = false
         scrollView.contentInsetAdjustmentBehavior = .never
         contentView.addSubview(scrollView)
@@ -42,7 +41,6 @@ class ImagePagingViewCell: UICollectionViewCell {
         
         // image view
         imageView = UIImageView()
-        imageView.backgroundColor = .black
         imageView.image = image
         scrollView.addSubview(imageView)
         imageView.snp.makeConstraints { make in make.edges.equalTo(scrollView) }
