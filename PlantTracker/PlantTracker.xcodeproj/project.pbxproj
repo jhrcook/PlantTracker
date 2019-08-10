@@ -36,7 +36,7 @@
 		840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
 		840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDismissalInteractionController.swift; sourceTree = "<group>"; };
-		842809BC22F12ACA002BB246 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = images/icon.jpg; sourceTree = SOURCE_ROOT; };
+		842809BC22F12ACA002BB246 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = PlantTracker/Resources/icon.jpg; sourceTree = SOURCE_ROOT; };
 		8431043A22DB8E0100AFD4B6 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		84444D1522D9974F00876F6D /* PlantTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +97,66 @@
 			path = "Zoom Animation";
 			sourceTree = "<group>";
 		};
+		8414554B22FF73A200A74C65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84444D1822D9974F00876F6D /* AppDelegate.swift */,
+				84444D2422D9975100876F6D /* Info.plist */,
+				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
+				8451739E22F3016000C3D8C7 /* Settings.bundle */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8414554C22FF73CB00A74C65 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				842809BC22F12ACA002BB246 /* icon.jpg */,
+				84444D1F22D9975100876F6D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8414554D22FF73F000A74C65 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8455BFBB22F66886004DEDA1 /* utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8414554E22FF761E00A74C65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
+				84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8414554F22FF762500A74C65 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84444D1C22D9974F00876F6D /* Main.storyboard */,
+				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
+				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8414555022FF762F00A74C65 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
+				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
+				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
+				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
+				8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		84444D0C22D9974F00876F6D = {
 			isa = PBXGroup;
 			children = (
@@ -118,25 +178,13 @@
 		84444D1722D9974F00876F6D /* PlantTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8414555022FF762F00A74C65 /* Controllers */,
+				8414554E22FF761E00A74C65 /* Models */,
+				8414554C22FF73CB00A74C65 /* Resources */,
+				8414554B22FF73A200A74C65 /* Supporting Files */,
+				8414554D22FF73F000A74C65 /* Utilities */,
+				8414554F22FF762500A74C65 /* Views */,
 				840919F822FEE299007A8A27 /* Zoom Animation */,
-				84444D1822D9974F00876F6D /* AppDelegate.swift */,
-				84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */,
-				84444D1F22D9975100876F6D /* Assets.xcassets */,
-				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
-				842809BC22F12ACA002BB246 /* icon.jpg */,
-				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
-				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
-				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
-				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
-				84444D2422D9975100876F6D /* Info.plist */,
-				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
-				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
-				84444D1C22D9974F00876F6D /* Main.storyboard */,
-				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
-				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
-				8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */,
-				8451739E22F3016000C3D8C7 /* Settings.bundle */,
-				8455BFBB22F66886004DEDA1 /* utilities.swift */,
 			);
 			path = PlantTracker;
 			sourceTree = "<group>";
@@ -421,7 +469,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRMHYJ9F9F;
-				INFOPLIST_FILE = PlantTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PlantTracker/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,7 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRMHYJ9F9F;
-				INFOPLIST_FILE = PlantTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PlantTracker/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
