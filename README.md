@@ -13,9 +13,9 @@ This is a simple iOS application to help my mom track her cacti and succulent co
 
 **July 18, 2019**
 
-Making some good progress on the detail view of the Library (new screenshot videos to come, soon!).
+I am still working on the detail view for a plant in the Library. Below is an sample of what it looks like.
 
-<img src="progress_screenshots/" width="300"/>
+<img src="progress_screenshots/Aug-10-2019 08-20-06.gif" width="300"/>
 
 ---
 **External Libraries**
@@ -24,6 +24,10 @@ Making some good progress on the detail view of the Library (new screenshot vide
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
 * [Floaty](https://github.com/kciter/Floaty)
+
+**Related Repositories**	
+
+I developed the interactive transition from the image collection view to the paging image view in a separate app, [PhotoZoomAnimator](https://github.com/jhrcook/PhotoZoomAnimator). The system if fully explained in the README.
 
 **Assets**
 
