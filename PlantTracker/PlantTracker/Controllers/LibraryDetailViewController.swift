@@ -44,7 +44,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         libraryDetailView = LibraryDetailView()
         view.addSubview(libraryDetailView)
-        libraryDetailView.snp.makeConstraints { make in make.edges.equalTo(view) }
+        libraryDetailView.snp.makeConstraints { make in make.edges.equalTo(self.view) }
+        libraryDetailView.frame = self.view.frame
         
         libraryDetailView.headerImage = getHeaderImage()
         

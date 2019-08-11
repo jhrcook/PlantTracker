@@ -88,6 +88,7 @@ extension PlantLibraryTableViewCell {
         
         // detail label
         commonNameLabel?.text = plant.commonName
+        commonNameLabel.textColor = .darkGray
         
         // cell image
         if iconImageView?.image == nil {

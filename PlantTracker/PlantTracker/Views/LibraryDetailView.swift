@@ -84,8 +84,6 @@ extension LibraryDetailView {
         
         // initalize content height of main scroll view
         let contentHeight = CGFloat(headerImageHeight) + self.frame.height - CGFloat(minHeaderImageHeight)
-//        let contentHeight: CGFloat = 500.0
-        print("mainScrollView content height: \(contentHeight)")
         mainScrollView.contentSize = CGSize(width: self.frame.width, height: contentHeight)
     }
     
@@ -93,6 +91,7 @@ extension LibraryDetailView {
         mainScrollView = UIScrollView()
         self.addSubview(mainScrollView)
         mainScrollView.snp.makeConstraints { (make) in make.edges.equalTo(self) }
+        mainScrollView.contentInsetAdjustmentBehavior = .never
         mainScrollView.showsVerticalScrollIndicator = false
         mainScrollView.showsHorizontalScrollIndicator = false
     }
