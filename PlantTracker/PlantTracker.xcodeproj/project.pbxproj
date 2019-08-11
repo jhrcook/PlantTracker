@@ -10,7 +10,6 @@
 		840919FA22FEE2BC007A8A27 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */; };
 		840919FC22FEE2D4007A8A27 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */; };
 		840919FE22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */; };
-		8414555822FF8AF200A74C65 /* PlantLibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8414555722FF8AF200A74C65 /* PlantLibraryTableViewCell.xib */; };
 		8414555A22FF8C0000A74C65 /* PlantLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */; };
 		842809BD22F12ACA002BB246 /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 842809BC22F12ACA002BB246 /* icon.jpg */; };
 		8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043A22DB8E0100AFD4B6 /* Plant.swift */; };
@@ -38,7 +37,6 @@
 		840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
 		840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDismissalInteractionController.swift; sourceTree = "<group>"; };
-		8414555722FF8AF200A74C65 /* PlantLibraryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantLibraryTableViewCell.xib; sourceTree = "<group>"; };
 		8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantLibraryTableViewCell.swift; sourceTree = "<group>"; };
 		842809BC22F12ACA002BB246 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = PlantTracker/Resources/icon.jpg; sourceTree = SOURCE_ROOT; };
 		8431043A22DB8E0100AFD4B6 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 		8414554F22FF762500A74C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8414555722FF8AF200A74C65 /* PlantLibraryTableViewCell.xib */,
 				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
 				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
@@ -260,7 +257,6 @@
 				8451739F22F3016000C3D8C7 /* Settings.bundle in Resources */,
 				84444D2022D9975100876F6D /* Assets.xcassets in Resources */,
 				84444D1E22D9974F00876F6D /* Main.storyboard in Resources */,
-				8414555822FF8AF200A74C65 /* PlantLibraryTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

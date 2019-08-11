@@ -46,11 +46,6 @@ class PlantLibraryTableViewController: UITableViewController {
         // so that image views are updated
         tableView.reloadData()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        savePlants()
-        print("view will disappear")
-    }
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -9,23 +9,34 @@
 import UIKit
 
 class PlantLibraryTableViewCell: UITableViewCell {
-
+    
     var plant = Plant(scientificName: nil, commonName: nil)
     
-    @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var scientificNameLabel: UILabel!
-    @IBOutlet var commonNameLabel: UILabel!
+    var iconImageView: UIImageView!
+    var scientificNameLabel: UILabel!
+    var commonNameLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+    
+    
+}
+
+
+
+// MARK: setup
+
+extension PlantLibraryTableViewCell {
     
     func setupCell() {
         setupConstraints()
@@ -36,7 +47,7 @@ class PlantLibraryTableViewCell: UITableViewCell {
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
         iconImageView.snp.makeConstraints { make in
-            make.left.equalTo(contentView)
+            make.left.equalTo(contentView).inset(10)
             make.centerY.equalTo(contentView)
             make.width.equalTo(60)
             make.height.equalTo(60)
@@ -45,7 +56,7 @@ class PlantLibraryTableViewCell: UITableViewCell {
         scientificNameLabel = UILabel()
         contentView.addSubview(scientificNameLabel)
         scientificNameLabel.snp.makeConstraints { make in
-            make.left.equalTo(iconImageView.snp.right)
+            make.left.equalTo(iconImageView.snp.right).offset(10)
             make.centerY.equalTo(contentView)
         }
 
@@ -59,32 +70,39 @@ class PlantLibraryTableViewCell: UITableViewCell {
     
     
     func setupCellView() {
+        
+        // separator inset
+        separatorInset.left = 65.0
+        
+        accessoryType = .disclosureIndicator
+        
         // main label
         if let scientificName = plant.scientificName {
-            textLabel?.text = scientificName
+            scientificNameLabel?.text = scientificName
         } else {
-            textLabel?.text = "Unnamed"
-            textLabel?.textColor = .gray
+            scientificNameLabel?.text = "Unnamed"
+            scientificNameLabel?.textColor = .gray
         }
-        textLabel?.font = UIFont.italicSystemFont(ofSize: textLabel?.font.pointSize ?? UIFont.systemFontSize)
+        
+        scientificNameLabel?.font = UIFont.italicSystemFont(ofSize: scientificNameLabel?.font.pointSize ?? UIFont.systemFontSize)
         
         // detail label
-        detailTextLabel?.text = plant.commonName
+        commonNameLabel?.text = plant.commonName
         
         // cell image
-        if imageView?.image == nil {
+        if iconImageView?.image == nil {
             var blankImage = UIImage(named: "blankImage")!
             blankImage = crop(image: blankImage, toWidth: 100, toHeight: 100)
-            imageView?.image = resize(image: blankImage, targetSize: CGSize(width: 60, height: 60))
-            imageView?.layer.masksToBounds = true
-            imageView?.layer.cornerRadius = 30
+            iconImageView?.image = resize(image: blankImage, targetSize: CGSize(width: 60, height: 60))
+            iconImageView?.layer.masksToBounds = true
+            iconImageView?.layer.cornerRadius = 30
         }
 
         if let iconImageID = plant.smallRoundProfileImage {
             // load profile image
-            imageView?.layer.masksToBounds = true
-            imageView?.layer.cornerRadius = 30
-            imageView?.image = UIImage(contentsOfFile: getFilePathWith(id: iconImageID))
+            iconImageView?.layer.masksToBounds = true
+            iconImageView?.layer.cornerRadius = 30
+            iconImageView?.image = UIImage(contentsOfFile: getFilePathWith(id: iconImageID))
         } else {
             DispatchQueue.global(qos: .userInitiated).async { [weak plant, weak self] in
                 var image: UIImage?
@@ -101,9 +119,9 @@ class PlantLibraryTableViewCell: UITableViewCell {
                 
                 // set image in main thread
                 DispatchQueue.main.async {
-                    self?.imageView?.layer.masksToBounds = true
-                    self?.imageView?.layer.cornerRadius = 30
-                    self?.imageView?.image = image
+                    self?.iconImageView?.layer.masksToBounds = true
+                    self?.iconImageView?.layer.cornerRadius = 30
+                    self?.iconImageView?.image = image
                 }
                 
                 // save image for future use
