@@ -17,7 +17,7 @@ import Floaty
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
-    var plantsSaveDelegate: PlantsSaveDelegate?
+    var plantsSaveDelegate: PlantsDelegate?
     
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet var headerView: UIView!

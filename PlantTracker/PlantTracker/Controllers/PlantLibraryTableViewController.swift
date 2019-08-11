@@ -8,26 +8,24 @@
 
 import UIKit
 
-class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate {
+class PlantLibraryTableViewController: UITableViewController {
 
     var plants = [Plant]()
-    // Example `plants` data
     
     var lastSelectedRow: Int? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // remoove the dark smudge behind the nav bar
-        navigationController?.view.backgroundColor = .white
-        
+        // remove the dark smudge behind the nav bar
+        navigationController?.view.backgroundColor = .white  // do NOT delete //
         navigationItem.largeTitleDisplayMode = .automatic
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newPlant))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPlant))
         
         loadPlants()
         // Do any additional setup after loading the view.
         
+        ///////////
         // TESTING
         if (plants.count == 0 || false) {
             print("loading test plants")
@@ -48,98 +46,37 @@ class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate
         // so that image views are updated
         tableView.reloadData()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        savePlants()
+        print("view will disappear")
+    }
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return plants.count
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
-        let cellPlant = plants[indexPath.row]
-        
-        // main label
-        if let scientificName = cellPlant.scientificName {
-            cell.textLabel?.text = scientificName
-        } else {
-            cell.textLabel?.text = "Unnamed"
-            cell.textLabel?.textColor = .gray
-        }
-        cell.textLabel?.font = UIFont.italicSystemFont(ofSize: cell.textLabel?.font.pointSize ?? UIFont.systemFontSize)
-        
-        // detail label
-        cell.detailTextLabel?.text = cellPlant.commonName
-        
-        // cell image
-        if cell.imageView?.image == nil {
-            var blankImage = UIImage(named: "blankImage")!
-            blankImage = crop(image: blankImage, toWidth: 100, toHeight: 100)
-            cell.imageView?.image = resize(image: blankImage, targetSize: CGSize(width: 60, height: 60))
-            cell.imageView?.layer.masksToBounds = true
-            cell.imageView?.layer.cornerRadius = 30
-        }
-        
-        if let iconImageID = cellPlant.smallRoundProfileImage {
-            // load profile image
-            print("loading profile image")
-            cell.imageView?.layer.masksToBounds = true
-            cell.imageView?.layer.cornerRadius = 30
-            cell.imageView?.image = UIImage(contentsOfFile: getFilePathWith(id: iconImageID))
-        } else {
-            DispatchQueue.global(qos: .userInitiated).async { [weak cellPlant, weak cell] in
-                var image: UIImage?
-                var usedCactusImage = false
-                if let imageID = cellPlant?.bestSingleImage() {
-                    image = UIImage(contentsOfFile: getFilePathWith(id: imageID))
-                }
-                if image == nil {
-                    usedCactusImage = true
-                    image = UIImage(named: "cactusSmall")
-                }
-                image = crop(image: image!, toWidth: 100, toHeight: 100)
-                image = resize(image: image!, targetSize: CGSize(width: 60, height: 60))
-                
-                // set image in main thread
-                DispatchQueue.main.async {
-                    cell?.imageView?.layer.masksToBounds = true
-                    cell?.imageView?.layer.cornerRadius = 30
-                    cell?.imageView?.image = image
-                }
-                
-                // save image for future use
-                if !usedCactusImage {
-                    print("saving new profile image")
-                    let imageName = UUID().uuidString
-                    let imagePath = getFileURLWith(id: imageName)
-                    
-                    if let jpegData = image!.jpegData(compressionQuality: 1.0) {
-                        try? jpegData.write(to: imagePath)
-                    }
-                    cellPlant?.smallRoundProfileImage = imageName
-                }
-            }
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath) as! PlantLibraryTableViewCell
+        cell.plant = plants[indexPath.row]
+        cell.setupCell()
         return cell
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         lastSelectedRow = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    func savePlants() {
-        let jsonEncoder = JSONEncoder()
-        if let savedData = try? jsonEncoder.encode(plants) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "plants")
-            print("Saved plants.")
-        } else {
-            print("Failed to save plants.")
-        }
-    }
-    
+}
+
+
+
+// MARK: PlantsSaveDelegate
+extension PlantLibraryTableViewController: PlantsDelegate {
     
     func loadPlants() {
         let defaults = UserDefaults.standard
@@ -154,12 +91,25 @@ class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate
         }
     }
     
+    func savePlants() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(plants) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "plants")
+            print("Saved plants.")
+        } else {
+            print("Failed to save plants.")
+        }
+    }
     
-    @objc func newPlant() {
-        // add new (blank) plant instance
+    func newPlant() {
         plants.append(Plant(scientificName: nil, commonName: nil))
         savePlants()
         tableView.reloadData()
+    }
+
+    @objc func addNewPlant() {
+        newPlant()
         
         // "select" the new row in the table view
         let indexPath = IndexPath(row: plants.count-1, section: 0)
@@ -168,6 +118,13 @@ class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+}
+
+
+
+// MARK: editing style (swipe-to-edit)
+
+extension PlantLibraryTableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -193,7 +150,9 @@ class PlantLibraryTableViewController: UITableViewController, PlantsSaveDelegate
 }
 
 
-// handle segues
+
+// MARK: segues
+
 extension PlantLibraryTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -217,7 +176,5 @@ extension PlantLibraryTableViewController {
             tableView(tableView, commit: .delete, forRowAt: indexPath)
         }
     }
+
 }
-
-
-// saving data from the detail view controller

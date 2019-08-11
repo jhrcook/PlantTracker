@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "image"
 
 class ImageCollectionViewController: UICollectionViewController {
     
@@ -27,10 +27,12 @@ class ImageCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        // self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        // self.collectionView!.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
         
         // load images
@@ -39,23 +41,28 @@ class ImageCollectionViewController: UICollectionViewController {
         }
     }
     
+}
 
+
+
+// MARK: UICollectionViewDataSource
+
+extension ImageCollectionViewController {
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.imageView.image = images[indexPath.item]
         cell.imageView.contentMode = .scaleAspectFill
         return cell
     }
-    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("selected image at \(indexPath.item)")
@@ -66,7 +73,9 @@ class ImageCollectionViewController: UICollectionViewController {
 }
 
 
-// sizing of collection view cells
+
+// MARK: UICollectionViewDelegateFlowLayout
+
 extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -86,6 +95,7 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 
 
+// MARK: segue
 
 extension ImageCollectionViewController {
     
@@ -111,6 +121,9 @@ extension ImageCollectionViewController {
     }
 }
 
+
+
+// MARK: ZoomAnimatorDelegate
 
 extension ImageCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
@@ -149,6 +162,8 @@ extension ImageCollectionViewController: ZoomAnimatorDelegate {
 }
 
 
+
+// MARK: ImagePagingCollectionViewControllerDelegate
 
 extension ImageCollectionViewController: ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int) {
