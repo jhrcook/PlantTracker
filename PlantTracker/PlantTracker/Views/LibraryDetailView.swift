@@ -17,7 +17,11 @@ class LibraryDetailView: UIView {
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet var headerView: UIView!
     @IBOutlet var headerImageView: UIImageView!
-    var headerImage: UIImage?
+    var headerImage: UIImage? {
+        didSet {
+            if headerImageView != nil { headerImageView.image = headerImage }
+        }
+    }
     var twicketSegementedControl: TwicketSegmentedControl!
     @IBOutlet var informationView: UIView!
     var floatyButton = Floaty()
@@ -29,8 +33,9 @@ class LibraryDetailView: UIView {
     
     var notesText: String = ""
     
-    let headerImageHeight = 350
-    let minHeaderImageHeight = 100
+    var navigationBarHeight: CGFloat = 0.0
+    var headerImageHeight: CGFloat = 350.0
+    var minHeaderImageHeight: CGFloat = 100
     
     var blurEffectView: UIVisualEffectView!
     
@@ -39,7 +44,7 @@ class LibraryDetailView: UIView {
         let scrollViewYDiff = startingYOffset! - offset.y
         
         // sticky header
-        let newHeight = max(CGFloat(headerImageHeight) + scrollViewYDiff, CGFloat(minHeaderImageHeight))
+        let newHeight = max(headerImageHeight + scrollViewYDiff, minHeaderImageHeight)
         headerView.snp.remakeConstraints { (make) in
             make.top.equalTo(self).offset(abs(startingYOffset!))
             make.height.equalTo(newHeight)
@@ -52,9 +57,9 @@ class LibraryDetailView: UIView {
             blurEffectView.alpha = 0.0
         } else  if scrollViewYDiff < 0 {
             // scrolling down
-            let frameHeight = CGFloat(headerView.frame.height)
-            let maxHeight = CGFloat(headerImageHeight)
-            let minHeight = CGFloat(minHeaderImageHeight)
+            let frameHeight = headerView.frame.height
+            let maxHeight = headerImageHeight
+            let minHeight = minHeaderImageHeight
             let blurAlpha = (frameHeight - maxHeight) / (maxHeight - minHeight) * (0.0 - 0.85) + 0.0
             blurEffectView.alpha = blurAlpha
         }
@@ -69,6 +74,8 @@ class LibraryDetailView: UIView {
 extension LibraryDetailView {
     
     func setupView() {
+        headerImageHeight += navigationBarHeight
+        minHeaderImageHeight += navigationBarHeight
         setupConstraints()
     }
     
@@ -83,7 +90,7 @@ extension LibraryDetailView {
         setupInformationSubviews()
         
         // initalize content height of main scroll view
-        let contentHeight = CGFloat(headerImageHeight) + self.frame.height - CGFloat(minHeaderImageHeight)
+        let contentHeight = headerImageHeight + self.frame.height - minHeaderImageHeight
         mainScrollView.contentSize = CGSize(width: self.frame.width, height: contentHeight)
     }
     

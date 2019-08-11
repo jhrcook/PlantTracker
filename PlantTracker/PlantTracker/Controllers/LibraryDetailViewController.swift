@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 import SnapKit
 import TwicketSegmentedControl
 import KeyboardObserver
@@ -46,6 +45,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(libraryDetailView)
         libraryDetailView.snp.makeConstraints { make in make.edges.equalTo(self.view) }
         libraryDetailView.frame = self.view.frame
+        libraryDetailView.navigationBarHeight = navigationController?.navigationBar.frame.height ?? 0.0
         
         libraryDetailView.headerImage = getHeaderImage()
         
@@ -80,8 +80,6 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrolling - x: \(scrollView.contentOffset.x), y: \(scrollView.contentOffset.y)")
-        
         if scrollView == libraryDetailView.mainScrollView && libraryDetailView.startingYOffset == nil {
             // initialize starting Y offset
             libraryDetailView.startingYOffset = scrollView.contentOffset.y
@@ -210,6 +208,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
 
 
 // MARK: TwicketSegmentedControlDelegate
+
 extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
     func didSelect(_ segmentIndex: Int) {
         switch libraryDetailView.twicketSegementedControl.selectedSegmentIndex {
@@ -294,120 +293,28 @@ extension LibraryDetailViewController {
 
 
 
-extension LibraryDetailViewController: AssetsPickerViewControllerDelegate, UINavigationControllerDelegate {
-    
-    func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {
-        print("Need permission to access photo library.")
-    }
-    
+// MARK: UINavigationControllerDelegate
+
+extension LibraryDetailViewController: UINavigationControllerDelegate {
     
     @objc func addImages(_ alert: UIAlertAction) {
-        
-        // filter to only show photos
-        let options = PHFetchOptions()
-        options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        let pickerConfig = AssetsPickerConfig()
-        pickerConfig.assetFetchOptions = [
-            .album: options,
-            .smartAlbum: options
-        ]
-        
-        let imagePicker = AssetsPickerViewController()
-        imagePicker.pickerDelegate = self
-        imagePicker.pickerConfig = pickerConfig
-        
-        print("opening image picker")
+        let imagePicker = PlantAssetsPickerViewController()
+        imagePicker.plant = plant
+        imagePicker.plantsSaveDelegate = self.plantsSaveDelegate
+        imagePicker.didFinishDelegate = self
         present(imagePicker, animated: true)
     }
     
-    
-    func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
-        let imageManager = PHImageManager.default()
-        let imageOptions = PHImageRequestOptions()
-        
-        let defaults = UserDefaults.standard
-        switch defaults.string(forKey: "image quality") {
-        case "high":
-            imageOptions.deliveryMode = .highQualityFormat
-        case "medium":
-            imageOptions.deliveryMode = .opportunistic
-        case "low":
-            imageOptions.deliveryMode = .fastFormat
-        default:
-            imageOptions.deliveryMode = .highQualityFormat
-            print("value not entered for \"Image Quality\" setting.")
-        }
-        imageOptions.version = .current
-        imageOptions.isSynchronous = false
-        imageOptions.resizeMode = .exact
-        
-        let assetSize = CGSize(width: Double(asset.pixelWidth), height: Double(asset.pixelHeight))
-        let requestIndex = imageManager.requestImage(for: asset, targetSize: assetSize, contentMode: .aspectFit, options: imageOptions, resultHandler: addImageToPlant)
-        assetTracker.add(requestIndex: Int(requestIndex), withIndexPathItem: indexPath.item)
-        print("saving request ID '\(requestIndex)' to index path '\(indexPath.item)'")
-    }
-    
-    
-    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
-        if let uuid = assetTracker.uuidFrom(indexPathItem: indexPath.item) {
-            print("deleting image uuid '\(uuid)' at index path '\(indexPath.item)'")
-            plant.deleteImage(at: uuid)
-        } else {
-            assetTracker.didNotDeleteAtRequestIndex.append(indexPath.item)
-        }
-    }
-    
-    
-    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
-        for index in assetTracker.didNotDeleteAtRequestIndex {
-            if let uuid = assetTracker.uuidFrom(indexPathItem: index) {
-                print("deleting image uuid '\(uuid)' at index path '\(index)'")
-                plant.deleteImage(at: uuid)
-            }
-        }
-        assetTracker.reset()
-        if let delegate = plantsSaveDelegate { delegate.savePlants() }
+}
+
+
+
+// MARK: AssetPickerFinishedSelectingDelegate
+
+extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
+    func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         libraryDetailView.headerImage = getHeaderImage()
     }
-    
-    
-    func assetsPickerDidCancel(controller: AssetsPickerViewController) {
-        print("user canceled asset getting")
-        if let allUUIDs = assetTracker.allUUIDs() {
-            for uuid in allUUIDs {
-                print("deleting UUID '\(uuid)'")
-                plant.deleteImage(at: uuid)
-            }
-        }
-        assetTracker.reset()
-    }
-    
-    
-    func addImageToPlant(image: UIImage?, info: [AnyHashable: Any]?) {
-        
-        if let image = image {
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                let uuid = UUID().uuidString
-                print("saving image: \(uuid)")
-                let imageURL = getFileURLWith(id: uuid)
-                
-                if let jpegData = image.jpegData(compressionQuality: 1.0) {
-                    try? jpegData.write(to: imageURL)
-                }
-                self?.plant.images.append(uuid)
-                if let info = info, let requestIndex = info["PHImageResultRequestIDKey"] as? Int {
-                    print("setting uuid '\(uuid)' as request index '\(requestIndex)'")
-                    self?.assetTracker.add(uuid: uuid, withRequestIndex: requestIndex)
-                } else {
-                    print("failed to set request index for image UUID, dumping `info`:")
-                    print("-----------------")
-                    if let info = info { print(info) }
-                    print("-----------------")
-                }
-            }
-        }
-    }
-    
 }
 
 
@@ -419,7 +326,6 @@ extension LibraryDetailViewController {
     // seque into image collection view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
-            print("sending \(plant.images.count) images")
             vc.imageIDs = plant.images
             vc.title = self.title
         }
