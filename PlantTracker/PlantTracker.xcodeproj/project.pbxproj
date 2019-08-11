@@ -10,6 +10,7 @@
 		840919FA22FEE2BC007A8A27 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */; };
 		840919FC22FEE2D4007A8A27 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */; };
 		840919FE22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */; };
+		8414555A22FF8C0000A74C65 /* PlantLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */; };
 		842809BD22F12ACA002BB246 /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 842809BC22F12ACA002BB246 /* icon.jpg */; };
 		8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043A22DB8E0100AFD4B6 /* Plant.swift */; };
 		8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */; };
@@ -19,11 +20,13 @@
 		84444D2022D9975100876F6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84444D1F22D9975100876F6D /* Assets.xcassets */; };
 		84444D2322D9975100876F6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84444D2122D9975100876F6D /* LaunchScreen.storyboard */; };
 		8451739F22F3016000C3D8C7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8451739E22F3016000C3D8C7 /* Settings.bundle */; };
-		8455BFB922F63BF5004DEDA1 /* PlantsSaveDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */; };
+		8455BFB922F63BF5004DEDA1 /* PlantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */; };
 		8455BFBC22F66886004DEDA1 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFBB22F66886004DEDA1 /* utilities.swift */; };
+		845BD6BD23005F0300D9BC90 /* PlantAssetsPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */; };
 		846E003822F1BFA3000FAC5C /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */; };
 		847CD77422F8459E00F4A001 /* ImagePagingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */; };
 		8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */; };
+		84A3F9442300354F00D6BBAC /* LibraryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */; };
 		84C5DE4A22F7B51700D5ED93 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */; };
 		84D3C59122F7197C005FC1C0 /* AssetIndexIDTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */; };
 		84EA997D22F7E098000BA00D /* ImagePagingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */; };
@@ -36,7 +39,8 @@
 		840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
 		840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDismissalInteractionController.swift; sourceTree = "<group>"; };
-		842809BC22F12ACA002BB246 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = images/icon.jpg; sourceTree = SOURCE_ROOT; };
+		8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantLibraryTableViewCell.swift; sourceTree = "<group>"; };
+		842809BC22F12ACA002BB246 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = PlantTracker/Resources/icon.jpg; sourceTree = SOURCE_ROOT; };
 		8431043A22DB8E0100AFD4B6 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		84444D1522D9974F00876F6D /* PlantTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,11 +51,13 @@
 		84444D2222D9975100876F6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84444D2422D9975100876F6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8451739E22F3016000C3D8C7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsSaveDelegate.swift; sourceTree = "<group>"; };
+		8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsDelegate.swift; sourceTree = "<group>"; };
 		8455BFBB22F66886004DEDA1 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
+		845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantAssetsPickerViewController.swift; sourceTree = "<group>"; };
 		846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePagingCollectionViewController.swift; sourceTree = "<group>"; };
 		8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInformtationTableViewCell.swift; sourceTree = "<group>"; };
+		84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailView.swift; sourceTree = "<group>"; };
 		84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetIndexIDTracker.swift; sourceTree = "<group>"; };
 		84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePagingViewCell.swift; sourceTree = "<group>"; };
@@ -97,6 +103,69 @@
 			path = "Zoom Animation";
 			sourceTree = "<group>";
 		};
+		8414554B22FF73A200A74C65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84444D1822D9974F00876F6D /* AppDelegate.swift */,
+				84444D2422D9975100876F6D /* Info.plist */,
+				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
+				8451739E22F3016000C3D8C7 /* Settings.bundle */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8414554C22FF73CB00A74C65 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				842809BC22F12ACA002BB246 /* icon.jpg */,
+				84444D1F22D9975100876F6D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8414554D22FF73F000A74C65 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8455BFBB22F66886004DEDA1 /* utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8414554E22FF761E00A74C65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
+				84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8414554F22FF762500A74C65 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */,
+				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
+				84444D1C22D9974F00876F6D /* Main.storyboard */,
+				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
+				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8414555022FF762F00A74C65 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
+				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
+				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
+				845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */,
+				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
+				8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		84444D0C22D9974F00876F6D = {
 			isa = PBXGroup;
 			children = (
@@ -118,25 +187,13 @@
 		84444D1722D9974F00876F6D /* PlantTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8414555022FF762F00A74C65 /* Controllers */,
+				8414554E22FF761E00A74C65 /* Models */,
+				8414554C22FF73CB00A74C65 /* Resources */,
+				8414554B22FF73A200A74C65 /* Supporting Files */,
+				8414554D22FF73F000A74C65 /* Utilities */,
+				8414554F22FF762500A74C65 /* Views */,
 				840919F822FEE299007A8A27 /* Zoom Animation */,
-				84444D1822D9974F00876F6D /* AppDelegate.swift */,
-				84D3C59022F7197C005FC1C0 /* AssetIndexIDTracker.swift */,
-				84444D1F22D9975100876F6D /* Assets.xcassets */,
-				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
-				842809BC22F12ACA002BB246 /* icon.jpg */,
-				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
-				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
-				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
-				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
-				84444D2422D9975100876F6D /* Info.plist */,
-				84444D2122D9975100876F6D /* LaunchScreen.storyboard */,
-				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
-				84444D1C22D9974F00876F6D /* Main.storyboard */,
-				8431043A22DB8E0100AFD4B6 /* Plant.swift */,
-				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
-				8455BFB822F63BF5004DEDA1 /* PlantsSaveDelegate.swift */,
-				8451739E22F3016000C3D8C7 /* Settings.bundle */,
-				8455BFBB22F66886004DEDA1 /* utilities.swift */,
 			);
 			path = PlantTracker;
 			sourceTree = "<group>";
@@ -259,18 +316,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				8455BFBC22F66886004DEDA1 /* utilities.swift in Sources */,
+				8414555A22FF8C0000A74C65 /* PlantLibraryTableViewCell.swift in Sources */,
 				846E003822F1BFA3000FAC5C /* ImageCollectionViewController.swift in Sources */,
 				8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */,
 				84444D1B22D9974F00876F6D /* PlantLibraryTableViewController.swift in Sources */,
 				84D3C59122F7197C005FC1C0 /* AssetIndexIDTracker.swift in Sources */,
 				847CD77422F8459E00F4A001 /* ImagePagingCollectionViewController.swift in Sources */,
+				845BD6BD23005F0300D9BC90 /* PlantAssetsPickerViewController.swift in Sources */,
 				840919FE22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift in Sources */,
 				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
 				84EA997D22F7E098000BA00D /* ImagePagingViewCell.swift in Sources */,
 				84C5DE4A22F7B51700D5ED93 /* ImageCollectionViewCell.swift in Sources */,
 				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
-				8455BFB922F63BF5004DEDA1 /* PlantsSaveDelegate.swift in Sources */,
+				84A3F9442300354F00D6BBAC /* LibraryDetailView.swift in Sources */,
+				8455BFB922F63BF5004DEDA1 /* PlantsDelegate.swift in Sources */,
 				840919FA22FEE2BC007A8A27 /* ZoomAnimator.swift in Sources */,
 				840919FC22FEE2D4007A8A27 /* ZoomTransitionController.swift in Sources */,
 			);
@@ -421,7 +481,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRMHYJ9F9F;
-				INFOPLIST_FILE = PlantTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PlantTracker/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,7 +500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CRMHYJ9F9F;
-				INFOPLIST_FILE = PlantTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PlantTracker/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

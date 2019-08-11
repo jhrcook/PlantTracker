@@ -75,6 +75,7 @@ class ImagePagingViewCell: UICollectionViewCell {
 }
 
 
+
 extension ImagePagingViewCell {
     @objc func doubleTapAction(_ gestureRecognizer: UIGestureRecognizer) {
         if scrollView.zoomScale > scrollView.minimumZoomScale {

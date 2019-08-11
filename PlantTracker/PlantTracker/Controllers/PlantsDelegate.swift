@@ -8,6 +8,8 @@
 
 import Foundation
 
-protocol PlantsSaveDelegate: class {
+protocol PlantsDelegate: class {
     func savePlants()
+    func loadPlants()
+    func newPlant()
 }

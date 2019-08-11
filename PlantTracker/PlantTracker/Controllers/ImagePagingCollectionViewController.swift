@@ -29,6 +29,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     var transitionController = ZoomTransitionController()
     var containerDelegate: ImagePagingCollectionViewControllerDelegate?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +48,8 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         view.addGestureRecognizer(panGesture)
     }
     
+    
+    // MARK: UICollectionView
     
     func setupCollectionView() {
         
@@ -67,7 +70,13 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         collectionView.scrollToItem(at: IndexPath(item: startingIndex, section: 0), at: .right, animated: false)
     }
 
-    // MARK: UICollectionViewDataSource
+}
+
+
+
+// MARK: UICollectionViewDataSource
+
+extension ImagePagingCollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -82,11 +91,17 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         cell.image = images[indexPath.item]
-        
         cell.imageView.isHidden = hideCellImageViews
     
         return cell
     }
+}
+
+
+
+// MARK: Scroll View
+
+extension ImagePagingCollectionViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var imageNumber = Float((scrollView.contentOffset.x - 0.5 * view.frame.width) / view.frame.width)
@@ -98,11 +113,13 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         containerDelegate?.containerViewController(self, indexDidChangeTo: currentIndex)
     }
+
 }
 
 
 
-// sizing of collection view cells
+// MARK: UICollectionViewDelegateFlowLayout
+
 extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -119,6 +136,9 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
     }
 }
 
+
+
+// MARK: ZoomAnimatorDelegate
 
 extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
@@ -152,7 +172,9 @@ extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
 }
 
 
-// handle pan gesture
+
+// MARK: pan gesture
+
 extension ImagePagingCollectionViewController {
     
     @objc func userDidPanWith(gestureRecognizer: UIPanGestureRecognizer) {
