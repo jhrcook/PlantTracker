@@ -12,6 +12,7 @@ import TwicketSegmentedControl
 import KeyboardObserver
 import AssetsPickerViewController
 import Floaty
+import os
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -31,11 +32,6 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     var assetTracker = AssetIndexIDTracker()
     
     var blurEffectView: UIVisualEffectView!
-    
-    
-//    override func loadView() {
-//
-//    }
     
     
     override func viewDidLoad() {
@@ -69,11 +65,12 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     func getHeaderImage() -> UIImage? {
+        os_log("Retrieving header image.", log: Log.detailLibraryVC, type: .info)
         if let imageID = plant.bestSingleImage() {
             headerImageIsSet = true
             return UIImage(contentsOfFile: getFilePathWith(id: imageID))
         } else {
-            print("deafult header image")
+            os_log("Returning default 'cactus' image.", log: Log.detailLibraryVC, type: .info)
             return UIImage(named: "cactus")
         }
     }
@@ -83,6 +80,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         if scrollView == libraryDetailView.mainScrollView && libraryDetailView.startingYOffset == nil {
             // initialize starting Y offset
             libraryDetailView.startingYOffset = scrollView.contentOffset.y
+            os_log("Setting initial starting Y offset as %d.", log: Log.detailLibraryVC, type: .info, libraryDetailView.startingYOffset!)
         }
         
         if scrollView == libraryDetailView.mainScrollView {
@@ -104,6 +102,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     func pushImageCollectionView(_ alert: UIAlertAction) {
+        os_log("Performing segue with identifier: 'showImageCollectionView'.", log: Log.detailLibraryVC, type: .default)
         performSegue(withIdentifier: "showImageCollectionView", sender: self)
     }
     
@@ -115,6 +114,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
             self?.shouldDelete = true
             self?.performSegue(withIdentifier: "unwindToLibraryTableView", sender: self)
+            os_log("Sending signal to remove plant.", log: Log.detailLibraryVC, type: .default)
         })
         present(alertControler, animated: true)
     }
@@ -132,6 +132,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
         case libraryDetailView.linksTableView:
             return 3
         default:
+            os_log("Unforseen table view requesting some number of cells.", log: Log.detailLibraryVC, type: .error)
             fatalError("Unforeseen table view requesting number of cells")
         }
     }
@@ -178,6 +179,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             cell.textLabel?.text = "TEST LINKS - row\(indexPath.row)"
             return cell
         default:
+            os_log("Unforseen table view requesting a `UITableViewCell`.", log: Log.detailLibraryVC, type: .error)
             fatalError("Unforeseen table view requesting a `UITableViewCell`")
         }
     }
@@ -211,6 +213,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
     func didSelect(_ segmentIndex: Int) {
+        os_log("Twicket segmented controller set to %d", log: Log.detailLibraryVC, type: .info, segmentIndex)
         switch libraryDetailView.twicketSegementedControl.selectedSegmentIndex {
         case 0:
             // "Information"
@@ -287,6 +290,7 @@ extension LibraryDetailViewController {
     }
     
     @objc func dismissKeyboard() {
+        os_log("Hiding the keyboard.", log: Log.detailLibraryVC, type: .info)
         view.endEditing(true)
     }
 }
@@ -302,6 +306,9 @@ extension LibraryDetailViewController: UINavigationControllerDelegate {
         imagePicker.plant = plant
         imagePicker.plantsSaveDelegate = self.plantsSaveDelegate
         imagePicker.didFinishDelegate = self
+        
+        os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .info)
+        
         present(imagePicker, animated: true)
     }
     
@@ -313,6 +320,7 @@ extension LibraryDetailViewController: UINavigationControllerDelegate {
 
 extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
+        os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
     }
 }
@@ -326,6 +334,7 @@ extension LibraryDetailViewController {
     // seque into image collection view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
+            os_log("Sending images to `ImageCollectionViewController`.", log: Log.detailLibraryVC, type: .default)
             vc.imageIDs = plant.images
             vc.title = self.title
         }

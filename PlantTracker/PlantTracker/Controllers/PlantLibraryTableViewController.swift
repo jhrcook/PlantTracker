@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os
+
 
 class PlantLibraryTableViewController: UITableViewController {
 
@@ -28,7 +30,7 @@ class PlantLibraryTableViewController: UITableViewController {
         ///////////
         // TESTING
         if (plants.count == 0 || false) {
-            print("loading test plants")
+            os_log("Loading test plants.", log: Log.plantLibraryTableVC, type: .info)
             plants = [
                 Plant(scientificName: "Euphorbia obesa", commonName: "Basball cactus"),
                 Plant(scientificName: "Frailea castanea", commonName: "Kirsten"),
@@ -79,9 +81,9 @@ extension PlantLibraryTableViewController: PlantsDelegate {
             let jsonDecoder = JSONDecoder()
             do {
                 plants = try jsonDecoder.decode([Plant].self, from: savedPlants)
-                print("Loaded \(plants.count) plants.")
+                os_log("Loaded %d plants", log: Log.plantLibraryTableVC, type: .info, plants.count)
             } catch {
-                print("Failed to load `plants`")
+                os_log("Failed to load Plants.", log: Log.plantLibraryTableVC, type: .error)
             }
         }
     }
@@ -91,13 +93,14 @@ extension PlantLibraryTableViewController: PlantsDelegate {
         if let savedData = try? jsonEncoder.encode(plants) {
             let defaults = UserDefaults.standard
             defaults.set(savedData, forKey: "plants")
-            print("Saved plants.")
+            os_log("Saved %d plants.", log: Log.plantLibraryTableVC, type: .default, plants.count)
         } else {
-            print("Failed to save plants.")
+            os_log("Failed to save plants.", log: Log.plantLibraryTableVC, type: .error)
         }
     }
     
     func newPlant() {
+        os_log("Making new Plant.", log: Log.plantLibraryTableVC, type: .default)
         plants.append(Plant(scientificName: nil, commonName: nil))
         savePlants()
         tableView.reloadData()
@@ -125,16 +128,19 @@ extension PlantLibraryTableViewController {
         if editingStyle == .delete {
             let plant = plants[indexPath.row]
             if UserDefaults.standard.bool(forKey: "in safe mode") {
+                os_log("Double-checking with user to delete plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                 let message = "Are you sure you want to remove \(title ?? "this plant") from your library?"
                 let alertControler = UIAlertController(title: "Remove plant?", message: message, preferredStyle: .alert)
                 alertControler.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                 alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self, weak plant] _ in
+                    os_log("Deleting plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                     plant?.deleteAllImages()
                     self?.plants.remove(at: indexPath.row)
                     self?.tableView.deleteRows(at: [indexPath], with: .left)
                 })
                 present(alertControler, animated: true)
             } else {
+                os_log("Deleting plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                 plant.deleteAllImages()
                 plants.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
@@ -153,7 +159,7 @@ extension PlantLibraryTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? LibraryDetailViewController {
             if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
-                print("sending index: \(index)")
+                os_log("Sending index %d to `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .info, index)
                 vc.plant = plants[index]
                 vc.plantsSaveDelegate = self
             }
@@ -166,6 +172,7 @@ extension PlantLibraryTableViewController {
         
         // Indicated that this plant should be removed in the detail view controller
         if sourceViewController.shouldDelete, let rowToDelete = lastSelectedRow {
+            os_log("Recieving delete signaling from `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .default)
             let indexPath = IndexPath(row: rowToDelete, section: 0)
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
             tableView(tableView, commit: .delete, forRowAt: indexPath)

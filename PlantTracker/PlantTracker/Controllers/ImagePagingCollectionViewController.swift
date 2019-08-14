@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 private let reuseIdentifier = "scrollingImageCell"
 
@@ -111,6 +112,7 @@ extension ImagePagingCollectionViewController {
     
     // change the base view controller's index, too
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        os_log("Upadting container delegate's current index. to %d", log: Log.pagingImageVC, type: .info, currentIndex)
         containerDelegate?.containerViewController(self, indexDidChangeTo: currentIndex)
     }
 
@@ -143,11 +145,13 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
 extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just before the transition animation
+        os_log("`ZoomAnimatorDelegate` is running `transitionWillStartWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = zoomAnimator.isPresenting
     }
     
     func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just after the transition animation
+        os_log("`ZoomAnimatorDelegate` is running `transitionDidEndWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = false
         if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
             cell.imageView.isHidden = hideCellImageViews
@@ -180,9 +184,11 @@ extension ImagePagingCollectionViewController {
     @objc func userDidPanWith(gestureRecognizer: UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
+            os_log("Dismissing pan gesture began.", log: Log.pagingImageVC, type: .info)
             transitionController.isInteractive = true
             let _ = navigationController?.popViewController(animated: true)
         case .ended:
+            os_log("Dismissing pan gesture ended.", log: Log.pagingImageVC, type: .info)
             if transitionController.isInteractive {
                 transitionController.isInteractive = false
                 transitionController.didPanWith(gestureRecognizer: gestureRecognizer)

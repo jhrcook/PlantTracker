@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os
+
 
 class Plant: NSObject, Codable {
 
@@ -53,9 +55,9 @@ class Plant: NSObject, Codable {
         do {
             let fileManager = FileManager()
             try fileManager.removeItem(atPath: filePath)
-            print("deleted image: \(filePath)")
+            os_log("Deleted image: %@", log: Log.plantsObject, type: .default, filePath)
         } catch {
-            print("Unable to delete image: \(filePath)")
+            os_log("Unable to delete image: %@", log: Log.plantsObject, type: .default, filePath)
         }
         
         // remove all cases where the image UUID is used
