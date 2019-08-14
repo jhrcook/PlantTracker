@@ -159,7 +159,7 @@ extension PlantLibraryTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? LibraryDetailViewController {
             if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
-                os_log("Sending index %d to `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .default, index)
+                os_log("Sending index %d to `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .info, index)
                 vc.plant = plants[index]
                 vc.plantsSaveDelegate = self
             }

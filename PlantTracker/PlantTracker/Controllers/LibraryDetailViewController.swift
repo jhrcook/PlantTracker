@@ -307,7 +307,7 @@ extension LibraryDetailViewController: UINavigationControllerDelegate {
         imagePicker.plantsSaveDelegate = self.plantsSaveDelegate
         imagePicker.didFinishDelegate = self
         
-        os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .default)
+        os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .info)
         
         present(imagePicker, animated: true)
     }
@@ -320,7 +320,7 @@ extension LibraryDetailViewController: UINavigationControllerDelegate {
 
 extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
-        os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .default)
+        os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
     }
 }

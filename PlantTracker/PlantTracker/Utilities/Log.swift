@@ -15,4 +15,9 @@ struct Log {
     static let plantLibraryTableVC = OSLog(subsystem: subsystem, category: "PlantLibraryTableViewController")
     static let detailLibraryVC = OSLog(subsystem: subsystem, category: "LibraryDetailViewController")
     static let imageCollectionVC = OSLog(subsystem: subsystem, category: "ImageCollectionViewController")
+    static let pagingImageVC = OSLog(subsystem: subsystem, category: "ImagePagingCollectionViewController")
+    static let assetPickerVC = OSLog(subsystem: subsystem, category: "PlantAssetsPickerViewController")
+    static let zoomAnimator = OSLog(subsystem: subsystem, category: "ZoomAnimator")
+    
+    static let plantsObject = OSLog(subsystem: subsystem, category: "Plant")
 }

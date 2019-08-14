@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os
+
 
 protocol ZoomAnimatorDelegate: class {
     // these two methods are run just before and just after the animation
@@ -122,7 +124,7 @@ class ZoomAnimator: NSObject {
             let fromReferenceImageViewFrame = self.fromDelegate?.referenceImageViewFrameInTransitioningView(for: self),
             let toReferenceImageViewFrame = self.toDelegate?.referenceImageViewFrameInTransitioningView(for: self)
             else {
-                print("unable to collect required assets - animation failed")
+                os_log("unable to collect required assets - animation failed", log: Log.zoomAnimator, type: .error)
                 return
         }
         
