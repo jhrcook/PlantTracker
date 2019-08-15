@@ -193,6 +193,13 @@ extension ImagePagingCollectionViewController {
         switch gestureRecognizer.state {
         case .began:
             os_log("Dismissing pan gesture began.", log: Log.pagingImageVC, type: .info)
+            
+            // unhide the navigation bar if needed and turn background white
+            if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
+                cell.contentView.backgroundColor = .white
+                showNavigationBar()
+            }
+            
             transitionController.isInteractive = true
             let _ = navigationController?.popViewController(animated: true)
         case .ended:
