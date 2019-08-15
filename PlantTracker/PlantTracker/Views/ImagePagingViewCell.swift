@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-protocol NavigationBarHidingAndShowingDelegate {
+protocol NavigationBarHidingAndShowingDelegate: class {
     func showNavigationBar()
     func hideNavigationBar()
 }
@@ -23,7 +23,7 @@ class ImagePagingViewCell: UICollectionViewCell {
         }
     }
     
-    var navigationBarDelegate: NavigationBarHidingAndShowingDelegate?
+    weak var navigationBarDelegate: NavigationBarHidingAndShowingDelegate?
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
