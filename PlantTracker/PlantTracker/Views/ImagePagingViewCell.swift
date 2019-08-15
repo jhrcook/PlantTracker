@@ -9,6 +9,12 @@
 import UIKit
 import SnapKit
 
+
+protocol NavigationBarHidingAndShowingDelegate {
+    func showNavigationBar()
+    func hideNavigationBar()
+}
+
 class ImagePagingViewCell: UICollectionViewCell {
     
     var image: UIImage? {
@@ -16,6 +22,8 @@ class ImagePagingViewCell: UICollectionViewCell {
             configureForNewImage(animated: false)
         }
     }
+    
+    var navigationBarDelegate: NavigationBarHidingAndShowingDelegate?
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
@@ -26,6 +34,9 @@ class ImagePagingViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
+        
+        // content view
+        contentView.backgroundColor = .white
         
         // scroll view
         scrollView = UIScrollView()
@@ -52,6 +63,11 @@ class ImagePagingViewCell: UICollectionViewCell {
         doubleTap.numberOfTapsRequired = 2
         addGestureRecognizer(doubleTap)
         
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(singleTapAction))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.require(toFail: doubleTap)
+        addGestureRecognizer(singleTap)
+        
     }
     
     // inserted by compiler/autocomplete
@@ -75,6 +91,7 @@ class ImagePagingViewCell: UICollectionViewCell {
 }
 
 
+// MARK: tap gestures
 
 extension ImagePagingViewCell {
     @objc func doubleTapAction(_ gestureRecognizer: UIGestureRecognizer) {
@@ -86,6 +103,19 @@ extension ImagePagingViewCell {
             let zoomWidth = imageSize.width  / zoomFactor
             let zoomHeight = imageSize.height / zoomFactor
             scrollView.zoom(to: CGRect(center: tapLocation, size: CGSize(width: zoomWidth, height: zoomHeight)), animated: true)
+        }
+    }
+    
+    
+    @objc func singleTapAction(_ gestureRecognizer: UIGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            if contentView.backgroundColor == .white {
+                contentView.backgroundColor = .black
+                navigationBarDelegate?.hideNavigationBar()
+            } else {
+                contentView.backgroundColor = .white
+                navigationBarDelegate?.showNavigationBar()
+            }
         }
     }
 }

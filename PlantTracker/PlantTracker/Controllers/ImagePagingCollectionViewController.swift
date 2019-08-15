@@ -47,6 +47,11 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         // pan to dismiss
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(userDidPanWith(gestureRecognizer:)))
         view.addGestureRecognizer(panGesture)
+        
+        // tap to go black or white background
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapWith(gestureRecognizer:)))
+//        tapGesture.require(toFail: panGesture)
+//        view.addGestureRecognizer(tapGesture)
     }
     
     
@@ -93,7 +98,10 @@ extension ImagePagingCollectionViewController {
         // Configure the cell
         cell.image = images[indexPath.item]
         cell.imageView.isHidden = hideCellImageViews
-    
+        
+        // delegate to show/hide navigation bar on tap gesture
+        cell.navigationBarDelegate = self
+        
         return cell
     }
 }
@@ -200,4 +208,33 @@ extension ImagePagingCollectionViewController {
         }
     }
     
+}
+
+
+
+// MARK: tap gesture
+
+extension ImagePagingCollectionViewController {
+    @objc func userDidTapWith(gestureRecognizer: UITapGestureRecognizer) {
+        if collectionView.backgroundColor == .white {
+            collectionView.backgroundColor = .black
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            collectionView.backgroundColor = .white
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    }
+}
+
+
+
+// MARK: NavigationBarHidingAndShowingDelegate
+
+extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDelegate {
+    func showNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 }
