@@ -57,8 +57,18 @@ class PlantLibraryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath) as! PlantLibraryTableViewCell
-        cell.plant = plants[indexPath.row]
-        cell.setupCell()
+        
+        // only update the cell if it has no `plant` or not the right one
+        if cell.plant == nil {
+            // brand new cell
+            cell.plant = plants[indexPath.row]
+            cell.setupCell()
+        } else if cell.plant != plants[indexPath.row] {
+            // just needs a new plant
+            cell.plant = plants[indexPath.row]
+            cell.setupCellView()
+        }
+        
         return cell
     }
     

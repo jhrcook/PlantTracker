@@ -10,7 +10,7 @@ import UIKit
 
 class PlantLibraryTableViewCell: UITableViewCell {
     
-    var plant = Plant(scientificName: nil, commonName: nil)
+    var plant: Plant!
     
     var iconImageView: UIImageView!
     var scientificNameLabel: UILabel!
@@ -43,6 +43,7 @@ extension PlantLibraryTableViewCell {
         setupCellView()
     }
     
+    
     func setupConstraints() {
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
@@ -74,6 +75,7 @@ extension PlantLibraryTableViewCell {
         // separator inset
         separatorInset.left = 65.0
         
+        // arrow point to detail view controller
         accessoryType = .disclosureIndicator
         
         // main label
