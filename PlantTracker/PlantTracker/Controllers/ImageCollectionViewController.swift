@@ -8,6 +8,7 @@
 
 import UIKit
 import os
+import SnapKit
 
 private let reuseIdentifier = "image"
 
@@ -15,6 +16,8 @@ class ImageCollectionViewController: UICollectionViewController {
     
     var imageIDs = [String]()
     var images = [UIImage]()
+    
+    var noImagesLabel = UILabel()
     
     var currentIndex = 0
     
@@ -48,6 +51,20 @@ class ImageCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        if images.count == 0 {
+            noImagesLabel = UILabel()
+            view.addSubview(noImagesLabel)
+            noImagesLabel.snp.makeConstraints { make in
+                make.centerX.equalTo(view)
+                make.centerY.equalTo(view)
+            }
+
+            noImagesLabel.text = "No images"
+        } else {
+            noImagesLabel.removeFromSuperview()
+        }
+        
     }
     
 }
