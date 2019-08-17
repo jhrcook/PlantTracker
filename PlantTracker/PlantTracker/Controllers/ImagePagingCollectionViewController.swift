@@ -251,8 +251,17 @@ extension ImagePagingCollectionViewController {
     @objc func tappedActionButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Edit photo", style: .default))
-        alertController.addAction(UIAlertAction(title: "Share", style: .default))
+        alertController.addAction(UIAlertAction(title: "Share", style: .default, handler: shareImage))
+        alertController.addAction(UIAlertAction(title: "Make icon image", style: .default))
         alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive))
-        
+        present(alertController, animated: true)
+    }
+    
+    // share using UIActivityViewController
+    func shareImage(_ alert: UIAlertAction) {
+        let image = images[currentIndex]
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityVC, animated: true)
     }
 }
+
