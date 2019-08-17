@@ -188,6 +188,13 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
         os_log("Setting new current index value.", log: Log.imageCollectionVC, type: .info)
         collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
     }
+    
+    func removeCell(at index: Int) {
+        images.remove(at: index)
+        imageIDs.remove(at: index)
+        collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+        plantDelegate?.savePlant()
+    }
 }
 
 

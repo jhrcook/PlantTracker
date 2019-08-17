@@ -355,6 +355,7 @@ extension LibraryDetailViewController {
 
 
 extension LibraryDetailViewController: PlantDelegate {
+    
     func savePlant() {
         plantsSaveDelegate?.savePlants()
     }
@@ -364,5 +365,7 @@ extension LibraryDetailViewController: PlantDelegate {
         libraryDetailView.headerImage = getHeaderImage()
     }
     
-    
+    func deleteImage(withUUID uuid: String) {
+        plant.deleteImage(with: uuid)
+    }
 }

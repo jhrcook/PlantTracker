@@ -14,6 +14,7 @@ private let reuseIdentifier = "scrollingImageCell"
 
 protocol ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
+    func removeCell(at index: Int)
 }
 
 protocol SaveEditedImageDelegate {
@@ -260,7 +261,7 @@ extension ImagePagingCollectionViewController {
         alertController.addAction(UIAlertAction(title: "Edit...", style: .default, handler: editPhoto))
         alertController.addAction(UIAlertAction(title: "Share...", style: .default, handler: shareImage))
         alertController.addAction(UIAlertAction(title: "Make header image", style: .default, handler: setHeaderImage))
-        alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive))
+        alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive, handler: deleteImageTapped))
         present(alertController, animated: true)
     }
     
@@ -284,6 +285,38 @@ extension ImagePagingCollectionViewController {
     
     func setHeaderImage(_ alert: UIAlertAction) {
         plantDelegate?.setHeaderAs(imageID: imageIDs[currentIndex])
+    }
+    
+    
+    func deleteImageTapped(_ alert: UIAlertAction) {
+        let alertController = UIAlertController(title: "Delete image?", message: "Are you sure you want to delete the image from your library?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            if let delegate = self?.plantDelegate,
+                let index = self?.currentIndex,
+                let imageID = self?.imageIDs[index] {
+                delegate.deleteImage(withUUID: imageID)
+            }
+            
+            let indexToDelete = self!.currentIndex
+            
+            self?.containerDelegate?.removeCell(at: indexToDelete)
+            self?.images.remove(at: indexToDelete)
+            self?.imageIDs.remove(at: indexToDelete)
+            self?.collectionView.deleteItems(at: [IndexPath(item: indexToDelete, section: 0)])
+            
+            if indexToDelete == (self?.images.count)! {
+                self?.currentIndex = self!.currentIndex - 1
+            } else {
+                self?.currentIndex = self!.currentIndex
+            }
+            self?.containerDelegate?.containerViewController(self!, indexDidChangeTo: self!.currentIndex)
+            
+            if self!.images.count == 0 {
+                self?.navigationController?.popViewController(animated: false)
+            }
+        })
+        present(alertController, animated: true)
     }
 }
 

@@ -12,4 +12,5 @@ import Foundation
 protocol PlantDelegate {
     func savePlant()
     func setHeaderAs(imageID: String)
+    func deleteImage(withUUID: String)
 }
