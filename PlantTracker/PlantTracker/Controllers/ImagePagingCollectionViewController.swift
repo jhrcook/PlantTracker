@@ -48,10 +48,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(userDidPanWith(gestureRecognizer:)))
         view.addGestureRecognizer(panGesture)
         
-        // tap to go black or white background
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapWith(gestureRecognizer:)))
-//        tapGesture.require(toFail: panGesture)
-//        view.addGestureRecognizer(tapGesture)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedActionButton))
     }
     
     
@@ -243,5 +240,19 @@ extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDele
     }
     func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+}
+
+
+
+// MARK: tappedRightBarButton
+
+extension ImagePagingCollectionViewController {
+    @objc func tappedActionButton() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Edit photo", style: .default))
+        alertController.addAction(UIAlertAction(title: "Share", style: .default))
+        alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive))
+        
     }
 }
