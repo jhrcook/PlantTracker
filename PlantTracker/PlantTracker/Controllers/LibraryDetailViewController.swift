@@ -322,6 +322,8 @@ extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
+        plantsSaveDelegate?.setIcon(for: plant)
+        plantsSaveDelegate?.savePlants()
     }
 }
 
