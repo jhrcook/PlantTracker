@@ -250,12 +250,19 @@ extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDele
 extension ImagePagingCollectionViewController {
     @objc func tappedActionButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Edit photo", style: .default))
+        alertController.addAction(UIAlertAction(title: "Edit photo", style: .default, handler: editPhoto))
         alertController.addAction(UIAlertAction(title: "Share", style: .default, handler: shareImage))
         alertController.addAction(UIAlertAction(title: "Make icon image", style: .default))
         alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive))
         present(alertController, animated: true)
     }
+    
+    
+    // edit photo
+    func editPhoto(_ alert: UIAlertAction) {
+        
+    }
+    
     
     // share using UIActivityViewController
     func shareImage(_ alert: UIAlertAction) {
