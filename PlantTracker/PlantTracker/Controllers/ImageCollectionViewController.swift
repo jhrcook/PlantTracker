@@ -18,6 +18,8 @@ class ImageCollectionViewController: UICollectionViewController {
     
     var currentIndex = 0
     
+    var plantDelegate: PlantDelegate?
+    
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
     
@@ -114,12 +116,15 @@ extension ImageCollectionViewController {
             
             // pass data
             destinationViewController.images = images
+            destinationViewController.imageIDs = imageIDs
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 destinationViewController.startingIndex = indexPath.item
             }
             
             // container delegate to pass information backwards
             destinationViewController.containerDelegate = self
+            destinationViewController.saveEditsDelegate = self
+            destinationViewController.plantDelegate = plantDelegate
             
             // set delegates
             self.navigationController?.delegate = destinationViewController.transitionController
@@ -183,4 +188,36 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
         os_log("Setting new current index value.", log: Log.imageCollectionVC, type: .info)
         collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
     }
+}
+
+
+
+// MARK: SaveEditedImageDelegate
+
+extension ImageCollectionViewController: SaveEditedImageDelegate {
+    func save(image: UIImage, withIndex index: Int) {
+        let fileURL = getFileURLWith(id: imageIDs[index])
+        images[index] = image
+        
+        let indexPath = IndexPath(item: currentIndex, section: 0)
+        if let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell {
+            cell.imageView.image = image
+        }
+        
+        // save image to original file's name
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                do {
+                    try jpegData.write(to: fileURL)
+                } catch {
+                    os_log("Error when saving compressed image. Error message: %@.", log: Log.imageCollectionVC, type: .error, error.localizedDescription)
+                }
+            } else {
+                os_log("Unable to compress the image.", log: Log.imageCollectionVC, type: .error)
+            }
+        }
+        
+    }
+    
+    
 }

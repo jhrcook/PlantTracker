@@ -14,6 +14,9 @@ import AssetsPickerViewController
 import Floaty
 import os
 
+
+
+
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
@@ -61,6 +64,12 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         didSelect(0)
         hideKeyboardWhenTappedAround()
         setupKeyboardObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        os_log("View will appear.", log: Log.detailLibraryVC, type: .debug)
+        libraryDetailView.headerImage = getHeaderImage()
+        plantsSaveDelegate?.savePlants()
     }
     
     
@@ -338,7 +347,22 @@ extension LibraryDetailViewController {
         if let vc = segue.destination as? ImageCollectionViewController {
             os_log("Sending images to `ImageCollectionViewController`.", log: Log.detailLibraryVC, type: .default)
             vc.imageIDs = plant.images
+            vc.plantDelegate = self
             vc.title = self.title
         }
     }
+}
+
+
+extension LibraryDetailViewController: PlantDelegate {
+    func savePlant() {
+        plantsSaveDelegate?.savePlants()
+    }
+    
+    func setHeaderAs(imageID: String) {
+        plant.profileImage = imageID
+        libraryDetailView.headerImage = getHeaderImage()
+    }
+    
+    
 }

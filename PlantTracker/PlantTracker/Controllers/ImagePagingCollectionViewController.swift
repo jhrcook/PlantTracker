@@ -8,6 +8,7 @@
 
 import UIKit
 import os
+import CropViewController
 
 private let reuseIdentifier = "scrollingImageCell"
 
@@ -15,9 +16,14 @@ protocol ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
 }
 
+protocol SaveEditedImageDelegate {
+    func save(image: UIImage, withIndex index: Int)
+}
+
 class ImagePagingCollectionViewController: UICollectionViewController {
 
     var startingIndex: Int = 0
+    var imageIDs = [String]()
     var images = [UIImage]()
     
     var currentIndex: Int = 0 {
@@ -29,7 +35,8 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     var hideCellImageViews = false
     var transitionController = ZoomTransitionController()
     var containerDelegate: ImagePagingCollectionViewControllerDelegate?
-    
+    var saveEditsDelegate: SaveEditedImageDelegate?
+    var plantDelegate: PlantDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,9 +257,9 @@ extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDele
 extension ImagePagingCollectionViewController {
     @objc func tappedActionButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Edit photo", style: .default, handler: editPhoto))
-        alertController.addAction(UIAlertAction(title: "Share", style: .default, handler: shareImage))
-        alertController.addAction(UIAlertAction(title: "Make icon image", style: .default))
+        alertController.addAction(UIAlertAction(title: "Edit...", style: .default, handler: editPhoto))
+        alertController.addAction(UIAlertAction(title: "Share...", style: .default, handler: shareImage))
+        alertController.addAction(UIAlertAction(title: "Make header image", style: .default, handler: setHeaderImage))
         alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive))
         present(alertController, animated: true)
     }
@@ -260,7 +267,10 @@ extension ImagePagingCollectionViewController {
     
     // edit photo
     func editPhoto(_ alert: UIAlertAction) {
-        
+        let image = images[currentIndex]
+        let cropViewController = CropViewController(croppingStyle: .default, image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true)
     }
     
     
@@ -270,5 +280,31 @@ extension ImagePagingCollectionViewController {
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityVC, animated: true)
     }
+    
+    
+    func setHeaderImage(_ alert: UIAlertAction) {
+        plantDelegate?.setHeaderAs(imageID: imageIDs[currentIndex])
+    }
 }
 
+
+
+// MARK: CropViewControllerDelegate
+
+extension ImagePagingCollectionViewController: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        dismiss(animated: true)
+    }
+    
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        images[currentIndex] = image
+        if let delegate = saveEditsDelegate {
+            delegate.save(image: image, withIndex: currentIndex)
+        }
+        collectionView.reloadData()
+        dismiss(animated: true)
+    }
+    
+}

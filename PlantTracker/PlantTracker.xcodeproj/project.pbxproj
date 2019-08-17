@@ -24,6 +24,7 @@
 		8455BFB922F63BF5004DEDA1 /* PlantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */; };
 		8455BFBC22F66886004DEDA1 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455BFBB22F66886004DEDA1 /* utilities.swift */; };
 		845BD6BD23005F0300D9BC90 /* PlantAssetsPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */; };
+		84647FA223087A1A00EBA980 /* PlantDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84647FA123087A1A00EBA980 /* PlantDelegate.swift */; };
 		846E003822F1BFA3000FAC5C /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */; };
 		847CD77422F8459E00F4A001 /* ImagePagingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */; };
 		8499646C22EDE5B100BA03BD /* GeneralInformtationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */; };
@@ -56,6 +57,7 @@
 		8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsDelegate.swift; sourceTree = "<group>"; };
 		8455BFBB22F66886004DEDA1 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
 		845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantAssetsPickerViewController.swift; sourceTree = "<group>"; };
+		84647FA123087A1A00EBA980 /* PlantDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDelegate.swift; sourceTree = "<group>"; };
 		846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePagingCollectionViewController.swift; sourceTree = "<group>"; };
 		8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInformtationTableViewCell.swift; sourceTree = "<group>"; };
@@ -159,11 +161,12 @@
 		8414555022FF762F00A74C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
-				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
+				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
 				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
 				845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */,
-				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
+				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
+				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
+				84647FA123087A1A00EBA980 /* PlantDelegate.swift */,
 				8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */,
 			);
 			path = Controllers;
@@ -326,6 +329,7 @@
 				84D3C59122F7197C005FC1C0 /* AssetIndexIDTracker.swift in Sources */,
 				847CD77422F8459E00F4A001 /* ImagePagingCollectionViewController.swift in Sources */,
 				845BD6BD23005F0300D9BC90 /* PlantAssetsPickerViewController.swift in Sources */,
+				84647FA223087A1A00EBA980 /* PlantDelegate.swift in Sources */,
 				840919FE22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift in Sources */,
 				8431043F22DBC64100AFD4B6 /* LibraryDetailViewController.swift in Sources */,
 				84EA997D22F7E098000BA00D /* ImagePagingViewCell.swift in Sources */,
