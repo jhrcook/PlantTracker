@@ -257,7 +257,7 @@ extension PlantLibraryTableViewController {
                 lastSelectedRow = index
                 os_log("Sending index %d to `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .info, index)
                 vc.plant = plants[index]
-                vc.plantsSaveDelegate = self
+                vc.plantsDelegate = self
             }
         }
     }

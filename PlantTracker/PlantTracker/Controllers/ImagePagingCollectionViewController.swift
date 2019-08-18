@@ -12,19 +12,23 @@ import CropViewController
 
 private let reuseIdentifier = "scrollingImageCell"
 
+
 protocol ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
     func removeCell(at index: Int)
 }
 
-protocol SaveEditedImageDelegate {
+
+protocol EditedImageDelegate {
     func save(image: UIImage, withIndex index: Int)
+    func setProfileAs(imageAt index: Int)
+    func deleteImage(at index: Int)
 }
+
 
 class ImagePagingCollectionViewController: UICollectionViewController {
 
     var startingIndex: Int = 0
-    var imageIDs = [String]()
     var images = [UIImage]()
     
     var currentIndex: Int = 0 {
@@ -36,8 +40,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     var hideCellImageViews = false
     var transitionController = ZoomTransitionController()
     var containerDelegate: ImagePagingCollectionViewControllerDelegate?
-    var saveEditsDelegate: SaveEditedImageDelegate?
-    var plantDelegate: PlantDelegate?
+    var saveEditsDelegate: EditedImageDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,13 +161,13 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
 extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just before the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionWillStartWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is starting.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = zoomAnimator.isPresenting
     }
     
     func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just after the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionDidEndWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is finishing.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = false
         if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
             cell.imageView.isHidden = hideCellImageViews
@@ -284,7 +287,7 @@ extension ImagePagingCollectionViewController {
     
     
     func setHeaderImage(_ alert: UIAlertAction) {
-        plantDelegate?.setHeaderAs(imageID: imageIDs[currentIndex])
+        saveEditsDelegate?.setProfileAs(imageAt: currentIndex)
     }
     
     
@@ -292,17 +295,15 @@ extension ImagePagingCollectionViewController {
         let alertController = UIAlertController(title: "Delete image?", message: "Are you sure you want to delete the image from your library?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-            if let delegate = self?.plantDelegate,
-                let index = self?.currentIndex,
-                let imageID = self?.imageIDs[index] {
-                delegate.deleteImage(withUUID: imageID)
+            if let delegate = self?.saveEditsDelegate,
+                let index = self?.currentIndex {
+                delegate.deleteImage(at: index)
             }
             
             let indexToDelete = self!.currentIndex
             
             self?.containerDelegate?.removeCell(at: indexToDelete)
             self?.images.remove(at: indexToDelete)
-            self?.imageIDs.remove(at: indexToDelete)
             self?.collectionView.deleteItems(at: [IndexPath(item: indexToDelete, section: 0)])
             
             if indexToDelete == (self?.images.count)! {

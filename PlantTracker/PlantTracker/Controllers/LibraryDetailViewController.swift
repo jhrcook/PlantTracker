@@ -20,7 +20,7 @@ import os
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
-    var plantsSaveDelegate: PlantsDelegate?
+    var plantsDelegate: PlantsDelegate?
     
     var libraryDetailView: LibraryDetailView! = nil
     
@@ -69,7 +69,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         os_log("View will appear.", log: Log.detailLibraryVC, type: .debug)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsSaveDelegate?.savePlants()
+        plantsDelegate?.savePlants()
     }
     
     
@@ -313,7 +313,6 @@ extension LibraryDetailViewController: UINavigationControllerDelegate {
     @objc func addImages(_ alert: UIAlertAction) {
         let imagePicker = PlantAssetsPickerViewController()
         imagePicker.plant = plant
-        imagePicker.plantsSaveDelegate = self.plantsSaveDelegate
         imagePicker.didFinishDelegate = self
         
         os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .info)
@@ -331,8 +330,8 @@ extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsSaveDelegate?.setIcon(for: plant)
-        plantsSaveDelegate?.savePlants()
+        plantsDelegate?.setIcon(for: plant)
+        plantsDelegate?.savePlants()
     }
 }
 
@@ -346,26 +345,9 @@ extension LibraryDetailViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ImageCollectionViewController {
             os_log("Sending images to `ImageCollectionViewController`.", log: Log.detailLibraryVC, type: .default)
-            vc.imageIDs = plant.images
-            vc.plantDelegate = self
+            vc.plant = plant
+            vc.plantsDelegate = self.plantsDelegate
             vc.title = self.title
         }
-    }
-}
-
-
-extension LibraryDetailViewController: PlantDelegate {
-    
-    func savePlant() {
-        plantsSaveDelegate?.savePlants()
-    }
-    
-    func setHeaderAs(imageID: String) {
-        plant.profileImage = imageID
-        libraryDetailView.headerImage = getHeaderImage()
-    }
-    
-    func deleteImage(withUUID uuid: String) {
-        plant.deleteImage(with: uuid)
     }
 }

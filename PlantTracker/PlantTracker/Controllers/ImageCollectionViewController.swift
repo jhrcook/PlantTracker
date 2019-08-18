@@ -14,14 +14,14 @@ private let reuseIdentifier = "image"
 
 class ImageCollectionViewController: UICollectionViewController {
     
-    var imageIDs = [String]()
     var images = [UIImage]()
     
     var noImagesLabel = UILabel()
     
     var currentIndex = 0
     
-    var plantDelegate: PlantDelegate?
+    var plant: Plant!
+    var plantsDelegate: PlantsDelegate!
     
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
@@ -41,12 +41,20 @@ class ImageCollectionViewController: UICollectionViewController {
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
         
-        // load images
-        os_log("Setting up %d images.", log: Log.imageCollectionVC, type: .info, imageIDs.count)
-        for imageID in imageIDs {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        
+        loadImages()
+    }
+    
+    
+    func loadImages() {
+        os_log("Setting up %d images.", log: Log.imageCollectionVC, type: .info, plant.images.count)
+        images.removeAll(keepingCapacity: true)
+        for imageID in plant.images {
             if let image = UIImage(contentsOfFile: getFilePathWith(id: imageID)) { images.append(image) }
         }
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -65,6 +73,14 @@ class ImageCollectionViewController: UICollectionViewController {
             noImagesLabel.removeFromSuperview()
         }
         
+    }
+    
+    
+    @objc func editButtonTapped() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Import images", style: .default, handler: addImages))
+        ac.addAction(UIAlertAction(title: "Edit images", style: .default))
+        present(ac, animated: true)
     }
     
 }
@@ -99,6 +115,35 @@ extension ImageCollectionViewController {
 }
 
 
+// MARK: AssetPickerFinishedSelectingDelegate
+
+extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
+    
+    @objc func addImages(_ alert: UIAlertAction) {
+        let imagePicker = PlantAssetsPickerViewController()
+        imagePicker.plant = plant
+        imagePicker.didFinishDelegate = self
+        
+        os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .info)
+        
+        present(imagePicker, animated: true)
+    }
+    
+    
+    func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
+        os_log("AssetPicker did finish selecting.", log: Log.detailLibraryVC, type: .info)
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.plantsDelegate?.savePlants()
+            self?.loadImages()
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+}
+
+
 
 // MARK: UICollectionViewDelegateFlowLayout
 
@@ -127,27 +172,25 @@ extension ImageCollectionViewController {
     
     // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? ImagePagingCollectionViewController{
+        if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
             
             os_log("Preparing segue to `ImagePagingCollectionViewController`.", log: Log.imageCollectionVC, type: .info)
             
             // pass data
-            destinationViewController.images = images
-            destinationViewController.imageIDs = imageIDs
+            destinationVC.images = images
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                destinationViewController.startingIndex = indexPath.item
+                destinationVC.startingIndex = indexPath.item
             }
             
             // container delegate to pass information backwards
-            destinationViewController.containerDelegate = self
-            destinationViewController.saveEditsDelegate = self
-            destinationViewController.plantDelegate = plantDelegate
+            destinationVC.containerDelegate = self
+            destinationVC.saveEditsDelegate = self
             
             // set delegates
-            self.navigationController?.delegate = destinationViewController.transitionController
+            self.navigationController?.delegate = destinationVC.transitionController
             
-            destinationViewController.transitionController.fromDelegate = self
-            destinationViewController.transitionController.toDelegate = destinationViewController
+            destinationVC.transitionController.fromDelegate = self
+            destinationVC.transitionController.toDelegate = destinationVC
         }
     }
 }
@@ -159,12 +202,12 @@ extension ImageCollectionViewController {
 extension ImageCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // code to run before the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionWillStartWith(zoomAnimator:)`.", log: Log.imageCollectionVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is starting.", log: Log.imageCollectionVC, type: .info)
     }
     
     func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
         // code to run after the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionDidEndWith(zoomAnimator:)`.", log: Log.imageCollectionVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is finishing.", log: Log.imageCollectionVC, type: .info)
     }
     
     func getCell(for zoomAnimator: ZoomAnimator) -> ImageCollectionViewCell? {
@@ -207,10 +250,7 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
     }
     
     func removeCell(at index: Int) {
-        images.remove(at: index)
-        imageIDs.remove(at: index)
         collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
-        plantDelegate?.savePlant()
     }
 }
 
@@ -218,9 +258,21 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
 
 // MARK: SaveEditedImageDelegate
 
-extension ImageCollectionViewController: SaveEditedImageDelegate {
+extension ImageCollectionViewController: EditedImageDelegate {
+    func setProfileAs(imageAt index: Int) {
+        plant.profileImage = plant.images[index]
+        plantsDelegate.savePlants()
+    }
+    
+    func deleteImage(at index: Int) {
+        images.remove(at: index)
+        let imageUUID = plant.images[index]
+        plant.deleteImage(with: imageUUID)
+        plantsDelegate.savePlants()
+    }
+    
     func save(image: UIImage, withIndex index: Int) {
-        let fileURL = getFileURLWith(id: imageIDs[index])
+        let fileURL = getFileURLWith(id: plant.images[index])
         images[index] = image
         
         let indexPath = IndexPath(item: currentIndex, section: 0)
@@ -240,6 +292,8 @@ extension ImageCollectionViewController: SaveEditedImageDelegate {
                 os_log("Unable to compress the image.", log: Log.imageCollectionVC, type: .error)
             }
         }
+        
+        plantsDelegate.savePlants()
         
     }
     

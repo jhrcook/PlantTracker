@@ -18,9 +18,9 @@ protocol AssetPickerFinishedSelectingDelegate {
 
 class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerViewControllerDelegate {
 
-    var plant: Plant!
     var assetTracker = AssetIndexIDTracker()
-    var plantsSaveDelegate: PlantsDelegate?
+    
+    var plant: Plant!
     var didFinishDelegate: AssetPickerFinishedSelectingDelegate?
     
     let fetchOptions = PHFetchOptions()
@@ -106,7 +106,6 @@ class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerV
             }
         }
         assetTracker.reset()
-        if let delegate = plantsSaveDelegate { delegate.savePlants() }
         if let delegate = didFinishDelegate { delegate.didFinishSelecting(assetPicker: self) }
     }
     
