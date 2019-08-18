@@ -9,6 +9,7 @@
 import Foundation
 
 protocol PlantsDelegate: class {
+    func setIcon(for plant: Plant)
     func savePlants()
     func loadPlants()
     func newPlant()

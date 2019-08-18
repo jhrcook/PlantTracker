@@ -8,12 +8,23 @@
 
 import UIKit
 import os
+import CropViewController
 
 private let reuseIdentifier = "scrollingImageCell"
 
+
 protocol ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
+    func removeCell(at index: Int)
 }
+
+
+protocol EditedImageDelegate {
+    func save(image: UIImage, withIndex index: Int)
+    func setProfileAs(imageAt index: Int)
+    func deleteImage(at index: Int)
+}
+
 
 class ImagePagingCollectionViewController: UICollectionViewController {
 
@@ -29,7 +40,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     var hideCellImageViews = false
     var transitionController = ZoomTransitionController()
     var containerDelegate: ImagePagingCollectionViewControllerDelegate?
-    
+    var saveEditsDelegate: EditedImageDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +59,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(userDidPanWith(gestureRecognizer:)))
         view.addGestureRecognizer(panGesture)
         
-        // tap to go black or white background
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapWith(gestureRecognizer:)))
-//        tapGesture.require(toFail: panGesture)
-//        view.addGestureRecognizer(tapGesture)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedActionButton))
     }
     
     
@@ -153,13 +161,13 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
 extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just before the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionWillStartWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is starting.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = zoomAnimator.isPresenting
     }
     
     func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just after the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionDidEndWith(zoomAnimator:)`.", log: Log.pagingImageVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is finishing.", log: Log.pagingImageVC, type: .info)
         hideCellImageViews = false
         if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
             cell.imageView.isHidden = hideCellImageViews
@@ -193,6 +201,13 @@ extension ImagePagingCollectionViewController {
         switch gestureRecognizer.state {
         case .began:
             os_log("Dismissing pan gesture began.", log: Log.pagingImageVC, type: .info)
+            
+            // unhide the navigation bar if needed and turn background white
+            if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
+                cell.contentView.backgroundColor = .white
+                showNavigationBar()
+            }
+            
             transitionController.isInteractive = true
             let _ = navigationController?.popViewController(animated: true)
         case .ended:
@@ -237,4 +252,94 @@ extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDele
     func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+}
+
+
+
+// MARK: tappedRightBarButton
+
+extension ImagePagingCollectionViewController {
+    @objc func tappedActionButton() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Edit...", style: .default, handler: editPhoto))
+        alertController.addAction(UIAlertAction(title: "Share...", style: .default, handler: shareImage))
+        alertController.addAction(UIAlertAction(title: "Make header image", style: .default, handler: setHeaderImage))
+        alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive, handler: deleteImageTapped))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
+    }
+    
+    
+    // edit photo
+    func editPhoto(_ alert: UIAlertAction) {
+        let image = images[currentIndex]
+        let cropViewController = CropViewController(croppingStyle: .default, image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true)
+    }
+    
+    
+    // share using UIActivityViewController
+    func shareImage(_ alert: UIAlertAction) {
+        let image = images[currentIndex]
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityVC, animated: true)
+    }
+    
+    
+    func setHeaderImage(_ alert: UIAlertAction) {
+        saveEditsDelegate?.setProfileAs(imageAt: currentIndex)
+    }
+    
+    
+    func deleteImageTapped(_ alert: UIAlertAction) {
+        let alertController = UIAlertController(title: "Delete image?", message: "Are you sure you want to delete the image from your library?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            if let delegate = self?.saveEditsDelegate,
+                let index = self?.currentIndex {
+                delegate.deleteImage(at: index)
+            }
+            
+            let indexToDelete = self!.currentIndex
+            
+            self?.containerDelegate?.removeCell(at: indexToDelete)
+            self?.images.remove(at: indexToDelete)
+            self?.collectionView.deleteItems(at: [IndexPath(item: indexToDelete, section: 0)])
+            
+            if indexToDelete == (self?.images.count)! {
+                self?.currentIndex = self!.currentIndex - 1
+            } else {
+                self?.currentIndex = self!.currentIndex
+            }
+            self?.containerDelegate?.containerViewController(self!, indexDidChangeTo: self!.currentIndex)
+            
+            if self!.images.count == 0 {
+                self?.navigationController?.popViewController(animated: false)
+            }
+        })
+        present(alertController, animated: true)
+    }
+}
+
+
+
+// MARK: CropViewControllerDelegate
+
+extension ImagePagingCollectionViewController: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        dismiss(animated: true)
+    }
+    
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        images[currentIndex] = image
+        if let delegate = saveEditsDelegate {
+            delegate.save(image: image, withIndex: currentIndex)
+        }
+        collectionView.reloadData()
+        dismiss(animated: true)
+    }
+    
 }

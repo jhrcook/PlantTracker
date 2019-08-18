@@ -10,11 +10,21 @@ import UIKit
 
 class PlantLibraryTableViewCell: UITableViewCell {
     
-    var plant: Plant!
-    
     var iconImageView: UIImageView!
     var scientificNameLabel: UILabel!
     var commonNameLabel: UILabel!
+    
+    var scientificName: String? {
+        didSet {
+            setScientificLabel()
+        }
+    }
+    var commonName: String? {
+        didSet {
+            commonNameLabel.text = commonName
+            commonNameLabel.textColor = .darkGray
+        }
+    }
     
     
     override func awakeFromNib() {
@@ -70,6 +80,18 @@ extension PlantLibraryTableViewCell {
     }
     
     
+    func setScientificLabel() {
+        if let scientificName = scientificName {
+            scientificNameLabel?.text = scientificName
+        } else {
+            scientificNameLabel?.text = "Unnamed"
+            scientificNameLabel?.textColor = .gray
+        }
+        
+        scientificNameLabel?.font = UIFont.italicSystemFont(ofSize: scientificNameLabel?.font.pointSize ?? UIFont.systemFontSize)
+    }
+    
+    
     func setupCellView() {
         
         // separator inset
@@ -78,67 +100,9 @@ extension PlantLibraryTableViewCell {
         // arrow point to detail view controller
         accessoryType = .disclosureIndicator
         
-        // main label
-        if let scientificName = plant.scientificName {
-            scientificNameLabel?.text = scientificName
-        } else {
-            scientificNameLabel?.text = "Unnamed"
-            scientificNameLabel?.textColor = .gray
-        }
-        
-        scientificNameLabel?.font = UIFont.italicSystemFont(ofSize: scientificNameLabel?.font.pointSize ?? UIFont.systemFontSize)
-        
-        // detail label
-        commonNameLabel?.text = plant.commonName
-        commonNameLabel.textColor = .darkGray
-        
         // cell image
-        if iconImageView?.image == nil {
-            var blankImage = UIImage(named: "blankImage")!
-            blankImage = crop(image: blankImage, toWidth: 100, toHeight: 100)
-            iconImageView?.image = resize(image: blankImage, targetSize: CGSize(width: 60, height: 60))
-            iconImageView?.layer.masksToBounds = true
-            iconImageView?.layer.cornerRadius = 30
-        }
-
-        if let iconImageID = plant.smallRoundProfileImage {
-            // load profile image
-            iconImageView?.layer.masksToBounds = true
-            iconImageView?.layer.cornerRadius = 30
-            iconImageView?.image = UIImage(contentsOfFile: getFilePathWith(id: iconImageID))
-        } else {
-            DispatchQueue.global(qos: .userInitiated).async { [weak plant, weak self] in
-                var image: UIImage?
-                var usedCactusImage = false
-                if let imageID = plant?.bestSingleImage() {
-                    image = UIImage(contentsOfFile: getFilePathWith(id: imageID))
-                }
-                if image == nil {
-                    usedCactusImage = true
-                    image = UIImage(named: "cactusSmall")
-                }
-                image = crop(image: image!, toWidth: 100, toHeight: 100)
-                image = resize(image: image!, targetSize: CGSize(width: 60, height: 60))
-                
-                // set image in main thread
-                DispatchQueue.main.async {
-                    self?.iconImageView?.layer.masksToBounds = true
-                    self?.iconImageView?.layer.cornerRadius = 30
-                    self?.iconImageView?.image = image
-                }
-                
-                // save image for future use
-                if !usedCactusImage {
-                    let imageName = UUID().uuidString
-                    let imagePath = getFileURLWith(id: imageName)
-                    
-                    if let jpegData = image!.jpegData(compressionQuality: 1.0) {
-                        try? jpegData.write(to: imagePath)
-                    }
-                    plant?.smallRoundProfileImage = imageName
-                }
-            }
-        }
+        iconImageView?.layer.masksToBounds = true
+        iconImageView?.layer.cornerRadius = 30
     }
 
 

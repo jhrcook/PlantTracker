@@ -50,7 +50,7 @@ class Plant: NSObject, Codable {
     // ---- Deleting images ---- //
     // make sure to remove the file from the phone
     
-    func deleteImage(at imageUUID: String) {
+    func deleteImage(with imageUUID: String) {
         let filePath = getFilePathWith(id: imageUUID)
         do {
             let fileManager = FileManager()
@@ -70,9 +70,9 @@ class Plant: NSObject, Codable {
     func deleteAllImages() {
         // delete files
         for image in images {
-            deleteImage(at: image)
+            deleteImage(with: image)
         }
-        if let image = smallRoundProfileImage { deleteImage(at: image) }
+        if let image = smallRoundProfileImage { deleteImage(with: image) }
 
         // empty arrays
         images.removeAll()

@@ -24,6 +24,8 @@ I am still working on the detail view for a plant in the Library. Below is an sa
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
 * [Floaty](https://github.com/kciter/Floaty)
+* [TOCropViewController](https://github.com/TimOliver/TOCropViewController)
+
 
 **Related Repositories**	
 

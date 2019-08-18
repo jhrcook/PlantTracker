@@ -18,9 +18,9 @@ protocol AssetPickerFinishedSelectingDelegate {
 
 class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerViewControllerDelegate {
 
-    var plant: Plant!
     var assetTracker = AssetIndexIDTracker()
-    var plantsSaveDelegate: PlantsDelegate?
+    
+    var plant: Plant!
     var didFinishDelegate: AssetPickerFinishedSelectingDelegate?
     
     let fetchOptions = PHFetchOptions()
@@ -90,7 +90,7 @@ class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerV
     func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {
         if let uuid = assetTracker.uuidFrom(indexPathItem: indexPath.item) {
             os_log("deleting image uuid '%public}@' at index path '%d'", log: Log.assetPickerVC, type: .info, uuid, indexPath.item)
-            plant.deleteImage(at: uuid)
+            plant.deleteImage(with: uuid)
         } else {
             assetTracker.didNotDeleteAtRequestIndex.append(indexPath.item)
         }
@@ -102,11 +102,10 @@ class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerV
         for index in assetTracker.didNotDeleteAtRequestIndex {
             if let uuid = assetTracker.uuidFrom(indexPathItem: index) {
                 os_log("deleting image uuid '%{public}@' at index path '%d'", log: Log.assetPickerVC, type: .info, uuid, index)
-                plant.deleteImage(at: uuid)
+                plant.deleteImage(with: uuid)
             }
         }
         assetTracker.reset()
-        if let delegate = plantsSaveDelegate { delegate.savePlants() }
         if let delegate = didFinishDelegate { delegate.didFinishSelecting(assetPicker: self) }
     }
     
@@ -116,7 +115,7 @@ class PlantAssetsPickerViewController: AssetsPickerViewController, AssetsPickerV
         if let allUUIDs = assetTracker.allUUIDs() {
             for uuid in allUUIDs {
                 os_log("Deleting UUID '%@'", log: Log.assetPickerVC, type: .info, uuid)
-                plant.deleteImage(at: uuid)
+                plant.deleteImage(with: uuid)
             }
         }
         assetTracker.reset()

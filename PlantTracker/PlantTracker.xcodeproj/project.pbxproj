@@ -146,12 +146,12 @@
 		8414554F22FF762500A74C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */,
-				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
-				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
-				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
+				84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */,
 				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
+				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,11 +159,11 @@
 		8414555022FF762F00A74C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
-				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
+				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
 				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
 				845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */,
-				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
+				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
+				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
 				8455BFB822F63BF5004DEDA1 /* PlantsDelegate.swift */,
 			);
 			path = Controllers;

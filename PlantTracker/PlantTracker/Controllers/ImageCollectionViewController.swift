@@ -8,18 +8,43 @@
 
 import UIKit
 import os
+import SnapKit
 
 private let reuseIdentifier = "image"
 
 class ImageCollectionViewController: UICollectionViewController {
     
-    var imageIDs = [String]()
     var images = [UIImage]()
+    
+    var noImagesLabel = UILabel()
     
     var currentIndex = 0
     
+    var plant: Plant!
+    var plantsDelegate: PlantsDelegate!
+    
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
+    
+    var inMultiSelectMode = false {
+        didSet {
+            
+            selectedImageIndices.removeAll()
+            collectionView.allowsMultipleSelection = inMultiSelectMode
+            navigationController?.setToolbarHidden(!inMultiSelectMode, animated: true)
+            
+            if inMultiSelectMode {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitMultiSelectionMode))
+                title = "Selected \(selectedImageIndices.count) images"
+            } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+                title = standardTitle ?? ""
+            }
+        }
+    }
+    var selectedImageIndices = [Int]()
+    var standardTitle: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +61,55 @@ class ImageCollectionViewController: UICollectionViewController {
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
         
-        // load images
-        os_log("Setting up %d images.", log: Log.imageCollectionVC, type: .info, imageIDs.count)
-        for imageID in imageIDs {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        standardTitle = title
+        
+        loadImages()
+        setupToolbar()
+    }
+    
+    
+    func loadImages() {
+        os_log("Setting up %d images.", log: Log.imageCollectionVC, type: .info, plant.images.count)
+        images.removeAll(keepingCapacity: true)
+        for imageID in plant.images {
             if let image = UIImage(contentsOfFile: getFilePathWith(id: imageID)) { images.append(image) }
         }
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        if images.count == 0 {
+            noImagesLabel = UILabel()
+            view.addSubview(noImagesLabel)
+            noImagesLabel.snp.makeConstraints { make in
+                make.centerX.equalTo(view)
+                make.centerY.equalTo(view)
+            }
+
+            noImagesLabel.text = "No images"
+        } else {
+            noImagesLabel.removeFromSuperview()
+        }
+        
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if inMultiSelectMode { inMultiSelectMode = false }
+    }
+    
+    
+    @objc func editButtonTapped() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Import images", style: .default, handler: addImages))
+        ac.addAction(UIAlertAction(title: "Edit images", style: .default, handler: selectMultipleImages))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
 }
 
 
@@ -63,15 +130,141 @@ extension ImageCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.imageView.image = images[indexPath.item]
         cell.imageView.contentMode = .scaleAspectFill
+        
+        cell.shadingView.isHidden = true
+        cell.borderView.isHidden = true
+        cell.shadingView.backgroundColor = .white
+        cell.shadingView.alpha = 0.25
+        cell.borderView.layer.borderWidth = 3
+        cell.borderView.backgroundColor = .clear
+        cell.borderView.layer.borderColor = UIColor(alpha: 1.0, red: 52, green: 110, blue: 216).cgColor
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         os_log("selected image at %d.", log: Log.imageCollectionVC, type: .info, indexPath.item)
         currentIndex = indexPath.item
+        
+        
+        if inMultiSelectMode {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ImageCollectionViewCell {
+                print("selected index \(indexPath.item) - cell is selected: \(cell.isSelected)")
+                selectedImageIndices.append(indexPath.item)
+                cell.shadingView.isHidden = false
+                cell.borderView.isHidden = false
+            }
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if inMultiSelectMode {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ImageCollectionViewCell {
+                print("deselected index \(indexPath.item) - cell is selected: \(cell.isSelected)")
+                cell.shadingView.isHidden = true
+                cell.borderView.isHidden = true
+                selectedImageIndices = selectedImageIndices.filter() { $0 != indexPath.item }
+            }
+        }
     }
 
+}
 
+
+// MARK: AssetPickerFinishedSelectingDelegate
+
+extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
+    
+    @objc func addImages(_ alert: UIAlertAction) {
+        let imagePicker = PlantAssetsPickerViewController()
+        imagePicker.plant = plant
+        imagePicker.didFinishDelegate = self
+        
+        os_log("Presenting asset image picker.", log: Log.detailLibraryVC, type: .info)
+        
+        present(imagePicker, animated: true)
+    }
+    
+    
+    func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
+        os_log("AssetPicker did finish selecting.", log: Log.detailLibraryVC, type: .info)
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.plantsDelegate?.savePlants()
+            self?.loadImages()
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+}
+
+
+
+// for multi-selection editing
+
+extension ImageCollectionViewController {
+    
+    func setupToolbar() {
+        let trashToolbarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSelectedImages))
+        let shareToolbarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareSelectedImages))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        toolbarItems = [shareToolbarButton, spacer, trashToolbarButton]
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
+    
+    @objc func selectMultipleImages(_ alert: UIAlertAction) {
+        inMultiSelectMode = true
+    }
+    
+    
+    @objc func deleteSelectedImages(_ alert: UIAlertAction) {
+        if selectedImageIndices.count > 0 {
+            let ac = UIAlertController(title: "Delete \(selectedImageIndices.count) images?", message: "Are you sure you want to delete the selected images?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                for ind in self!.selectedImageIndices.sorted().reversed() {
+                    self?.images.remove(at: ind)
+                    let uuid = self!.plant.images[ind]
+                    self?.plant.deleteImage(with: uuid)
+                    self?.collectionView.deleteItems(at: [IndexPath(item: ind, section: 0)])
+                }
+                self?.plantsDelegate.savePlants()
+                self?.selectedImageIndices.removeAll()
+            })
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "No images selected.", message: "Select images by tapping on them.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    @objc func shareSelectedImages(_ alert: UIAlertAction) {
+        if selectedImageIndices.count > 0 {
+            var imagesToShare = [UIImage]()
+            for ind in selectedImageIndices {
+                imagesToShare.append(images[ind])
+            }
+            let activityVC = UIActivityViewController(activityItems: imagesToShare, applicationActivities: nil)
+            present(activityVC, animated: true)
+        } else {
+            let ac = UIAlertController(title: "No images selected.", message: "Select images by tapping on them.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    @objc func exitMultiSelectionMode(_ alert: UIAlertAction) {
+        inMultiSelectMode = false
+        collectionView.reloadData()
+    }
+    
+    
+    
 }
 
 
@@ -97,30 +290,40 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 
 
-// MARK: segue
+// MARK: segues
 
 extension ImageCollectionViewController {
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        // block segue to paging view controller when in editing mode
+        if inMultiSelectMode && identifier == "toPagingViewCollection" {
+            return false
+        }
+        return true
+    }
+    
+    
     // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? ImagePagingCollectionViewController{
+        if let destinationVC = segue.destination as? ImagePagingCollectionViewController{
             
             os_log("Preparing segue to `ImagePagingCollectionViewController`.", log: Log.imageCollectionVC, type: .info)
             
             // pass data
-            destinationViewController.images = images
+            destinationVC.images = images
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                destinationViewController.startingIndex = indexPath.item
+                destinationVC.startingIndex = indexPath.item
             }
             
             // container delegate to pass information backwards
-            destinationViewController.containerDelegate = self
+            destinationVC.containerDelegate = self
+            destinationVC.saveEditsDelegate = self
             
             // set delegates
-            self.navigationController?.delegate = destinationViewController.transitionController
+            self.navigationController?.delegate = destinationVC.transitionController
             
-            destinationViewController.transitionController.fromDelegate = self
-            destinationViewController.transitionController.toDelegate = destinationViewController
+            destinationVC.transitionController.fromDelegate = self
+            destinationVC.transitionController.toDelegate = destinationVC
         }
     }
 }
@@ -132,12 +335,12 @@ extension ImageCollectionViewController {
 extension ImageCollectionViewController: ZoomAnimatorDelegate {
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // code to run before the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionWillStartWith(zoomAnimator:)`.", log: Log.imageCollectionVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is starting.", log: Log.imageCollectionVC, type: .info)
     }
     
     func transitionDidEndWith(zoomAnimator: ZoomAnimator) {
         // code to run after the transition animation
-        os_log("`ZoomAnimatorDelegate` is running `transitionDidEndWith(zoomAnimator:)`.", log: Log.imageCollectionVC, type: .info)
+        os_log("`ZoomAnimatorDelegate` is finishing.", log: Log.imageCollectionVC, type: .info)
     }
     
     func getCell(for zoomAnimator: ZoomAnimator) -> ImageCollectionViewCell? {
@@ -178,4 +381,54 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
         os_log("Setting new current index value.", log: Log.imageCollectionVC, type: .info)
         collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
     }
+    
+    func removeCell(at index: Int) {
+        collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+    }
+}
+
+
+
+// MARK: SaveEditedImageDelegate
+
+extension ImageCollectionViewController: EditedImageDelegate {
+    func setProfileAs(imageAt index: Int) {
+        plant.profileImage = plant.images[index]
+        plantsDelegate.savePlants()
+    }
+    
+    func deleteImage(at index: Int) {
+        images.remove(at: index)
+        let imageUUID = plant.images[index]
+        plant.deleteImage(with: imageUUID)
+        plantsDelegate.savePlants()
+    }
+    
+    func save(image: UIImage, withIndex index: Int) {
+        let fileURL = getFileURLWith(id: plant.images[index])
+        images[index] = image
+        
+        let indexPath = IndexPath(item: currentIndex, section: 0)
+        if let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell {
+            cell.imageView.image = image
+        }
+        
+        // save image to original file's name
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                do {
+                    try jpegData.write(to: fileURL)
+                } catch {
+                    os_log("Error when saving compressed image. Error message: %@.", log: Log.imageCollectionVC, type: .error, error.localizedDescription)
+                }
+            } else {
+                os_log("Unable to compress the image.", log: Log.imageCollectionVC, type: .error)
+            }
+        }
+        
+        plantsDelegate.savePlants()
+        
+    }
+    
+    
 }
