@@ -11,5 +11,7 @@ import UIKit
 class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var shadingView: UIView!
+    @IBOutlet var borderView: UIView!
     
 }

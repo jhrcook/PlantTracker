@@ -146,12 +146,12 @@
 		8414554F22FF762500A74C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */,
-				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
 				84444D1C22D9974F00876F6D /* Main.storyboard */,
-				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
-				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				8414555922FF8C0000A74C65 /* PlantLibraryTableViewCell.swift */,
+				84A3F9432300354F00D6BBAC /* LibraryDetailView.swift */,
 				8499646B22EDE5B000BA03BD /* GeneralInformtationTableViewCell.swift */,
+				84C5DE4922F7B51700D5ED93 /* ImageCollectionViewCell.swift */,
+				84EA997C22F7E098000BA00D /* ImagePagingViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

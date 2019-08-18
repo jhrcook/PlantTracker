@@ -133,17 +133,35 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1000" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PDT-M6-Swd">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUl-kQ-Ntj" userLabel="Shading View">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bii-2l-UAE">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="VUl-kQ-Ntj" secondAttribute="trailing" id="2ss-Mo-sx3"/>
+                                    <constraint firstItem="Bii-2l-UAE" firstAttribute="leading" secondItem="Ntb-If-QxE" secondAttribute="leading" id="69f-VN-Vbh"/>
+                                    <constraint firstItem="VUl-kQ-Ntj" firstAttribute="top" secondItem="Ntb-If-QxE" secondAttribute="top" id="EOX-yU-DRb"/>
                                     <constraint firstAttribute="bottom" secondItem="PDT-M6-Swd" secondAttribute="bottom" id="Fl0-Zb-e0l"/>
                                     <constraint firstItem="PDT-M6-Swd" firstAttribute="top" secondItem="Ntb-If-QxE" secondAttribute="top" id="Np0-RP-kPC"/>
+                                    <constraint firstItem="Bii-2l-UAE" firstAttribute="top" secondItem="Ntb-If-QxE" secondAttribute="top" id="Ogt-mn-zyb"/>
                                     <constraint firstItem="PDT-M6-Swd" firstAttribute="leading" secondItem="Ntb-If-QxE" secondAttribute="leading" id="Ug5-PO-WqT"/>
                                     <constraint firstAttribute="trailing" secondItem="PDT-M6-Swd" secondAttribute="trailing" id="Xff-ml-U6J"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bii-2l-UAE" secondAttribute="bottom" id="XmQ-cN-ke8"/>
+                                    <constraint firstItem="VUl-kQ-Ntj" firstAttribute="leading" secondItem="Ntb-If-QxE" secondAttribute="leading" id="lWZ-Tc-VVV"/>
+                                    <constraint firstAttribute="bottom" secondItem="VUl-kQ-Ntj" secondAttribute="bottom" id="ptf-An-9JY"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bii-2l-UAE" secondAttribute="trailing" id="tox-vL-IOX"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView" destination="PDT-M6-Swd" id="Pqc-bT-BeG"/>
-                                    <segue destination="Z2S-R9-xHA" kind="show" id="5wa-dt-HZg"/>
+                                    <outlet property="borderView" destination="Bii-2l-UAE" id="iPK-tW-fEA"/>
+                                    <outlet property="imageView" destination="PDT-M6-Swd" id="ey2-nJ-eeE"/>
+                                    <outlet property="shadingView" destination="VUl-kQ-Ntj" id="ASl-JE-V4N"/>
+                                    <segue destination="Z2S-R9-xHA" kind="show" identifier="toPagingViewCollection" id="5wa-dt-HZg"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -155,7 +173,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dxy-wR-atO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3730" y="-657"/>
+            <point key="canvasLocation" x="3728.985507246377" y="-657.58928571428567"/>
         </scene>
         <!--Image Paging Collection View Controller-->
         <scene sceneID="fjq-oW-5fj">

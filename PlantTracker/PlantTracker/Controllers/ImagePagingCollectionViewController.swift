@@ -265,6 +265,7 @@ extension ImagePagingCollectionViewController {
         alertController.addAction(UIAlertAction(title: "Share...", style: .default, handler: shareImage))
         alertController.addAction(UIAlertAction(title: "Make header image", style: .default, handler: setHeaderImage))
         alertController.addAction(UIAlertAction(title: "Delete image", style: .destructive, handler: deleteImageTapped))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alertController, animated: true)
     }
     

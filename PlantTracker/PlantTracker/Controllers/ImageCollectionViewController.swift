@@ -26,6 +26,26 @@ class ImageCollectionViewController: UICollectionViewController {
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
     
+    var inMultiSelectMode = false {
+        didSet {
+            
+            selectedImageIndices.removeAll()
+            collectionView.allowsMultipleSelection = inMultiSelectMode
+            navigationController?.setToolbarHidden(!inMultiSelectMode, animated: true)
+            
+            if inMultiSelectMode {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(exitMultiSelectionMode))
+                title = "Selected \(selectedImageIndices.count) images"
+            } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+                title = standardTitle ?? ""
+            }
+        }
+    }
+    var selectedImageIndices = [Int]()
+    var standardTitle: String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,8 +62,10 @@ class ImageCollectionViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        standardTitle = title
         
         loadImages()
+        setupToolbar()
     }
     
     
@@ -76,13 +98,18 @@ class ImageCollectionViewController: UICollectionViewController {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if inMultiSelectMode { inMultiSelectMode = false }
+    }
+    
+    
     @objc func editButtonTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Import images", style: .default, handler: addImages))
-        ac.addAction(UIAlertAction(title: "Edit images", style: .default))
+        ac.addAction(UIAlertAction(title: "Edit images", style: .default, handler: selectMultipleImages))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
-    
 }
 
 
@@ -103,14 +130,43 @@ extension ImageCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         cell.imageView.image = images[indexPath.item]
         cell.imageView.contentMode = .scaleAspectFill
+        
+        cell.shadingView.isHidden = true
+        cell.borderView.isHidden = true
+        cell.shadingView.backgroundColor = .white
+        cell.shadingView.alpha = 0.25
+        cell.borderView.layer.borderWidth = 3
+        cell.borderView.backgroundColor = .clear
+        cell.borderView.layer.borderColor = UIColor(alpha: 1.0, red: 52, green: 110, blue: 216).cgColor
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         os_log("selected image at %d.", log: Log.imageCollectionVC, type: .info, indexPath.item)
         currentIndex = indexPath.item
+        
+        
+        if inMultiSelectMode {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ImageCollectionViewCell {
+                print("selected index \(indexPath.item) - cell is selected: \(cell.isSelected)")
+                selectedImageIndices.append(indexPath.item)
+                cell.shadingView.isHidden = false
+                cell.borderView.isHidden = false
+            }
+        }
     }
-
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if inMultiSelectMode {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: indexPath.item, section: 0)) as? ImageCollectionViewCell {
+                print("deselected index \(indexPath.item) - cell is selected: \(cell.isSelected)")
+                cell.shadingView.isHidden = true
+                cell.borderView.isHidden = true
+                selectedImageIndices = selectedImageIndices.filter() { $0 != indexPath.item }
+            }
+        }
+    }
 
 }
 
@@ -145,6 +201,74 @@ extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
 
 
 
+// for multi-selection editing
+
+extension ImageCollectionViewController {
+    
+    func setupToolbar() {
+        let trashToolbarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSelectedImages))
+        let shareToolbarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareSelectedImages))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        toolbarItems = [shareToolbarButton, spacer, trashToolbarButton]
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
+    
+    @objc func selectMultipleImages(_ alert: UIAlertAction) {
+        inMultiSelectMode = true
+    }
+    
+    
+    @objc func deleteSelectedImages(_ alert: UIAlertAction) {
+        if selectedImageIndices.count > 0 {
+            let ac = UIAlertController(title: "Delete \(selectedImageIndices.count) images?", message: "Are you sure you want to delete the selected images?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                for ind in self!.selectedImageIndices.sorted().reversed() {
+                    self?.images.remove(at: ind)
+                    let uuid = self!.plant.images[ind]
+                    self?.plant.deleteImage(with: uuid)
+                    self?.collectionView.deleteItems(at: [IndexPath(item: ind, section: 0)])
+                }
+                self?.plantsDelegate.savePlants()
+                self?.selectedImageIndices.removeAll()
+            })
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "No images selected.", message: "Select images by tapping on them.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    @objc func shareSelectedImages(_ alert: UIAlertAction) {
+        if selectedImageIndices.count > 0 {
+            var imagesToShare = [UIImage]()
+            for ind in selectedImageIndices {
+                imagesToShare.append(images[ind])
+            }
+            let activityVC = UIActivityViewController(activityItems: imagesToShare, applicationActivities: nil)
+            present(activityVC, animated: true)
+        } else {
+            let ac = UIAlertController(title: "No images selected.", message: "Select images by tapping on them.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    @objc func exitMultiSelectionMode(_ alert: UIAlertAction) {
+        inMultiSelectMode = false
+        collectionView.reloadData()
+    }
+    
+    
+    
+}
+
+
+
 // MARK: UICollectionViewDelegateFlowLayout
 
 extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
@@ -166,9 +290,18 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 
 
-// MARK: segue
+// MARK: segues
 
 extension ImageCollectionViewController {
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        // block segue to paging view controller when in editing mode
+        if inMultiSelectMode && identifier == "toPagingViewCollection" {
+            return false
+        }
+        return true
+    }
+    
     
     // segue to paging view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
