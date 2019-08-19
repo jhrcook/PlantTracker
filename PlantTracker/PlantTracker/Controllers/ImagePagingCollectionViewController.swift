@@ -68,6 +68,7 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     func setupCollectionView() {
         
         collectionView.backgroundColor = .white
+        
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isPagingEnabled = true
@@ -108,7 +109,7 @@ extension ImagePagingCollectionViewController {
         cell.imageView.isHidden = hideCellImageViews
         
         // delegate to show/hide navigation bar on tap gesture
-        cell.navigationBarDelegate = self
+        cell.delegate = self
         
         return cell
     }
@@ -205,7 +206,7 @@ extension ImagePagingCollectionViewController {
             // unhide the navigation bar if needed and turn background white
             if let cell = collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? ImagePagingViewCell {
                 cell.contentView.backgroundColor = .white
-                showNavigationBar()
+                navigationController?.setNavigationBarHidden(false, animated: true)
             }
             
             transitionController.isInteractive = true
@@ -227,30 +228,12 @@ extension ImagePagingCollectionViewController {
 
 
 
-// MARK: tap gesture
-
-extension ImagePagingCollectionViewController {
-    @objc func userDidTapWith(gestureRecognizer: UITapGestureRecognizer) {
-        if collectionView.backgroundColor == .white {
-            collectionView.backgroundColor = .black
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            collectionView.backgroundColor = .white
-            navigationController?.setNavigationBarHidden(false, animated: true)
-        }
-    }
-}
-
-
-
 // MARK: NavigationBarHidingAndShowingDelegate
 
-extension ImagePagingCollectionViewController: NavigationBarHidingAndShowingDelegate {
-    func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+extension ImagePagingCollectionViewController: PagingViewWasTappedDelegate {
+    func pagingViewCell(_ pagingViewCell: ImagePagingViewCell, shouldBeTurnedBlack: Bool) {
+        collectionView.backgroundColor = shouldBeTurnedBlack ? UIColor.black : UIColor.white
+        navigationController?.setNavigationBarHidden(shouldBeTurnedBlack, animated: true)
     }
 }
 

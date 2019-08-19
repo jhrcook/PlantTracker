@@ -10,9 +10,8 @@ import UIKit
 import SnapKit
 
 
-protocol NavigationBarHidingAndShowingDelegate: class {
-    func showNavigationBar()
-    func hideNavigationBar()
+protocol PagingViewWasTappedDelegate: class {
+    func pagingViewCell(_ pagingViewCell: ImagePagingViewCell, shouldBeTurnedBlack: Bool)
 }
 
 class ImagePagingViewCell: UICollectionViewCell {
@@ -23,7 +22,7 @@ class ImagePagingViewCell: UICollectionViewCell {
         }
     }
     
-    weak var navigationBarDelegate: NavigationBarHidingAndShowingDelegate?
+    weak var delegate: PagingViewWasTappedDelegate?
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
@@ -31,12 +30,18 @@ class ImagePagingViewCell: UICollectionViewCell {
     // factor to zoom in by
     var zoomFactor: CGFloat = 3.0
     
+    var isInBlackMode = false {
+        didSet{
+            delegate?.pagingViewCell(self, shouldBeTurnedBlack: isInBlackMode)
+        }
+    }
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
         // content view
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .clear
         
         // scroll view
         scrollView = UIScrollView()
@@ -109,13 +114,7 @@ extension ImagePagingViewCell {
     
     @objc func singleTapAction(_ gestureRecognizer: UIGestureRecognizer) {
         if gestureRecognizer.state == .ended {
-            if contentView.backgroundColor == .white {
-                contentView.backgroundColor = .black
-                navigationBarDelegate?.hideNavigationBar()
-            } else {
-                contentView.backgroundColor = .white
-                navigationBarDelegate?.showNavigationBar()
-            }
+            isInBlackMode.toggle()
         }
     }
 }
