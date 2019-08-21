@@ -216,6 +216,102 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             return false
         }
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == libraryDetailView.generalInfoTableView {
+            switch indexPath.row {
+            case 0:
+                // "Scientific name"
+                getNewName(for: .scientificName)
+            case 1:
+                // "Common name"
+                getNewName(for: .commonName)
+            case 2:
+                // "Growing season(s)"
+                setLevelOf(plantLevel: .growingSeason)
+                break
+            case 3:
+                // "Dormant season(s)"
+                break
+            case 4:
+                // "Difficulty"
+                setDifficultyLevel()
+            case 5:
+                // "Watering level(s)"
+                break
+            case 6:
+                // "Lighting level(s)"
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    enum PlantName { case scientificName, commonName }
+    
+    func getNewName(for plantName: PlantName) {
+        let alertTitle = "Change the plant's \(plantName == .commonName ? "common name" : "scientific name")"
+        let ac = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        switch plantName {
+        case .scientificName:
+            ac.addAction(UIAlertAction(title: "Set", style: .default) { [weak self] _ in
+                if let newName = ac.textFields?[0].text {
+                    self?.plant.scientificName = newName
+                    self?.title = newName
+                    self?.reloadGeneralInfoTableViewAndSavePlants()
+                }
+            })
+        case .commonName:
+            ac.addAction(UIAlertAction(title: "Set", style: .default) { [weak self] _ in
+                if let newName = ac.textFields?[0].text {
+                    self?.plant.commonName = newName
+                    self?.reloadGeneralInfoTableViewAndSavePlants()
+                }
+            })
+        }
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    
+    enum PlantLevel: String {
+        case growingSeason = "Growing Season"
+        case dormantSeason = "Dormant Season"
+        case wateringLevel = "Watering Level"
+        case lightingLevel = "Lighting Level"
+    }
+    
+    func setLevelOf(plantLevel: PlantLevel) {
+        // TODO
+        // UIPicker with start and end seasons
+        // Think about changing the "season" properties to months
+        // look into Dates and Times in iOS: https://developer.apple.com/documentation/foundation/dates_and_times
+    }
+    
+    
+    func setDifficultyLevel() {
+        let ac = UIAlertController(title: "Set difficulty level", message: nil, preferredStyle: .alert)
+        for level in DifficultyLevel.allCases {
+            let alert = UIAlertAction(title: level.rawValue, style: .default) { _ in
+                self.plant.difficulty = level
+                self.reloadGeneralInfoTableViewAndSavePlants()
+            }
+            ac.addAction(alert)
+        }
+        present(ac, animated: true)
+        
+    }
+    
+    
+    func reloadGeneralInfoTableViewAndSavePlants() {
+        libraryDetailView.generalInfoTableView.reloadData()
+        plantsDelegate?.savePlants()
+    }
+    
 }
 
 

@@ -125,8 +125,8 @@ enum Season: String, Codable {
     case summer, fall, winter, spring
 }
 
-enum DifficultyLevel: Int, Codable {
-    case easy = 1, medium, hard
+enum DifficultyLevel: String, Codable, CaseIterable {
+    case easy, medium, hard
 }
 
 enum WateringLevel: String, Codable {
