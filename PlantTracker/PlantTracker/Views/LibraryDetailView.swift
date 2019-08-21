@@ -88,7 +88,7 @@ extension LibraryDetailView {
         setupInformationSubviews()
         
         // initalize content height of main scroll view
-        let contentHeight = headerImageHeight + self.frame.height - minHeaderImageHeight
+        let contentHeight = headerImageHeight + self.frame.height - minHeaderImageHeight + self.layoutMargins.top
         mainScrollView.contentSize = CGSize(width: self.frame.width, height: contentHeight)
     }
     
