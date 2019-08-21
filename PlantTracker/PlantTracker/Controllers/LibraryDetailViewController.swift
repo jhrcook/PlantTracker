@@ -50,6 +50,8 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         libraryDetailView.setupView()
         
+        setupNotesView()
+        
         libraryDetailView.mainScrollView.delegate = self
         libraryDetailView.twicketSegementedControl.delegate = self
         libraryDetailView.generalInfoTableView.delegate = self
@@ -127,6 +129,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         })
         present(alertControler, animated: true)
     }
+    
 }
 
 
@@ -253,6 +256,33 @@ extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
 
 extension LibraryDetailViewController {
     
+    enum TextViewState {
+        case blank, content
+    }
+    
+    
+    func setNotesTextView(to textViewState: TextViewState) {
+        
+        switch textViewState {
+        case .blank:
+            libraryDetailView.notesTextView.text = "Notes"
+            libraryDetailView.notesTextView.textColor = .lightGray
+        case .content:
+            libraryDetailView.notesTextView.textColor = .black
+        }
+    }
+    
+    
+    func setupNotesView() {
+        if plant.notes.count > 0 {
+            setNotesTextView(to: .content)
+            libraryDetailView.notesTextView.text = plant.notes
+        } else {
+            setNotesTextView(to: .blank)
+        }
+    }
+    
+    
     func setupKeyboardObserver() {
         keyboard.observe { [weak self] (event) in
             
@@ -260,23 +290,25 @@ extension LibraryDetailViewController {
             if self?.libraryDetailView.notesTextView.isHidden == false {
                 switch event.type {
                 case .willHide:
+                    os_log("Keyboard will hide", log: Log.detailLibraryVC, type: .info)
                     self?.libraryDetailView.notesTextView.contentInset = .zero
                     
                     if self?.libraryDetailView.notesTextView.text == "" {
-                        self?.libraryDetailView.notesTextView.text = "Notes"
-                        self?.libraryDetailView.notesTextView.textColor = .lightGray
+                        self?.setNotesTextView(to: .blank)
                     } else {
                         self?.plant.notes = self?.libraryDetailView.notesTextView.text ?? ""
+                        self?.plantsDelegate?.savePlants()
                     }
                     
                 case .willShow, .willChangeFrame:
+                    os_log("Keyboard will show/change frame", log: Log.detailLibraryVC, type: .info)
                     let keyboardScreenFrameEnd = event.keyboardFrameEnd
                     let bottom = keyboardScreenFrameEnd.height - (self?.view.alignmentRectInsets.bottom)! + 8
                     self?.libraryDetailView.notesTextView.contentInset.bottom = bottom
                     
                     if self?.libraryDetailView.notesTextView.text == "Notes" {
                         self?.libraryDetailView.notesTextView.text = ""
-                        self?.libraryDetailView.notesTextView.textColor = .black
+                        self?.setNotesTextView(to: .content)
                     }
                     
                     let scrollBottom = keyboardScreenFrameEnd.height

@@ -31,8 +31,6 @@ class LibraryDetailView: UIView {
     
     var startingYOffset: CGFloat? = nil
     
-    var notesText: String = ""
-    
     var navigationBarHeight: CGFloat = 0.0
     var headerImageHeight: CGFloat = 350.0
     var minHeaderImageHeight: CGFloat = 100
@@ -225,12 +223,5 @@ extension LibraryDetailView {
         notesTextView.textAlignment = .left
         notesTextView.returnKeyType = .default
         notesTextView.font = UIFont.systemFont(ofSize: 17)
-        if notesText.count > 0 {
-            notesTextView.text = notesText
-            notesTextView.textColor = .black
-        } else {
-            notesTextView.text = "Notes"
-            notesTextView.textColor = .lightGray
-        }
     }
 }
