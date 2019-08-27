@@ -15,12 +15,17 @@ import Floaty
 import os
 
 
+protocol LibraryDetailContainerDelegate {
+    func setIcon(for plant: Plant)
+}
 
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
-    var plantsDelegate: PlantsDelegate?
+    var plantsManager: PlantsManager!
+    
+    var containerDelegate: LibraryDetailContainerDelegate!
     
     var libraryDetailView: LibraryDetailView! = nil
     
@@ -71,7 +76,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         os_log("View will appear.", log: Log.detailLibraryVC, type: .debug)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsDelegate?.savePlants()
+        plantsManager.savePlants()
     }
     
     
@@ -286,10 +291,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func setLevelOf(plantLevel: PlantLevel) {
-        // TODO
-        // UIPicker with start and end seasons
-        // Think about changing the "season" properties to months
-        // look into Dates and Times in iOS: https://developer.apple.com/documentation/foundation/dates_and_times
+        // have a drop-down menu with segmented controller
     }
     
     
@@ -310,7 +312,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
     
     func reloadGeneralInfoTableViewAndSavePlants() {
         libraryDetailView.generalInfoTableView.reloadData()
-        plantsDelegate?.savePlants()
+        plantsManager.savePlants()
     }
     
 }
@@ -394,7 +396,7 @@ extension LibraryDetailViewController {
                         self?.setNotesTextView(to: .blank)
                     } else {
                         self?.plant.notes = self?.libraryDetailView.notesTextView.text ?? ""
-                        self?.plantsDelegate?.savePlants()
+                        self?.plantsManager.savePlants()
                     }
                     
                 case .willShow, .willChangeFrame:
@@ -459,8 +461,8 @@ extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsDelegate?.setIcon(for: plant)
-        plantsDelegate?.savePlants()
+        containerDelegate.setIcon(for: plant)
+        plantsManager.savePlants()
     }
 }
 
@@ -475,7 +477,7 @@ extension LibraryDetailViewController {
         if let vc = segue.destination as? ImageCollectionViewController {
             os_log("Sending images to `ImageCollectionViewController`.", log: Log.detailLibraryVC, type: .default)
             vc.plant = plant
-            vc.plantsDelegate = self.plantsDelegate
+            vc.plantsManager = self.plantsManager
             vc.title = self.title
         }
     }

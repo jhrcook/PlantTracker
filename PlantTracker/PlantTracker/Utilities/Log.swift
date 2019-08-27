@@ -20,4 +20,5 @@ struct Log {
     static let zoomAnimator = OSLog(subsystem: subsystem, category: "ZoomAnimator")
     
     static let plantsObject = OSLog(subsystem: subsystem, category: "Plant")
+    static let plantsManager = OSLog(subsystem: subsystem, category: "PlantManager")
 }

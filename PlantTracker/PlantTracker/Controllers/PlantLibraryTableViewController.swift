@@ -12,7 +12,7 @@ import os
 
 class PlantLibraryTableViewController: UITableViewController {
 
-    var plants = [Plant]()
+    var plantsManager = PlantsManager()
     
     var iconImages = [Plant: UIImage]()
     var lastSelectedRow: Int? = nil
@@ -27,27 +27,18 @@ class PlantLibraryTableViewController: UITableViewController {
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPlant))
         
-        ///////////
-        // TESTING
-        if (false) {
-            os_log("Loading test plants.", log: Log.plantLibraryTableVC, type: .info)
-            plants = [
-                Plant(scientificName: "Euphorbia obesa", commonName: "Basball cactus"),
-                Plant(scientificName: "Frailea castanea", commonName: "Kirsten"),
-                Plant(scientificName: nil, commonName: "split rock"),
-                Plant(scientificName: "Lithops julii", commonName: nil),
-                Plant(scientificName: nil, commonName: nil),
-            ]
-            return()
-        }
-        ///////////
         
-        loadPlants()
+        // TESTING //
+//        plantsManager.makeTestPlantsArray()
+        /////////////
+        
+        
+        plantsManager.loadPlants()
         getPlantIcons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        savePlants()
+        plantsManager.savePlants()
         
         // so that image views are updated
         tableView.reloadData()
@@ -55,7 +46,7 @@ class PlantLibraryTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plants.count
+        return plantsManager.plants.count
     }
     
     
@@ -69,7 +60,7 @@ class PlantLibraryTableViewController: UITableViewController {
         }
         
         // add cell content
-        let cellPlant = plants[indexPath.row]
+        let cellPlant = plantsManager.plants[indexPath.row]
         cell.scientificName = cellPlant.scientificName
         cell.commonName = cellPlant.commonName
         if let iconImage = iconImages[cellPlant] {
@@ -92,7 +83,7 @@ class PlantLibraryTableViewController: UITableViewController {
     
     func getPlantIcons() {
         os_log("Setting plant icons.", log: Log.plantLibraryTableVC, type: .info)
-        for plant in plants {
+        for plant in plantsManager.plants {
             if let iconImageID = plant.smallRoundProfileImage {
                 let iconImagePath = getFilePathWith(id: iconImageID)
                 iconImages[plant] = UIImage(contentsOfFile: iconImagePath)!
@@ -108,10 +99,39 @@ class PlantLibraryTableViewController: UITableViewController {
     }
     
     
-    func resizeForIcon(image: UIImage) -> UIImage {
-        var iconImage = crop(image: image, toWidth: 100, toHeight: 100)
-        iconImage = resize(image: iconImage, targetSize: CGSize(width: 60, height: 60))
-        return iconImage
+    @objc func addNewPlant() {
+        plantsManager.newPlant()
+        
+        // "select" the new row in the table view
+        let indexPath = IndexPath(row: plantsManager.plants.count-1, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        performSegue(withIdentifier: "showLibraryDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+
+
+// MARK: LibraryDetailContainerDelegate
+
+extension PlantLibraryTableViewController: LibraryDetailContainerDelegate {
+    
+    func setIcon(for plant: Plant) {
+        os_log("Setting icon for plant %@.", log: Log.plantLibraryTableVC, type: .info, plant.uuid)
+        if let iconImageID = plant.smallRoundProfileImage {
+            let iconImagePath = getFilePathWith(id: iconImageID)
+            iconImages[plant] = UIImage(contentsOfFile: iconImagePath)!
+        } else if let bestImageID = plant.bestSingleImage() {
+            // make new icon image
+            var image = UIImage(contentsOfFile: getFilePathWith(id: bestImageID))!
+            image = makeNewIconFor(plant: plant, withImage: image)
+            iconImages[plant] = image
+        } else {
+            iconImages[plant] = UIImage(named: "cactusSmall")!
+        }
+        
+        tableView.reloadData()
     }
     
     
@@ -142,74 +162,14 @@ class PlantLibraryTableViewController: UITableViewController {
         
         return iconImage
     }
-
-}
-
-
-
-// MARK: PlantsSaveDelegate
-extension PlantLibraryTableViewController: PlantsDelegate {
-    
-    func loadPlants() {
-        let defaults = UserDefaults.standard
-        if let savedPlants = defaults.object(forKey: "plants") as? Data{
-            let jsonDecoder = JSONDecoder()
-            do {
-                plants = try jsonDecoder.decode([Plant].self, from: savedPlants)
-                os_log("Loaded %d plants", log: Log.plantLibraryTableVC, type: .info, plants.count)
-            } catch {
-                os_log("Failed to load Plants.", log: Log.plantLibraryTableVC, type: .error)
-            }
-        }
-    }
-    
-    func savePlants() {
-        let jsonEncoder = JSONEncoder()
-        if let savedData = try? jsonEncoder.encode(plants) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "plants")
-            os_log("Saved %d plants.", log: Log.plantLibraryTableVC, type: .default, plants.count)
-        } else {
-            os_log("Failed to save plants.", log: Log.plantLibraryTableVC, type: .error)
-        }
-    }
     
     
-    func newPlant() {
-        os_log("Making new Plant.", log: Log.plantLibraryTableVC, type: .default)
-        plants.append(Plant(scientificName: nil, commonName: nil))
-        savePlants()
-        tableView.reloadData()
+    func resizeForIcon(image: UIImage) -> UIImage {
+        var iconImage = crop(image: image, toWidth: 150, toHeight: 150)
+        iconImage = resize(image: iconImage, targetSize: CGSize(width: 60, height: 60))
+        return iconImage
     }
 
-    
-    @objc func addNewPlant() {
-        newPlant()
-        
-        // "select" the new row in the table view
-        let indexPath = IndexPath(row: plants.count-1, section: 0)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-        performSegue(withIdentifier: "showLibraryDetail", sender: self)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    
-    func setIcon(for plant: Plant) {
-        os_log("Setting icon for plant %@.", log: Log.plantLibraryTableVC, type: .info, plant.uuid)
-        if let iconImageID = plant.smallRoundProfileImage {
-            let iconImagePath = getFilePathWith(id: iconImageID)
-            iconImages[plant] = UIImage(contentsOfFile: iconImagePath)!
-        } else if let bestImageID = plant.bestSingleImage() {
-            // make new icon image
-            var image = UIImage(contentsOfFile: getFilePathWith(id: bestImageID))!
-            image = makeNewIconFor(plant: plant, withImage: image)
-            iconImages[plant] = image
-        } else {
-            iconImages[plant] = UIImage(named: "cactusSmall")!
-        }
-        
-        tableView.reloadData()
-    }
     
 }
 
@@ -221,7 +181,7 @@ extension PlantLibraryTableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let plant = plants[indexPath.row]
+            let plant = plantsManager.plants[indexPath.row]
             if UserDefaults.standard.bool(forKey: "in safe mode") {
                 os_log("Double-checking with user to delete plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                 let message = "Are you sure you want to remove \(title ?? "this plant") from your library?"
@@ -230,18 +190,18 @@ extension PlantLibraryTableViewController {
                 alertControler.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self, weak plant] _ in
                     os_log("Deleting plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                     plant?.deleteAllImages()
-                    self?.plants.remove(at: indexPath.row)
+                    self?.plantsManager.plants.remove(at: indexPath.row)
                     self?.tableView.deleteRows(at: [indexPath], with: .left)
                 })
                 present(alertControler, animated: true)
             } else {
                 os_log("Deleting plant at index %d.", log: Log.plantLibraryTableVC, type: .default, indexPath.row)
                 plant.deleteAllImages()
-                plants.remove(at: indexPath.row)
+                plantsManager.plants.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
             }
         }
-        savePlants()
+        plantsManager.savePlants()
     }
 }
 
@@ -253,11 +213,12 @@ extension PlantLibraryTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? LibraryDetailViewController {
-            if plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
+            if plantsManager.plants.count > 0, let index = tableView.indexPathForSelectedRow?.row {
                 lastSelectedRow = index
                 os_log("Sending index %d to `LibraryDetailViewController`.", log: Log.plantLibraryTableVC, type: .info, index)
-                vc.plant = plants[index]
-                vc.plantsDelegate = self
+                vc.plant = plantsManager.plants[index]
+                vc.plantsManager = self.plantsManager
+                vc.containerDelegate = self
             }
         }
     }
@@ -276,6 +237,3 @@ extension PlantLibraryTableViewController {
     }
 
 }
-
-
-

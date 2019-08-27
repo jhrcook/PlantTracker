@@ -21,7 +21,7 @@ class ImageCollectionViewController: UICollectionViewController {
     var currentIndex = 0
     
     var plant: Plant!
-    var plantsDelegate: PlantsDelegate!
+    var plantsManager: PlantsManager!
     
     let numberOfImagesPerRow: CGFloat = 4.0
     let spacingBetweenCells: CGFloat = 0.5
@@ -190,7 +190,7 @@ extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
         os_log("AssetPicker did finish selecting.", log: Log.detailLibraryVC, type: .info)
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.plantsDelegate?.savePlants()
+            self?.plantsManager.savePlants()
             self?.loadImages()
             DispatchQueue.main.async { [weak self] in
                 self?.collectionView.reloadData()
@@ -230,7 +230,7 @@ extension ImageCollectionViewController {
                     self?.plant.deleteImage(with: uuid)
                     self?.collectionView.deleteItems(at: [IndexPath(item: ind, section: 0)])
                 }
-                self?.plantsDelegate.savePlants()
+                self?.plantsManager.savePlants()
                 self?.selectedImageIndices.removeAll()
             })
             present(ac, animated: true)
@@ -394,14 +394,14 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
 extension ImageCollectionViewController: EditedImageDelegate {
     func setProfileAs(imageAt index: Int) {
         plant.profileImage = plant.images[index]
-        plantsDelegate.savePlants()
+        plantsManager.savePlants()
     }
     
     func deleteImage(at index: Int) {
         images.remove(at: index)
         let imageUUID = plant.images[index]
         plant.deleteImage(with: imageUUID)
-        plantsDelegate.savePlants()
+        plantsManager.savePlants()
     }
     
     func save(image: UIImage, withIndex index: Int) {
@@ -426,7 +426,7 @@ extension ImageCollectionViewController: EditedImageDelegate {
             }
         }
         
-        plantsDelegate.savePlants()
+        plantsManager.savePlants()
         
     }
     
