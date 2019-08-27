@@ -302,6 +302,7 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
             }
             ac.addAction(alert)
         }
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
         
     }
