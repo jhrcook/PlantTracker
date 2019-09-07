@@ -25,9 +25,13 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     var plant: Plant!
     var plantsManager: PlantsManager!
     
+    var editingRowIndex: Int?
+    var editManager: EditPlantLevelManager?
+    
     var containerDelegate: LibraryDetailContainerDelegate!
     
     var libraryDetailView: LibraryDetailView! = nil
+    let generalInfomationViewController = GeneralPlantInformationTableViewController()
     
     let keyboard = KeyboardObserver()
     
@@ -59,8 +63,9 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         libraryDetailView.mainScrollView.delegate = self
         libraryDetailView.twicketSegementedControl.delegate = self
-        libraryDetailView.generalInfoTableView.delegate = self
-        libraryDetailView.generalInfoTableView.dataSource = self
+        generalInfomationViewController.tableView = libraryDetailView.generalInfoTableView
+        generalInfomationViewController.plant = plant
+        generalInfomationViewController.plantsManager = plantsManager
         libraryDetailView.linksTableView.delegate = self
         libraryDetailView.linksTableView.dataSource = self
         
@@ -143,59 +148,21 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
 extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return 7
-        case libraryDetailView.linksTableView:
+        if tableView == libraryDetailView.linksTableView {
             return 3
-        default:
+        } else {
             os_log("Unforseen table view requesting some number of cells.", log: Log.detailLibraryVC, type: .error)
-            fatalError("Unforeseen table view requesting number of cells")
+            fatalError("Unforseen table view requesting some number of cells.")
         }
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
-            var main: String?
-            var detail: String?
-            switch indexPath.row {
-            case 0:
-                main = "Scientific name"
-                detail = plant.scientificName
-                cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: cell.detailTextLabel?.font.pointSize ?? UIFont.systemFontSize)
-            case 1:
-                main = "Common name"
-                detail = plant.commonName
-            case 2:
-                main = "Growing season(s)"
-                detail = plant.printableGrowingSeason()
-            case 3:
-                main = "Dormant season(s)"
-                detail = plant.printableDormantSeason()
-            case 4:
-                main = "Difficulty"
-                if let difficulty = plant.difficulty { detail = String(difficulty.rawValue) }
-            case 5:
-                main = "Watering level(s)"
-                detail = plant.printableWatering()
-            case 6:
-                main = "Lighting level(s)"
-                detail = plant.printableLighting()
-            default:
-                main = nil
-                detail = nil
-            }
-            cell.textLabel?.text = main
-            cell.detailTextLabel?.text = detail
-            return cell
-        case libraryDetailView.linksTableView:
+        if tableView == libraryDetailView.linksTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "linksCell", for: indexPath)
             cell.textLabel?.text = "TEST LINKS - row\(indexPath.row)"
             return cell
-        default:
+        } else {
             os_log("Unforseen table view requesting a `UITableViewCell`.", log: Log.detailLibraryVC, type: .error)
             fatalError("Unforeseen table view requesting a `UITableViewCell`")
         }
@@ -203,116 +170,15 @@ extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return 50
-        case libraryDetailView.linksTableView:
+        if tableView == libraryDetailView.linksTableView {
             return 75
-        default:
+        } else {
             return 44
         }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == libraryDetailView.generalInfoTableView {
-            switch indexPath.row {
-            case 0:
-                // "Scientific name"
-                getNewName(for: .scientificName)
-            case 1:
-                // "Common name"
-                getNewName(for: .commonName)
-            case 2:
-                // "Growing season(s)"
-                setLevelOf(plantLevel: .growingSeason)
-                break
-            case 3:
-                // "Dormant season(s)"
-                break
-            case 4:
-                // "Difficulty"
-                setDifficultyLevel()
-            case 5:
-                // "Watering level(s)"
-                break
-            case 6:
-                // "Lighting level(s)"
-                break
-            default:
-                break
-            }
-        }
-    }
-    
-    
-    enum PlantName { case scientificName, commonName }
-    
-    func getNewName(for plantName: PlantName) {
-        let alertTitle = "Change the plant's \(plantName == .commonName ? "common name" : "scientific name")"
-        let ac = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-        ac.addTextField()
-        switch plantName {
-        case .scientificName:
-            ac.addAction(UIAlertAction(title: "Set", style: .default) { [weak self] _ in
-                if let newName = ac.textFields?[0].text {
-                    self?.plant.scientificName = newName
-                    self?.title = newName
-                    self?.reloadGeneralInfoTableViewAndSavePlants()
-                }
-            })
-        case .commonName:
-            ac.addAction(UIAlertAction(title: "Set", style: .default) { [weak self] _ in
-                if let newName = ac.textFields?[0].text {
-                    self?.plant.commonName = newName
-                    self?.reloadGeneralInfoTableViewAndSavePlants()
-                }
-            })
-        }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
-    }
-    
-    
-    enum PlantLevel: String {
-        case growingSeason = "Growing Season"
-        case dormantSeason = "Dormant Season"
-        case wateringLevel = "Watering Level"
-        case lightingLevel = "Lighting Level"
-    }
-    
-    func setLevelOf(plantLevel: PlantLevel) {
-        // have a drop-down menu with segmented controller
-    }
-    
-    
-    func setDifficultyLevel() {
-        let ac = UIAlertController(title: "Set difficulty level", message: nil, preferredStyle: .alert)
-        for level in DifficultyLevel.allCases {
-            let alert = UIAlertAction(title: level.rawValue, style: .default) { _ in
-                self.plant.difficulty = level
-                self.reloadGeneralInfoTableViewAndSavePlants()
-            }
-            ac.addAction(alert)
-        }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
-        
-    }
-    
-    
-    func reloadGeneralInfoTableViewAndSavePlants() {
-        libraryDetailView.generalInfoTableView.reloadData()
-        plantsManager.savePlants()
+        return false
     }
     
 }
@@ -361,7 +227,6 @@ extension LibraryDetailViewController {
     
     
     func setNotesTextView(to textViewState: TextViewState) {
-        
         switch textViewState {
         case .blank:
             libraryDetailView.notesTextView.text = "Notes"
