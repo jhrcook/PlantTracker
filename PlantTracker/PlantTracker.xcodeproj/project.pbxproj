@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84010D242325BC170089E2F1 /* LinksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84010D232325BC170089E2F1 /* LinksTableViewController.swift */; };
 		840919FA22FEE2BC007A8A27 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */; };
 		840919FC22FEE2D4007A8A27 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */; };
 		840919FE22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		04F284427149BAFB8ABF4D7C /* Pods-PlantTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTracker.debug.xcconfig"; path = "Target Support Files/Pods-PlantTracker/Pods-PlantTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		39E15E495EEF0063BC2EDBAB /* Pods-PlantTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTracker.release.xcconfig"; path = "Target Support Files/Pods-PlantTracker/Pods-PlantTracker.release.xcconfig"; sourceTree = "<group>"; };
+		84010D232325BC170089E2F1 /* LinksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksTableViewController.swift; sourceTree = "<group>"; };
 		840919F922FEE2BC007A8A27 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
 		840919FB22FEE2D4007A8A27 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
 		840919FD22FEE31B007A8A27 /* ZoomDismissalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDismissalInteractionController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				84444D1A22D9974F00876F6D /* PlantLibraryTableViewController.swift */,
 				8431043E22DBC64100AFD4B6 /* LibraryDetailViewController.swift */,
 				84488C1C232457ED004F0EE4 /* GeneralPlantInformationTableViewController.swift */,
+				84010D232325BC170089E2F1 /* LinksTableViewController.swift */,
 				845BD6BC23005F0300D9BC90 /* PlantAssetsPickerViewController.swift */,
 				846E003722F1BFA3000FAC5C /* ImageCollectionViewController.swift */,
 				847CD77322F8459E00F4A001 /* ImagePagingCollectionViewController.swift */,
@@ -339,6 +342,7 @@
 				84EA997D22F7E098000BA00D /* ImagePagingViewCell.swift in Sources */,
 				84C5DE4A22F7B51700D5ED93 /* ImageCollectionViewCell.swift in Sources */,
 				8431043B22DB8E0100AFD4B6 /* Plant.swift in Sources */,
+				84010D242325BC170089E2F1 /* LinksTableViewController.swift in Sources */,
 				84444D1922D9974F00876F6D /* AppDelegate.swift in Sources */,
 				840F8D2D2301EBE1007588CC /* Log.swift in Sources */,
 				84A3F9442300354F00D6BBAC /* LibraryDetailView.swift in Sources */,

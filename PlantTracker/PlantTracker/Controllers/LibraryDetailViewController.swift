@@ -32,6 +32,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var libraryDetailView: LibraryDetailView! = nil
     let generalInfomationViewController = GeneralPlantInformationTableViewController()
+    let linksTableViewController = LinksTableViewController()
     
     let keyboard = KeyboardObserver()
     
@@ -63,11 +64,16 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         libraryDetailView.mainScrollView.delegate = self
         libraryDetailView.twicketSegementedControl.delegate = self
+        
+        // set up general information table view controller
         generalInfomationViewController.tableView = libraryDetailView.generalInfoTableView
         generalInfomationViewController.plant = plant
         generalInfomationViewController.plantsManager = plantsManager
-        libraryDetailView.linksTableView.delegate = self
-        libraryDetailView.linksTableView.dataSource = self
+        
+        // set up links table view controller
+        linksTableViewController.tableView = libraryDetailView.linksTableView
+        linksTableViewController.plant = plant
+        linksTableViewController.plantsManager = plantsManager
         
         title = plant.scientificName ?? plant.commonName ?? ""
         
@@ -141,49 +147,6 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
 }
-
-
-
-
-extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == libraryDetailView.linksTableView {
-            return 3
-        } else {
-            os_log("Unforseen table view requesting some number of cells.", log: Log.detailLibraryVC, type: .error)
-            fatalError("Unforseen table view requesting some number of cells.")
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == libraryDetailView.linksTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "linksCell", for: indexPath)
-            cell.textLabel?.text = "TEST LINKS - row\(indexPath.row)"
-            return cell
-        } else {
-            os_log("Unforseen table view requesting a `UITableViewCell`.", log: Log.detailLibraryVC, type: .error)
-            fatalError("Unforeseen table view requesting a `UITableViewCell`")
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == libraryDetailView.linksTableView {
-            return 75
-        } else {
-            return 44
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-}
-
-
 
 
 // MARK: TwicketSegmentedControlDelegate
