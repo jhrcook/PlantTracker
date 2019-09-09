@@ -5,5 +5,7 @@ ${BUILT_PRODUCTS_DIR}/Device/Device.framework
 ${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework
 ${BUILT_PRODUCTS_DIR}/ImageTransition/ImageTransition.framework
 ${BUILT_PRODUCTS_DIR}/KeyboardObserver/KeyboardObserver.framework
+${BUILT_PRODUCTS_DIR}/MultiSelectSegmentedControl/MultiSelectSegmentedControl.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework
 ${BUILT_PRODUCTS_DIR}/TwicketSegmentedControl/TwicketSegmentedControl.framework
