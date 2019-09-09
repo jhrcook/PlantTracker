@@ -102,6 +102,18 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch indexPath.row {
+        case 0:
+            getNewName(for: .scientificName)
+            return
+        case 1:
+            getNewName(for: .commonName)
+            return
+        default:
+            break
+        }
+        
         tableView.performBatchUpdates({
             if self.editingRowIndex == nil {
                 // add editing row
