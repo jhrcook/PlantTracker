@@ -69,6 +69,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         generalInfomationViewController.tableView = libraryDetailView.generalInfoTableView
         generalInfomationViewController.plant = plant
         generalInfomationViewController.plantsManager = plantsManager
+        generalInfomationViewController.setupViewController()
         
         // set up links table view controller
         linksTableViewController.tableView = libraryDetailView.linksTableView

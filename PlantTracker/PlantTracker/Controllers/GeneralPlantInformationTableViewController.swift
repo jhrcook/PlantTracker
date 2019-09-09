@@ -14,20 +14,12 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     var plant: Plant!
     var plantsManager: PlantsManager!
     
-    var editingRowIndex: Int?
     var editManager: EditPlantLevelManager?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+    func setupViewController() {
         tableView.delegate = self
         tableView.dataSource  = self
+        editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
     }
 
     // MARK: - Table view data source
@@ -37,19 +29,19 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return editingRowIndex == nil ? 7 : 8
+        return editManager?.editingRowIndex == nil ? 7 : 8
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let editingIndex = editingRowIndex {
+        if let editingIndex = editManager?.editingRowIndex {
             if indexPath.row < editingIndex {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
                 return cell
             } else if indexPath.row == editingIndex {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
-                cell.textLabel?.text = "Editing Cell"
+                let cell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: editManager!.items)
+                cell.segmentedControl.delegate = editManager
                 return cell
             } else {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
@@ -115,28 +107,31 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         }
         
         tableView.performBatchUpdates({
-            if self.editingRowIndex == nil {
+            if self.editManager?.editingRowIndex == nil {
                 // add editing row
-                self.editingRowIndex = indexPath.row + 1
-                let newEditingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.editManager?.editingRowIndex = indexPath.row + 1
+                self.editManager?.plantLevel = getPlantLevel(forRow: indexPath.row)
+                let newEditingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
                 self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
-            } else if self.editingRowIndex! - 1 == indexPath.row {
+            } else if self.editManager!.editingRowIndex! - 1 == indexPath.row {
                 // remove editing row
-                let editingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                let editingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
+                self.editManager?.editingRowIndex = nil
                 self.tableView.deleteRows(at: [editingIndexPath], with: .top)
-                self.editingRowIndex = nil
             } else {
                 // move editing row
-                let editingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                let editingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
                 self.tableView.deleteRows(at: [editingIndexPath], with: .top)
-                self.editingRowIndex = self.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
-                let newEditingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.editManager!.editingRowIndex = self.editManager!.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
+                let originalIndex = self.editManager!.editingRowIndex! > indexPath.row ? indexPath.row : indexPath.row - 1
+                self.editManager!.plantLevel = getPlantLevel(forRow: originalIndex)
+                let newEditingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
                 self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
             }
         }, completion: { _ in
             print("completed move")
             print("  selected index: \(indexPath.row)")
-            if let row = self.editingRowIndex {
+            if let row = self.editManager?.editingRowIndex {
                 print("  new edting row: \(row)")
             } else {
                 print("  editing row removed")
@@ -144,10 +139,28 @@ class GeneralPlantInformationTableViewController: UITableViewController {
             
         })
     }
+    
+    
+    func getPlantLevel(forRow row: Int) -> EditPlantLevelManager.PlantLevel {
+        switch row {
+        case 2:
+            return .growingSeason
+        case 3:
+            return .dormantSeason
+        case 4:
+            return .difficultyLevel
+        case 5:
+            return .wateringLevel
+        case 6:
+            return .lightingLevel
+        default:
+            fatalError("Unknown number of row.")
+        }
+    }
 
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if let index = editingRowIndex, indexPath.row == index {
+        if let index = editManager?.editingRowIndex, indexPath.row == index {
             return false
         } else {
             return true
@@ -155,7 +168,14 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        
+        let normalCellHeight: CGFloat = 50
+        let editingCellHeight: CGFloat = 40
+        
+        if let editingRowIndex = editManager?.editingRowIndex, editingRowIndex == indexPath.row {
+            return editingCellHeight
+        }
+        return normalCellHeight
     }
 
     /*
@@ -206,8 +226,4 @@ extension GeneralPlantInformationTableViewController {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
-}
-
-
-extension GeneralPlantInformationTableViewController {
 }

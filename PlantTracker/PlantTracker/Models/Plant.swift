@@ -121,7 +121,7 @@ class Plant: NSObject, Codable {
 
 // ---- Enums for information attributes ---- //
 
-enum Season: String, Codable {
+enum Season: String, Codable, CaseIterable {
     case summer, fall, winter, spring
 }
 
@@ -129,11 +129,11 @@ enum DifficultyLevel: String, Codable, CaseIterable {
     case easy, medium, hard
 }
 
-enum WateringLevel: String, Codable {
+enum WateringLevel: String, Codable, CaseIterable {
     case veryDry = "very dry", dry, moist, wet
 }
 
-enum LightLevel: String, Codable {
+enum LightLevel: String, Codable, CaseIterable {
     case allDay = "all day", morning, afternoon, filtered, indirect, shade, low
 }
 

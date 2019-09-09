@@ -8,10 +8,24 @@
 
 import UIKit
 import SnapKit
+import MultiSelectSegmentedControl
 
 class EditingTableViewCell: UITableViewCell {
     
-    var segmentedControl: UISegmentedControl!
+    var segmentedControl: MultiSelectSegmentedControl
+    
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, items: [Any]?) {
+        segmentedControl = MultiSelectSegmentedControl(items: items)
+        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        segmentedControl.allowsMultipleSelection = true
+        setUpSegmentedView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,21 +37,17 @@ class EditingTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-}
-
-
-extension EditingTableViewCell {
-    func setupSegmentedController(withValues values: [String]) {
-        segmentedControl = UISegmentedControl(items: values)
-        setUpSegmentedView()
-    }
     
-    
-    func setUpSegmentedView() {
+    fileprivate func setUpSegmentedView() {
         contentView.addSubview(segmentedControl)
         segmentedControl.snp.makeConstraints { make in
             make.edges.equalTo(self.contentView)
         }
+        
+        segmentedControl.borderRadius = 0
+        segmentedControl.borderWidth = 0
+        
+        // segmentedControl.backgroundColor = UIColor(red: 247, green: 253, blue: 255)
+        // segmentedControl.tintColor = UIColor(red: 128, green: 217, blue: 255)
     }
 }
