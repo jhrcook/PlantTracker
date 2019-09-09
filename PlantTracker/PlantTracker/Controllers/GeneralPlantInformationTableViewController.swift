@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 class GeneralPlantInformationTableViewController: UITableViewController {
 
@@ -41,12 +42,33 @@ class GeneralPlantInformationTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
-        
+        if let editingIndex = editingRowIndex {
+            if indexPath.row < editingIndex {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
+                addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
+                return cell
+            } else if indexPath.row == editingIndex {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
+                cell.textLabel?.text = "Editing Cell"
+                return cell
+            } else {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
+                addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row - 1)
+                return cell
+            }
+        } else {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
+            addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
+            return cell
+        }
+    }
+    
+    
+    func addGeneralInformation(toCell cell: inout UITableViewCell, forIndexPathRow row: Int) {
         var main: String?
         var detail: String?
         
-        switch indexPath.row {
+        switch row {
         case 0:
             main = "Scientific name"
             detail = plant.scientificName
@@ -76,37 +98,39 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         
         cell.textLabel?.text = main
         cell.detailTextLabel?.text = detail
-        
-        return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.cellForRow(at: indexPath) as! GeneralInformtationTableViewCell
-        switch cell.textLabel?.text {
-        case "Scientific name":
-            getNewName(for: .scientificName)
-        case "Common name":
-            getNewName(for: .commonName)
-        case "Growing season(s)":
-//            editingRowIndex = indexPath.row + 1
-            editManager = EditPlantLevelManager(plant: plant, plantLevel: .growingSeason)
-        case "Dormant season(s)":
-//            editingRowIndex = indexPath.row + 1
-            editManager = EditPlantLevelManager(plant: plant, plantLevel: .dormantSeason)
-        case "Difficulty":
-//            editingRowIndex = indexPath.row + 1
-            editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
-        case "Watering level(s)":
-//            editingRowIndex = indexPath.row + 1
-            editManager = EditPlantLevelManager(plant: plant, plantLevel: .wateringLevel)
-        case "Lighting level(s)":
-//            editingRowIndex = indexPath.row + 1
-            editManager = EditPlantLevelManager(plant: plant, plantLevel: .lightingLevel)
-        default:
-            break
-        }
+        tableView.performBatchUpdates({
+            if self.editingRowIndex == nil {
+                // add editing row
+                self.editingRowIndex = indexPath.row + 1
+                let newEditingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
+            } else if self.editingRowIndex! - 1 == indexPath.row {
+                // remove editing row
+                let editingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.tableView.deleteRows(at: [editingIndexPath], with: .top)
+                self.editingRowIndex = nil
+            } else {
+                // move editing row
+                let editingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.tableView.deleteRows(at: [editingIndexPath], with: .top)
+                self.editingRowIndex = self.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
+                let newEditingIndexPath = IndexPath(item: self.editingRowIndex!, section: 0)
+                self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
+            }
+        }, completion: { _ in
+            print("completed move")
+            print("  selected index: \(indexPath.row)")
+            if let row = self.editingRowIndex {
+                print("  new edting row: \(row)")
+            } else {
+                print("  editing row removed")
+            }
+            
+        })
     }
 
     
@@ -170,4 +194,8 @@ extension GeneralPlantInformationTableViewController {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
+}
+
+
+extension GeneralPlantInformationTableViewController {
 }
