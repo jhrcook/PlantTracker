@@ -20,6 +20,8 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource  = self
         editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
+        editManager?.plantsManager = self.plantsManager
+        editManager?.parentTableViewDelegate = self
     }
 
     // MARK: - Table view data source
@@ -40,8 +42,9 @@ class GeneralPlantInformationTableViewController: UITableViewController {
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
                 return cell
             } else if indexPath.row == editingIndex {
-                let cell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: editManager!.items)
+                let cell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: editManager!.allItems)
                 cell.segmentedControl.delegate = editManager
+                editManager?.setUpSegmentedController(cell.segmentedControl)
                 return cell
             } else {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
@@ -225,5 +228,14 @@ extension GeneralPlantInformationTableViewController {
         }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+}
+
+
+
+extension GeneralPlantInformationTableViewController: ParentTableViewDelegate {
+    func reloadParentTableViewData(forCellAtRow row: Int) {
+        tableView.reloadData()
     }
 }
