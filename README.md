@@ -11,9 +11,11 @@
 
 This is a simple iOS application to help my mom track her cacti and succulent collection. 
 
-**July 18, 2019**
+**Status** (updated Sept. 10, 2019):
 
 I am still working on the detail view for a plant in the Library. Below is an sample of what it looks like.
+
+The current feature I am working on (in the [`edit_plant_info` branch](https://github.com/jhrcook/PlantTracker/tree/edit-plant-info)) will present a segmented controller to the user to change the plant's properties.
 
 <img src="progress_screenshots/Aug-10-2019 08-20-06.gif" width="300"/>
 
