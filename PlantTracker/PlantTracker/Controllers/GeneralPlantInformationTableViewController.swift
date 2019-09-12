@@ -15,13 +15,19 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     var plantsManager: PlantsManager!
     
     var editManager: EditPlantLevelManager?
+    var editingPlantLevelCell: EditingTableViewCell?
     
     func setupViewController() {
         tableView.delegate = self
-        tableView.dataSource  = self
+        tableView.dataSource = self
+        
         editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
         editManager?.plantsManager = self.plantsManager
         editManager?.parentTableViewDelegate = self
+        
+        editingPlantLevelCell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: nil)
+        editingPlantLevelCell?.segmentedControl.delegate = editManager
+        editManager?.segmentedController = editingPlantLevelCell?.segmentedControl
     }
 
     // MARK: - Table view data source
@@ -42,10 +48,7 @@ class GeneralPlantInformationTableViewController: UITableViewController {
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
                 return cell
             } else if indexPath.row == editingIndex {
-                let cell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: editManager!.allItems)
-                cell.segmentedControl.delegate = editManager
-                editManager?.setUpSegmentedController(cell.segmentedControl)
-                return cell
+                return editingPlantLevelCell!
             } else {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row - 1)
@@ -112,24 +115,27 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         tableView.performBatchUpdates({
             if self.editManager?.editingRowIndex == nil {
                 // add editing row
-                self.editManager?.editingRowIndex = indexPath.row + 1
-                self.editManager?.plantLevel = getPlantLevel(forRow: indexPath.row)
-                let newEditingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
-                self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
-            } else if self.editManager!.editingRowIndex! - 1 == indexPath.row {
+                editManager?.editingRowIndex = indexPath.row + 1
+                editManager?.plantLevel = getPlantLevel(forRow: indexPath.row)
+                editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: indexPath)?.detailTextLabel
+                let newEditingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
+                tableView.insertRows(at: [newEditingIndexPath], with: .top)
+            } else if editManager!.editingRowIndex! - 1 == indexPath.row {
                 // remove editing row
-                let editingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
-                self.editManager?.editingRowIndex = nil
-                self.tableView.deleteRows(at: [editingIndexPath], with: .top)
+                let editingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
+                editManager?.editingRowIndex = nil
+                editManager?.detailLabelOfCellBeingEdited = nil
+                tableView.deleteRows(at: [editingIndexPath], with: .top)
             } else {
                 // move editing row
-                let editingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
-                self.tableView.deleteRows(at: [editingIndexPath], with: .top)
-                self.editManager!.editingRowIndex = self.editManager!.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
-                let originalIndex = self.editManager!.editingRowIndex! > indexPath.row ? indexPath.row : indexPath.row - 1
-                self.editManager!.plantLevel = getPlantLevel(forRow: originalIndex)
-                let newEditingIndexPath = IndexPath(item: self.editManager!.editingRowIndex!, section: 0)
-                self.tableView.insertRows(at: [newEditingIndexPath], with: .top)
+                let editingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
+                tableView.deleteRows(at: [editingIndexPath], with: .top)
+                editManager!.editingRowIndex = editManager!.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
+                let originalIndex = editManager!.editingRowIndex! > indexPath.row ? indexPath.row : indexPath.row - 1
+                editManager!.plantLevel = getPlantLevel(forRow: originalIndex)
+                editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: IndexPath(item: originalIndex, section: 0))?.detailTextLabel
+                let newEditingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
+                tableView.insertRows(at: [newEditingIndexPath], with: .top)
             }
         }, completion: { _ in
             print("completed move")
@@ -235,7 +241,7 @@ extension GeneralPlantInformationTableViewController {
 
 
 extension GeneralPlantInformationTableViewController: ParentTableViewDelegate {
-    func reloadParentTableViewData(forCellAtRow row: Int) {
-        tableView.reloadData()
+    func reloadParentTableViewData() {
+//        tableView.reloadData()
     }
 }

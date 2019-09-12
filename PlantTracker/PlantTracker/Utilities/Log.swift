@@ -21,4 +21,5 @@ struct Log {
     
     static let plantsObject = OSLog(subsystem: subsystem, category: "Plant")
     static let plantsManager = OSLog(subsystem: subsystem, category: "PlantManager")
+    static let editPlantManager = OSLog(subsystem: subsystem, category: "EditPlantLevelManager")
 }
