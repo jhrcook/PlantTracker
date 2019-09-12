@@ -21,13 +21,11 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
+        editingPlantLevelCell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: nil)
+        
+        editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel, editingCell: editingPlantLevelCell!)
         editManager?.plantsManager = self.plantsManager
         editManager?.parentTableViewDelegate = self
-        
-        editingPlantLevelCell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: nil)
-        editingPlantLevelCell?.segmentedControl.delegate = editManager
-        editManager?.segmentedController = editingPlantLevelCell?.segmentedControl
     }
 
     // MARK: - Table view data source

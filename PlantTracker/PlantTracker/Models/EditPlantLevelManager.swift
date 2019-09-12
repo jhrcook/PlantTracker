@@ -32,8 +32,9 @@ class EditPlantLevelManager: NSObject {
             os_log("plant level of edit manager was set: %@", log: Log.editPlantManager, type: .info, plantLevel?.rawValue ?? "NIL")
             setAllItems()
             setPlantItems()
-            setSegmentedControllerItems()
-            if segmentedController != nil { setUpSegmentedController() }
+            setupEditingCell()
+            
+            editingCell.segmentedControl.allowsMultipleSelection = plantLevel != .difficultyLevel
         }
     }
     
@@ -41,7 +42,7 @@ class EditPlantLevelManager: NSObject {
     
     var editingRowIndex: Int?
     
-    unowned var segmentedController: MultiSelectSegmentedControl?
+    unowned var editingCell: EditingTableViewCell
     
     var allItems: [String]?
     var allCases: [Any]?
@@ -49,20 +50,18 @@ class EditPlantLevelManager: NSObject {
     
     var parentTableViewDelegate: ParentTableViewDelegate?
     
-    init(plant: Plant) {
+    init(plant: Plant, plantLevel: PlantLevel, editingCell: EditingTableViewCell) {
         self.plant = plant
+        self.editingCell = editingCell
+        
         super.init()
-    }
-    
-    init(plant: Plant, plantLevel: PlantLevel) {
-        self.plant = plant
+        
+        // call this after super init because it has a didSet property
+        // that calls set-up methods
         self.plantLevel = plantLevel
         
-        super.init()
-        
-        setAllItems()
-        setPlantItems()
-        setSegmentedControllerItems()
+        // make self delegate for editing cell multi-select segmented controller
+        editingCell.segmentedControl.delegate = self
     }
     
     
@@ -114,65 +113,47 @@ class EditPlantLevelManager: NSObject {
         os_log("Set plant items (%d).", log: Log.editPlantManager, type: .info, plantItems?.count ?? 0)
     }
     
-    private func setSegmentedControllerItems() {
-        guard
-            let segmentedController = segmentedController,
-            let allItems = allItems
-        else {
-            os_log("Unable to set segmented controller items.", log: Log.editPlantManager, type: .info)
-            return
+    private func setupEditingCell() {
+        setUpEditingCellSegmentedControllerItems()
+    }
+    
+    
+    private func setUpEditingCellSegmentedControllerItems() {
+        editingCell.segmentedControl.items = allItems ?? [Any]()
+        editingCell.segmentedControl.selectedSegmentIndexes = indexesToSelect(forSegmentedController: editingCell.segmentedControl)
+        editingCell.segmentedControl.reloadInputViews()
+    }
+    
+    private func indexesToSelect(forSegmentedController segmentedController: MultiSelectSegmentedControl) -> IndexSet {
+        os_log("Setting the correct tabs for selection in segmented controller.", log: Log.editPlantManager, type: .info)
+        
+        guard plantItems != nil else { return IndexSet() }
+        
+        var selectedIndexes = [Int]()
+        if let segmentItems = segmentedController.items as? [String] {
+            for (i, segmentItem) in segmentItems.enumerated() {
+                for plantItem in plantItems! {
+                    if plantItem == segmentItem { selectedIndexes.append(i) }
+                }
+            }
         }
         
-        segmentedController.items = allItems
+        os_log("Number of levels to set for segmented controller of editing cell: %d.", log: Log.editPlantManager, type: .debug, selectedIndexes.count)
         
-        os_log("Set segmented controller items.", log: Log.editPlantManager, type: .info, segmentedController.items.count)
+        return IndexSet(selectedIndexes)
     }
     
 }
 
 
 extension EditPlantLevelManager: MultiSelectSegmentedControlDelegate {
-    
-    func setUpSegmentedController() {
-        os_log("Setting up segmented controller.", log: Log.editPlantManager, type: .info)
-        
-        setSelectedSegments()
-        
-        // difficulty level only allows for a single selection
-        segmentedController?.allowsMultipleSelection = plantLevel != .difficultyLevel
-    }
-    
-    
-    fileprivate func setSelectedSegments() {
-        os_log("Setting the correct tabs for selection in segmented controller.", log: Log.editPlantManager, type: .info)
-        
-        guard plantItems != nil else { return }
-        
-        var selectedIndeces = [Int]()
-        
-        if let segmentItems = segmentedController?.items as? [String] {
-            for (i, segmentItem) in segmentItems.enumerated() {
-                for plantItem in plantItems! {
-                    if plantItem == segmentItem { selectedIndeces.append(i) }
-                }
-            }
-        }
-        
-        os_log("Number of levels set: %d.", log: Log.editPlantManager, type: .debug, selectedIndeces.count)
-        
-        segmentedController?.selectedSegmentIndexes = IndexSet(selectedIndeces)
-        segmentedController?.reloadInputViews()
-    }
-    
-    
+
     func multiSelect(_ multiSelectSegmentedControl: MultiSelectSegmentedControl, didChange value: Bool, at index: Int) {
         os_log("User selected an item; total number of values selected %d.", log: Log.editPlantManager, type: .info, multiSelectSegmentedControl.selectedSegmentIndexes.count)
         
-        let selectedIndexes: [Int] = multiSelectSegmentedControl.selectedSegmentIndexes.map { Int($0) }
-        
         var selectedCases = [Any]()
         if let allCases = allCases {
-            for index in selectedIndexes {
+            for index in multiSelectSegmentedControl.selectedSegmentIndexes {
                 selectedCases.append(allCases[index])
             }
         }
@@ -186,8 +167,9 @@ extension EditPlantLevelManager: MultiSelectSegmentedControlDelegate {
                 plant.dormantSeason = selectedCases as? [Season] ?? [Season]()
                 detailLabelOfCellBeingEdited?.text = plant.printableDormantSeason()
             case .difficultyLevel:
-                if selectedIndexes.count > 0 {
-                    plant.difficulty = allCases?[selectedIndexes[0]] as? DifficultyLevel
+                if multiSelectSegmentedControl.selectedSegmentIndexes.count > 0 {
+                    let startIndex = multiSelectSegmentedControl.selectedSegmentIndexes.startIndex
+                    plant.difficulty = allCases?[multiSelectSegmentedControl.selectedSegmentIndexes[startIndex]] as? DifficultyLevel
                 } else {
                     plant.difficulty = nil
                 }
