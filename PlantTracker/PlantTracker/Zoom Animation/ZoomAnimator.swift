@@ -9,17 +9,21 @@
 import UIKit
 import os
 
-
+/// Either the source or destination controller for a zoom animation using a `ZoomAnimator`
 protocol ZoomAnimatorDelegate: class {
-    // these two methods are run just before and just after the animation
-    // they are here as helper functions and do not need to do anything
+    /// A function called just before the animation begins.
     func transitionWillStartWith(zoomAnimator: ZoomAnimator)
+    
+    /// A function called just after the animation begins.
     func transitionDidEndWith(zoomAnimator: ZoomAnimator)
     
-    // return the image view that is being zoomed from or to
+    /**
+     A function expected to return the image view that is being zoomed from or to
+     (depending on the if the controller is the source or destination).
+    */
     func referenceImageView(for zoomAnimator: ZoomAnimator) -> UIImageView?
     
-    // the frame of the image view in the transitioning view
+    /// A function expected to return the frame of the image view in the transitioning view.
     func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect?
 }
 

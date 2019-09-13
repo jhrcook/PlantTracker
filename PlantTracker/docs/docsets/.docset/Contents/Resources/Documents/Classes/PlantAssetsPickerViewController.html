@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PlantAssetsPickerViewController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/PlantAssetsPickerViewController" class="dashAnchor"></a>
+    <a title="PlantAssetsPickerViewController Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (3% documented)</p>
+        <p class="header-right"><a href="https://github.com/jhrcook/PlantTracker"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        PlantAssetsPickerViewController Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GeneralInformtationTableViewCell.html">GeneralInformtationTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageCollectionViewCell.html">ImageCollectionViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageCollectionViewController.html">ImageCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImagePagingCollectionViewController.html">ImagePagingCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImagePagingViewCell.html">ImagePagingViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailView.html">LibraryDetailView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController.html">LibraryDetailViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController/PlantName.html">– PlantName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController/PlantLevel.html">– PlantLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController/TextViewState.html">– TextViewState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Plant.html">Plant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantAssetsPickerViewController.html">PlantAssetsPickerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantLibraryTableViewCell.html">PlantLibraryTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantLibraryTableViewController.html">PlantLibraryTableViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantsManager.html">PlantsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Seller.html">Seller</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomAnimator.html">ZoomAnimator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomDismissalInteractionController.html">ZoomDismissalInteractionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomTransitionController.html">ZoomTransitionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker15reuseIdentifier33_03AD837EB5CC149BD40BF8C35C4EC442LLSSvp">reuseIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker15reuseIdentifier33_0E176B8604B5EA4FB1322282645CDD75LLSSvp">reuseIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker9subsystem33_9996FA4DC4188FE5DE274D5743361A9DLLSSvp">subsystem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DifficultyLevel.html">DifficultyLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LightLevel.html">LightLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Season.html">Season</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WateringLevel.html">WateringLevel</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CGRect.html">CGRect</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker4crop5image7toWidth0E6HeightSo7UIImageCAG_S2dtF">crop(image:toWidth:toHeight:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker21getDocumentsDirectory10Foundation3URLVyF">getDocumentsDirectory()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker15getFilePathWith2idS2S_tF">getFilePathWith(id:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker14getFileURLWith2id10Foundation3URLVSS_tF">getFileURLWith(id:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker6resize5image10targetSizeSo7UIImageCAF_So6CGSizeVtF">resize(image:targetSize:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetPickerFinishedSelectingDelegate.html">AssetPickerFinishedSelectingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EditedImageDelegate.html">EditedImageDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ImagePagingCollectionViewControllerDelegate.html">ImagePagingCollectionViewControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LibraryDetailContainerDelegate.html">LibraryDetailContainerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingViewWasTappedDelegate.html">PagingViewWasTappedDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ZoomAnimatorDelegate.html">ZoomAnimatorDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AssetIndexIDTracker.html">AssetIndexIDTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Log.html">Log</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>PlantAssetsPickerViewController</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">PlantAssetsPickerViewController</span> <span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">,</span> <span class="kt">AssetsPickerViewControllerDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC05assetB0AA19AssetIndexIDTrackerVvp"></a>
+                    <a name="//apple_ref/swift/Property/assetTracker" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC05assetB0AA19AssetIndexIDTrackerVvp">assetTracker</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">assetTracker</span><span class="p">:</span> <span class="kt"><a href="../Structs/AssetIndexIDTracker.html">AssetIndexIDTracker</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC5plantAA0A0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/plant" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC5plantAA0A0CSgvp">plant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">plant</span><span class="p">:</span> <span class="kt"><a href="../Classes/Plant.html">Plant</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC17didFinishDelegateAA05Assetd17FinishedSelectingI0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/didFinishDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC17didFinishDelegateAA05Assetd17FinishedSelectingI0_pSgvp">didFinishDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">didFinishDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AssetPickerFinishedSelectingDelegate.html">AssetPickerFinishedSelectingDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC12fetchOptionsSo07PHFetchH0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/fetchOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC12fetchOptionsSo07PHFetchH0Cvp">fetchOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">fetchOptions</span><span class="p">:</span> <span class="kt">PHFetchOptions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC12imageManagerSo07PHImageH0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/imageManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC12imageManagerSo07PHImageH0Cvp">imageManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">imageManager</span><span class="p">:</span> <span class="kt">PHImageManager</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC12imageOptionsSo014PHImageRequestH0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/imageOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC12imageOptionsSo014PHImageRequestH0Cvp">imageOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">imageOptions</span><span class="p">:</span> <span class="kt">PHImageRequestOptions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(nibName:bundle:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc">init(nibName:bundle:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="nf">init</span><span class="p">(</span><span class="n">nibName</span> <span class="nv">nibNameOrNil</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">bundle</span> <span class="nv">nibBundleOrNil</span><span class="p">:</span> <span class="kt">Bundle</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">convenience</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC5coderACSgSo7NSCoderC_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC5coderACSgSo7NSCoderC_tcfc">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD24CannotAccessPhotoLibraryyyXe_tcACF"></a>
+                    <a name="//apple_ref/swift/Method/assetsPickerCannotAccessPhotoLibrary(controller:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD24CannotAccessPhotoLibraryyyXe_tcACF">assetsPickerCannotAccessPhotoLibrary(controller:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">assetsPickerCannotAccessPhotoLibrary</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC5setupyyF"></a>
+                    <a name="//apple_ref/swift/Method/setup()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC5setupyyF">setup()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">setup</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_So7PHAssetC10Foundation9IndexPathVtcACF"></a>
+                    <a name="//apple_ref/swift/Method/assetsPicker(controller:didSelect:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_So7PHAssetC10Foundation9IndexPathVtcACF">assetsPicker(controller:didSelect:at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">assetsPicker</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">,</span> <span class="n">didSelect</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">PHAsset</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_So7PHAssetC10Foundation9IndexPathVtcACF"></a>
+                    <a name="//apple_ref/swift/Method/assetsPicker(controller:didDeselect:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_So7PHAssetC10Foundation9IndexPathVtcACF">assetsPicker(controller:didDeselect:at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">assetsPicker</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">,</span> <span class="n">didDeselect</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">PHAsset</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_SaySo7PHAssetCGtcACF"></a>
+                    <a name="//apple_ref/swift/Method/assetsPicker(controller:selected:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD0yyXe_SaySo7PHAssetCGtcACF">assetsPicker(controller:selected:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">assetsPicker</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">,</span> <span class="n">selected</span> <span class="nv">assets</span><span class="p">:</span> <span class="p">[</span><span class="kt">PHAsset</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD9DidCancelyyXe_tcACF"></a>
+                    <a name="//apple_ref/swift/Method/assetsPickerDidCancel(controller:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC06assetsD9DidCancelyyXe_tcACF">assetsPickerDidCancel(controller:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">assetsPickerDidCancel</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">AssetsPickerViewController</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker0A26AssetsPickerViewControllerC010addImageToA05image4infoySo7UIImageCSg_SDys11AnyHashableVypGSgtF"></a>
+                    <a name="//apple_ref/swift/Method/addImageToPlant(image:info:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker0A26AssetsPickerViewControllerC010addImageToA05image4infoySo7UIImageCSg_SDys11AnyHashableVypGSgtF">addImageToPlant(image:info:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addImageToPlant</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?,</span> <span class="nv">info</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-09-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
