@@ -12,14 +12,24 @@ import MultiSelectSegmentedControl
 
 
 protocol ParentTableViewDelegate {
-    func reloadParentTableViewData()
+    func plantLevelDidChange()
 }
 
 
 class EditPlantLevelManager: NSObject {
+    
+    /// The plant object to be edited
     unowned var plant: Plant
+    
+    /// The plants manager to handle global operations on the plants
+    /// such as writing changes to disk
     unowned var plantsManager: PlantsManager?
     
+    /// A delegate to link the editing manager to the table view controller that
+    /// owns it.
+    var parentTableViewDelegate: ParentTableViewDelegate?
+    
+    /// The various levels of the plant that can be changed
     enum PlantLevel: String {
         case growingSeason = "Growing Season"
         case difficultyLevel = "Difficulty Level"
@@ -27,32 +37,70 @@ class EditPlantLevelManager: NSObject {
         case wateringLevel = "Watering Level"
         case lightingLevel = "Lighting Level"
     }
+    
+    /*
+     The plant level that is being operated on.
+     
+     Whe it is set, this causes a "reset" for the manager by having it set
+     the `allItems` array, the `plantItems` array, and making a new editing
+     cell.
+    */
     var plantLevel: PlantLevel? {
         didSet {
             os_log("plant level of edit manager was set: %@", log: Log.editPlantManager, type: .info, plantLevel?.rawValue ?? "NIL")
             setAllItems()
             setPlantItems()
             setupEditingCell()
-            
-            editingCell.segmentedControl.allowsMultipleSelection = plantLevel != .difficultyLevel
         }
     }
     
+    /*
+     The detail label of the cell with the plant's information that is being
+     edited.
+     
+     By keeping it within this manager, it can be live-updated as a new value
+     is selected in the editing row.
+    */
     var detailLabelOfCellBeingEdited: UILabel?
     
+    /// The index in the parent table view that is being edited.
+    /// This is mainly used by the owner view controller for tracking the
+    /// cell being edited.
     var editingRowIndex: Int?
     
-    unowned var editingCell: EditingTableViewCell
+    /// The actual cell that is presented to the user with the various options
+    /// to select from the change the plant's information.
+    var editingCell: EditingTableViewCell?
     
-    var allItems: [String]?
+    /*
+     All of the cases for the plant level being edited.
+     
+     For example, if `plantLevel` is `PlantLevel.dormantSeason`, then `allCases`
+     holds all of the possible values in the `Season` enum.
+    */
     var allCases: [Any]?
+    
+    /*
+     All of the raw values (as `String`s) from the cases in `allCases`.
+     
+     For example, if `plantLevel` is `PlantLevel.dormantSeason`, then `allItems`
+     holds all of the possible raw values in the `Season` enum.
+    */
+    var allItems: [String]?
+    
+    /*
+     AThe values from `allItems` that are selected for the `plant` object.
+     
+     For example, if `plantLevel` is `PlantLevel.dormantSeason`, then
+     `plantItems`holds the raw values of the cases of the `Season` enum for
+     which the plant is dormant. The values will be already selected in the
+     segmented controller.
+    */
     var plantItems: [String]?
     
-    var parentTableViewDelegate: ParentTableViewDelegate?
     
-    init(plant: Plant, plantLevel: PlantLevel, editingCell: EditingTableViewCell) {
+    init(plant: Plant, plantLevel: PlantLevel) {
         self.plant = plant
-        self.editingCell = editingCell
         
         super.init()
         
@@ -61,10 +109,11 @@ class EditPlantLevelManager: NSObject {
         self.plantLevel = plantLevel
         
         // make self delegate for editing cell multi-select segmented controller
-        editingCell.segmentedControl.delegate = self
+        editingCell?.segmentedControl.delegate = self
     }
     
     
+    /// Set the `allItems` and `allCases` arrays depending on the `plantLevel`.
     private func setAllItems() {
         guard let plantLevel = self.plantLevel else {
             os_log("Unable to set all items.", log: Log.editPlantManager, type: .info)
@@ -89,6 +138,9 @@ class EditPlantLevelManager: NSObject {
         os_log("Set all items (%d).", log: Log.editPlantManager, type: .info, allCases?.count ?? 0)
     }
     
+    
+    /// Set the `plantItems` array depending on the `plantLevel` and current
+    /// value(s) set for the plant.
     private func setPlantItems() {
         guard let plantLevel = self.plantLevel else {
             os_log("Unable to set plant items.", log: Log.editPlantManager, type: .info)
@@ -113,17 +165,30 @@ class EditPlantLevelManager: NSObject {
         os_log("Set plant items (%d).", log: Log.editPlantManager, type: .info, plantItems?.count ?? 0)
     }
     
+    
+    /// Prepare the cell to present to the user with a segmented controller
+    /// containing the options to be selected.
     private func setupEditingCell() {
+        editingCell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: allItems ?? [Any]())
+        editingCell?.segmentedControl.delegate = self
         setUpEditingCellSegmentedControllerItems()
     }
     
     
+    /// Prepare the segmented controller for the editing cell.
     private func setUpEditingCellSegmentedControllerItems() {
-        editingCell.segmentedControl.items = allItems ?? [Any]()
-        editingCell.segmentedControl.selectedSegmentIndexes = indexesToSelect(forSegmentedController: editingCell.segmentedControl)
-        editingCell.segmentedControl.reloadInputViews()
+        guard let cell = editingCell else { return }
+        cell.segmentedControl.allowsMultipleSelection = plantLevel != .difficultyLevel
+        cell.segmentedControl.selectedSegmentIndexes = indexesToSelect(forSegmentedController: cell.segmentedControl)
+        cell.segmentedControl.reloadInputViews()
     }
     
+    
+    
+    /// Get the indeces to be set for the segmented controller in the editing cell
+    ///
+    /// - Parameter segmentedController: The segmented controller to be set (it is not actually mutated in this method).
+    /// - Returns: The `IndexSet` to assign to the segmented controller.
     private func indexesToSelect(forSegmentedController segmentedController: MultiSelectSegmentedControl) -> IndexSet {
         os_log("Setting the correct tabs for selection in segmented controller.", log: Log.editPlantManager, type: .info)
         
@@ -148,9 +213,20 @@ class EditPlantLevelManager: NSObject {
 
 extension EditPlantLevelManager: MultiSelectSegmentedControlDelegate {
 
+    /// The method called when the segmented controller changes.
+    ///
+    /// The plant object is updated based on the selected cells in the segmented
+    /// controller. Afterwards, the `plantsManager` is asked to save the plants
+    /// and the parent table view controller is notified.
+    ///
+    /// - Parameters:
+    ///   - multiSelectSegmentedControl: The segmented controller that has a change in value.
+    ///   - value: A `Bool` for if the value did change.
+    ///   - index: The index of the change.
     func multiSelect(_ multiSelectSegmentedControl: MultiSelectSegmentedControl, didChange value: Bool, at index: Int) {
         os_log("User selected an item; total number of values selected %d.", log: Log.editPlantManager, type: .info, multiSelectSegmentedControl.selectedSegmentIndexes.count)
         
+        // The cases of `allCases` that are selected in the segmented controller
         var selectedCases = [Any]()
         if let allCases = allCases {
             for index in multiSelectSegmentedControl.selectedSegmentIndexes {
@@ -158,6 +234,7 @@ extension EditPlantLevelManager: MultiSelectSegmentedControlDelegate {
             }
         }
         
+        // Update the plant
         if let plantLevel = plantLevel {
             switch plantLevel {
             case .growingSeason:
@@ -183,15 +260,16 @@ extension EditPlantLevelManager: MultiSelectSegmentedControlDelegate {
             }
         }
         
-        
+        // use the `plantsManager` to save the changes to the plant
         if let delegate = plantsManager {
             os_log("Saving plants after changing levels.", log: Log.editPlantManager, type: .info)
             delegate.savePlants()
         }
         
+        // Notify the parent view controller of the change
         if let delegate = parentTableViewDelegate {
-            os_log("Requesting the reloading of parent table view.", log: Log.editPlantManager, type: .info)
-            delegate.reloadParentTableViewData()
+            os_log("Notifying the parent view controller of the change in plant level.", log: Log.editPlantManager, type: .info)
+            delegate.plantLevelDidChange()
         }
     }
     

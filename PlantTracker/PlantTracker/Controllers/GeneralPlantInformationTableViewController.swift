@@ -9,31 +9,53 @@
 import UIKit
 import os
 
+
+/// The order of the plants used for the index of the plant information in the table view.
+enum PlantInformationIndex: Int, Equatable {
+    case scientificName = 0, commonName, growingSeason, dormantSeason, difficultyLevel, wateringLevel, lightingLevel
+}
+
 class GeneralPlantInformationTableViewController: UITableViewController {
 
+    
+    /// The plant object for the general information table view
     var plant: Plant!
+    
+    /// The `PlantsManager` delegate that handles tasks such as saving the plants
+    /// if any information is edited
     var plantsManager: PlantsManager!
     
+    /// Delegate to handle the editing row for collection type information
     var editManager: EditPlantLevelManager?
-    var editingPlantLevelCell: EditingTableViewCell?
     
+    /// Prepares the view controller by setting it as the delegate for the table view
+    /// and organizing the row editing manager and cell
     func setupViewController() {
         tableView.delegate = self
         tableView.dataSource = self
         
-        editingPlantLevelCell = EditingTableViewCell(style: .default, reuseIdentifier: nil, items: nil)
-        
-        editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel, editingCell: editingPlantLevelCell!)
+        editManager = EditPlantLevelManager(plant: plant, plantLevel: .difficultyLevel)
         editManager?.plantsManager = self.plantsManager
         editManager?.parentTableViewDelegate = self
     }
 
     // MARK: - Table view data source
 
+    /// Number of sections in the general plant into table view.
+    ///
+    /// - Parameter tableView: standard iOS table view
+    /// - Returns: the number of sections (1)
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
+    /// How many rows for the general plant info table view.
+    ///
+    /// - Parameters:
+    ///   - tableView: standard iOS table view
+    ///   - section: which section of the table view (not used)
+    /// - Returns: the number of rows that will be in the table; this value adjusts
+    ///     depending on whether the edit row is available or not
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return editManager?.editingRowIndex == nil ? 7 : 8
     }
@@ -46,7 +68,7 @@ class GeneralPlantInformationTableViewController: UITableViewController {
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row)
                 return cell
             } else if indexPath.row == editingIndex {
-                return editingPlantLevelCell!
+                return editManager!.editingCell!
             } else {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
                 addGeneralInformation(toCell: &cell, forIndexPathRow: indexPath.row - 1)
@@ -60,31 +82,37 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     }
     
     
+    /// Adds the appropriate information to a cell of the general table view
+    /// depending on the index.
+    ///
+    /// - Parameters:
+    ///   - cell: the cell to add information to
+    ///   - row: row number of the cell
     func addGeneralInformation(toCell cell: inout UITableViewCell, forIndexPathRow row: Int) {
         var main: String?
         var detail: String?
         
         switch row {
-        case 0:
+        case PlantInformationIndex.scientificName.rawValue:
             main = "Scientific name"
             detail = plant.scientificName
             cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: cell.detailTextLabel?.font.pointSize ?? UIFont.systemFontSize)
-        case 1:
+        case PlantInformationIndex.commonName.rawValue:
             main = "Common name"
             detail = plant.commonName
-        case 2:
+        case PlantInformationIndex.growingSeason.rawValue:
             main = "Growing season(s)"
             detail = plant.printableGrowingSeason()
-        case 3:
+        case PlantInformationIndex.dormantSeason.rawValue:
             main = "Dormant season(s)"
             detail = plant.printableDormantSeason()
-        case 4:
+        case PlantInformationIndex.difficultyLevel.rawValue:
             main = "Difficulty"
             if let difficulty = plant.difficulty { detail = String(difficulty.rawValue) }
-        case 5:
+        case PlantInformationIndex.wateringLevel.rawValue:
             main = "Watering level(s)"
             detail = plant.printableWatering()
-        case 6:
+        case PlantInformationIndex.lightingLevel.rawValue:
             main = "Lighting level(s)"
             detail = plant.printableLighting()
         default:
@@ -99,69 +127,89 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        os_log("selected row %d", log: Log.detailLibraryGeneralInfoVC, type: .info, indexPath.row)
+        
+        // if the rows for plant names are selected, a alert controller with
+        // a text field is used to get the text input
         switch indexPath.row {
-        case 0:
+        case PlantInformationIndex.scientificName.rawValue:
             getNewName(for: .scientificName)
             return
-        case 1:
+        case PlantInformationIndex.commonName.rawValue:
             getNewName(for: .commonName)
             return
         default:
+            // a row with a name value was not selected --> continue with the rest of the method
             break
         }
         
+        // update the table view for selection of a row with a plant level
+        // defined by a collection of pre-determined values (eg. a season of
+        // the year)
         tableView.performBatchUpdates({
-            if self.editManager?.editingRowIndex == nil {
-                // add editing row
+            if self.editManager?.editingRowIndex == nil {   // ADD editing row
+                // update edit manager
                 editManager?.editingRowIndex = indexPath.row + 1
                 editManager?.plantLevel = getPlantLevel(forRow: indexPath.row)
                 editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: indexPath)?.detailTextLabel
+                // insert the new row
                 let newEditingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
                 tableView.insertRows(at: [newEditingIndexPath], with: .top)
-            } else if editManager!.editingRowIndex! - 1 == indexPath.row {
-                // remove editing row
+                
+            } else if editManager!.editingRowIndex! - 1 == indexPath.row {   // REMOVE editing row
+                // update edit manager
                 let editingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
                 editManager?.editingRowIndex = nil
                 editManager?.detailLabelOfCellBeingEdited = nil
+                // remove the cell from the table view
                 tableView.deleteRows(at: [editingIndexPath], with: .top)
-            } else {
-                // move editing row
+                
+            } else {   // "MOVE" (delete and re-insert) editing row
+                // delete the current editing cell
                 let editingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
                 tableView.deleteRows(at: [editingIndexPath], with: .top)
-                editManager!.editingRowIndex = editManager!.editingRowIndex! > indexPath.row ? indexPath.row + 1 : indexPath.row
-                let originalIndex = editManager!.editingRowIndex! > indexPath.row ? indexPath.row : indexPath.row - 1
-                editManager!.plantLevel = getPlantLevel(forRow: originalIndex)
-                editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: IndexPath(item: originalIndex, section: 0))?.detailTextLabel
+                
+                // figure out the index path indeces after removing the editing row
+                let originalIndexOfSelectedRow = editManager!.editingRowIndex! < indexPath.row ? indexPath.row - 1 : indexPath.row
+                editManager?.editingRowIndex = originalIndexOfSelectedRow + 1
+                
+                // configure editing manager for new plant level
+                editManager!.plantLevel = getPlantLevel(forRow: originalIndexOfSelectedRow)
+                editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: IndexPath(item: indexPath.row, section: 0))?.detailTextLabel
                 let newEditingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
                 tableView.insertRows(at: [newEditingIndexPath], with: .top)
+                os_log("inserted row %d", log: Log.detailLibraryGeneralInfoVC, type: .debug, newEditingIndexPath.row)
+                
             }
-        }, completion: { _ in
-            print("completed move")
-            print("  selected index: \(indexPath.row)")
-            if let row = self.editManager?.editingRowIndex {
-                print("  new edting row: \(row)")
-            } else {
-                print("  editing row removed")
-            }
-            
+        }, completion: { [weak self] _ in
+            os_log("Completed update of table view for the selection plant level to edit.\n\tselected index: %d\n\tediting index: %d",
+                   log: Log.detailLibraryGeneralInfoVC, type: .info,
+                   indexPath.row, self?.editManager?.editingRowIndex ?? -1)
         })
     }
     
     
-    func getPlantLevel(forRow row: Int) -> EditPlantLevelManager.PlantLevel {
+    /// Get the plent level selected for the editing manager
+    ///
+    /// - Parameter row: which row was tapped to edit
+    /// - Returns: the plant level to be edited
+    ///
+    /// This is only applicable for cells that need to be edited by the edit
+    /// manager, ie. not the scientific name nor the common name.
+    func getPlantLevel(forRow row: Int) -> EditPlantLevelManager.PlantLevel? {
         switch row {
-        case 2:
+        case PlantInformationIndex.growingSeason.rawValue:
             return .growingSeason
-        case 3:
+        case PlantInformationIndex.dormantSeason.rawValue:
             return .dormantSeason
-        case 4:
+        case PlantInformationIndex.difficultyLevel.rawValue:
             return .difficultyLevel
-        case 5:
+        case PlantInformationIndex.wateringLevel.rawValue:
             return .wateringLevel
-        case 6:
+        case PlantInformationIndex.lightingLevel.rawValue:
             return .lightingLevel
         default:
-            fatalError("Unknown number of row.")
+            return nil
         }
     }
 
@@ -184,19 +232,10 @@ class GeneralPlantInformationTableViewController: UITableViewController {
         }
         return normalCellHeight
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     
-    func reloadGeneralInfoTableViewAndSavePlants() {
+    /// Reload the table view and save the plants data
+    private func reloadGeneralInfoTableViewAndSavePlants() {
         tableView.reloadData()
         plantsManager.savePlants()
     }
@@ -208,6 +247,12 @@ extension GeneralPlantInformationTableViewController {
     
     enum PlantName { case scientificName, commonName }
     
+    /// Change the plant's names using a Alert with a text field
+    ///
+    /// - Parameter plantName: which plant name to edit
+    ///
+    /// On completion, the table's data is reloaded and saved by calling
+    /// `reloadGeneralInfoTableViewAndSavePlants`
     func getNewName(for plantName: PlantName) {
         let alertTitle = "Change the plant's \(plantName == .commonName ? "common name" : "scientific name")"
         let ac = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
@@ -226,7 +271,7 @@ extension GeneralPlantInformationTableViewController {
                 if let newName = ac.textFields?[0].text {
                     self?.plant.commonName = newName
                     self?.reloadGeneralInfoTableViewAndSavePlants()
-                    self?.tableView.reloadData()
+                    // self?.tableView.reloadData()
                 }
             })
         }
@@ -239,7 +284,9 @@ extension GeneralPlantInformationTableViewController {
 
 
 extension GeneralPlantInformationTableViewController: ParentTableViewDelegate {
-    func reloadParentTableViewData() {
-//        tableView.reloadData()
+    /// Called when a value is changed in the segmented controller of the
+    /// editing cell. It currently does nothing.
+    func plantLevelDidChange() {
+        // Nothing to be done
     }
 }
