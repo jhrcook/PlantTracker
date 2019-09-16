@@ -12,7 +12,20 @@ date: 2019-09-12
   3. [Solution](#Solution)
   4. [Implementation Details](#Implementation-Details)
 
-**[Add gif of opertaional editing system.]**
+Below is a demonstration of the plant editing system:
+
+From the Library tab, the user enters the detail view for a single plant.
+Within this table view, they want to edit some of the plant's attributes.
+First, they want to edit the common name of the plant, opening up an alert controller with a text field.
+The same would happen if they wanted to edit the scientific name, as well.
+
+The next few selections, however, are of plant attributes that have pre-defined constraints on their values.
+For example, the "Growing Season" can only be selected from the seasons of the year. 
+Therefore, a new row is inserted with the relevant options available to select from (multi-selections are allowed for all but "Difficulty").
+Selecting another row to edit closes any other editing row and opens a new one for the new selection.
+As shown at the end, tapping on the same plant property that is being edited removes the editing row.
+
+<img src="progress_screenshots/plantLevelEditingDemo.gif" width = "300" />
 
 ## Introduction
 
