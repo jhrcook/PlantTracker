@@ -13,7 +13,14 @@ import os
 /// The order of the plants used for the index of the plant information in the table view.
 enum PlantInformationIndex: Int, Equatable {
     case scientificName = 0, commonName, growingSeason, dormantSeason, difficultyLevel, wateringLevel, lightingLevel
+    
+    static let count: Int = {
+        var max: Int = 0
+        while let _ = PlantInformationIndex(rawValue: max) { max += 1 }
+        return max
+    }()
 }
+
 
 class GeneralPlantInformationTableViewController: UITableViewController {
 
@@ -57,7 +64,8 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     /// - Returns: the number of rows that will be in the table; this value adjusts
     ///     depending on whether the edit row is available or not
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return editManager?.editingRowIndex == nil ? 7 : 8
+        let count = PlantInformationIndex.count
+        return editManager?.editingRowIndex == nil ? count : count + 1
     }
 
     
