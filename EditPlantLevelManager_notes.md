@@ -7,16 +7,16 @@ date: 2019-09-12
 
 **Table of Contents**
 
-  1. [Introduction](#Introduction)
-  	1. [Overview](#Overview) 
-  	2. [Demo](#Demo)
+  1. [Introduction](#Introduction):
+    2. [Overview](#Overview)
+    3. [Demo](#Demo)
   2. [Problem](#Problem) 
   3. [Solution](#Solution)
   4. [Implementation Details](#Implementation-Details)
-  	1. [Questions](#Questions)
-  	2. [The files involved](The-files-invovled)
-  	3. [The `GeneralPlantInformationTableViewController`](The-GeneralPlantInformationTableViewController)
-  	4. [The `EditPlantLevelManager`](The-EditPlantLevelManager)
+    1. [Questions](#Questions)
+    2. [The files involved](#The-files-invovled)
+    3. [The `GeneralPlantInformationTableViewController`](#the-GeneralPlantInformationTableViewController)
+    4. [The `EditPlantLevelManager`](#the-editPlantLevelManager)
 
 ## Introduction
 
