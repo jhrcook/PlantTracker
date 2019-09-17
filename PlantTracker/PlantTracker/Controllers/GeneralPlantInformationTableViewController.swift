@@ -186,7 +186,6 @@ class GeneralPlantInformationTableViewController: UITableViewController {
                 editManager?.detailLabelOfCellBeingEdited = tableView.cellForRow(at: IndexPath(item: indexPath.row, section: 0))?.detailTextLabel
                 let newEditingIndexPath = IndexPath(item: editManager!.editingRowIndex!, section: 0)
                 tableView.insertRows(at: [newEditingIndexPath], with: .top)
-                os_log("inserted row %d", log: Log.detailLibraryGeneralInfoVC, type: .debug, newEditingIndexPath.row)
                 
             }
         }, completion: { [weak self] _ in
