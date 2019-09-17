@@ -55,24 +55,6 @@ class EditPlantLevelManager: NSObject {
     }
     
     /*
-     The detail label of the cell with the plant's information that is being
-     edited.
-     
-     By keeping it within this manager, it can be live-updated as a new value
-     is selected in the editing row.
-    */
-    var detailLabelOfCellBeingEdited: UILabel?
-    
-    /// The index in the parent table view that is being edited.
-    /// This is mainly used by the owner view controller for tracking the
-    /// cell being edited.
-    var editingRowIndex: Int?
-    
-    /// The actual cell that is presented to the user with the various options
-    /// to select from the change the plant's information.
-    var editingCell: EditingTableViewCell?
-    
-    /*
      All of the cases for the plant level being edited.
      
      For example, if `plantLevel` is `PlantLevel.dormantSeason`, then `allCases`
@@ -89,7 +71,7 @@ class EditPlantLevelManager: NSObject {
     var allItems: [String]?
     
     /*
-     AThe values from `allItems` that are selected for the `plant` object.
+     The values from `allItems` that are selected for the `plant` object.
      
      For example, if `plantLevel` is `PlantLevel.dormantSeason`, then
      `plantItems`holds the raw values of the cases of the `Season` enum for
@@ -97,6 +79,24 @@ class EditPlantLevelManager: NSObject {
      segmented controller.
     */
     var plantItems: [String]?
+    
+    /*
+     The detail label of the cell with the plant's information that is being
+     edited.
+     
+     By keeping it within this manager, it can be live-updated as a new value
+     is selected in the editing row.
+    */
+    var detailLabelOfCellBeingEdited: UILabel?
+    
+    /// The index in the parent table view that is being edited.
+    /// This is mainly used by the owner view controller for tracking the
+    /// cell being edited.
+    var editingRowIndex: Int?
+    
+    /// The actual cell that is presented to the user with the various options
+    /// to select from the change the plant's information.
+    var editingCell: EditingTableViewCell?
     
     
     init(plant: Plant, plantLevel: PlantLevel) {
