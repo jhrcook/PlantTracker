@@ -14,30 +14,52 @@ import Floaty
 
 class LibraryDetailView: UIView {
     
+    /// Main scroll view of the view.
     @IBOutlet var mainScrollView: UIScrollView!
+    /// Header container view. It holds the `headerImageView`.
     @IBOutlet var headerView: UIView!
+    /// The view with the image `headerImage`.
     @IBOutlet var headerImageView: UIImageView!
+    /// The header image.
     var headerImage: UIImage? {
         didSet {
             if headerImageView != nil { headerImageView.image = headerImage }
         }
     }
+    /// The segmented controller that controls which subview is visible.
+    /// - Note: This custom segmented controller is from the package ['TwicketSegmentedControl'](https://github.com/twicketapp/TwicketSegmentedControl)
     var twicketSegementedControl: TwicketSegmentedControl!
+    /// The subview with the views for the plant information.
     @IBOutlet var informationView: UIView!
+    /// A button flowting within the header view, pinned to the top of the information view.
+    /// It currently doesn't do anything.
     var floatyButton = Floaty()
+    /// A table view with the general information about the plant.
     var generalInfoTableView: UITableView!
+    /// A text view with the user's notes on the plants.
     var notesTextView: UITextView!
+    /// A table view with links to external sources about the plant.
     var linksTableView: UITableView!
     
+    /// A value to help adjust the scroll view set its content size.
     var startingYOffset: CGFloat? = nil
     
+    /// Height of the navigation bar.
+    /// - TODO: make private.
     var navigationBarHeight: CGFloat = 0.0
+    /// The height of the header image. After scrolling beyond this height, the image zooms in.
+    /// - TODO: make private.
     var headerImageHeight: CGFloat = 350.0
+    /// Minimum height of the header image.
+    /// - TODO: make private
     var minHeaderImageHeight: CGFloat = 100
     
+    /// The blur effect for the header image.
+    /// - TODO: make private
     var blurEffectView: UIVisualEffectView!
     
-    
+    /// Update the header image with an offset.
+    /// - parameter offset: Amount to offset the image by (vertically only)
     func updateHeaderImage(offset: CGPoint) {
         let scrollViewYDiff = startingYOffset! - offset.y
         
@@ -71,13 +93,16 @@ class LibraryDetailView: UIView {
 
 extension LibraryDetailView {
     
+    /// Set up the views.
+    /// - TODO: make private and run during init
     func setupView() {
         headerImageHeight += navigationBarHeight
         minHeaderImageHeight += navigationBarHeight
         setupConstraints()
     }
     
-    
+    /// Set constraits for the subviews
+    /// - TODO: make private
     func setupConstraints() {
         setupMainScrollView()
         setupHeaderView()
@@ -92,6 +117,8 @@ extension LibraryDetailView {
         mainScrollView.contentSize = CGSize(width: self.frame.width, height: contentHeight)
     }
     
+    /// Set up the main scroll view.
+    /// - TODO: make private
     func setupMainScrollView() {
         mainScrollView = UIScrollView()
         self.addSubview(mainScrollView)
@@ -101,6 +128,8 @@ extension LibraryDetailView {
         mainScrollView.showsHorizontalScrollIndicator = false
     }
     
+    /// Set up the header view.
+    /// - TODO: make private
     func setupHeaderView() {
         headerView = UIView()
         mainScrollView.addSubview(headerView)
@@ -112,7 +141,8 @@ extension LibraryDetailView {
         }
     }
     
-    
+    /// Set up the header image view.
+    /// - TODO: make private
     func setupHeaderImageView() {
         
         headerImageView = UIImageView()
@@ -132,7 +162,8 @@ extension LibraryDetailView {
         }
     }
     
-    
+    /// Set up the segmented control that decides which information subview is visible.
+    /// - TODO: make private
     func setupTwicketSegmentedControl() {
         twicketSegementedControl = TwicketSegmentedControl(frame: CGRect(x: 5, y: 0, width: self.frame.height - 10, height: 40))
         twicketSegementedControl.setSegmentItems(["Information", "Notes", "Links"])
@@ -145,7 +176,8 @@ extension LibraryDetailView {
         }
     }
     
-    
+    /// Set up the view of the floating button.
+    /// - TODO: make private
     func setupFloatyButtonView() {
         let padding = 20
         floatyButton.paddingX = CGFloat(padding)
@@ -160,7 +192,8 @@ extension LibraryDetailView {
         }
     }
     
-    
+    /// Set up the floating button.
+    /// - TODO: make private
     func setUpFloatlyButton() {
         // stlying
         floatyButton.relativeToSafeArea = false
@@ -193,7 +226,8 @@ extension LibraryDetailView {
         floatyButton.addItem(item: viewPhotosItem)
     }
     
-    
+    /// Set up the information subviews (general information, notes, and sources table).
+    /// - TODO: make private
     func setupInformationSubviews() {
         
         // information view (below segmented control)
