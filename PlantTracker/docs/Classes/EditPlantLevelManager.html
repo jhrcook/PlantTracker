@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EditPlantLevelManager Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/EditPlantLevelManager" class="dashAnchor"></a>
+    <a title="EditPlantLevelManager Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (64% documented)</p>
+        <p class="header-right"><a href="https://github.com/jhrcook/PlantTracker"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        EditPlantLevelManager Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EditPlantLevelManager.html">EditPlantLevelManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EditPlantLevelManager/PlantLevel.html">– PlantLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EditingTableViewCell.html">EditingTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GeneralInformtationTableViewCell.html">GeneralInformtationTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GeneralPlantInformationTableViewController.html">GeneralPlantInformationTableViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GeneralPlantInformationTableViewController/PlantName.html">– PlantName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageCollectionViewCell.html">ImageCollectionViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageCollectionViewController.html">ImageCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImagePagingCollectionViewController.html">ImagePagingCollectionViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImagePagingViewCell.html">ImagePagingViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailView.html">LibraryDetailView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController.html">LibraryDetailViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LibraryDetailViewController/TextViewState.html">– TextViewState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinksTableViewController.html">LinksTableViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Plant.html">Plant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantAssetsPickerViewController.html">PlantAssetsPickerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantLibraryTableViewCell.html">PlantLibraryTableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantLibraryTableViewController.html">PlantLibraryTableViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PlantsManager.html">PlantsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Seller.html">Seller</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomAnimator.html">ZoomAnimator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomDismissalInteractionController.html">ZoomDismissalInteractionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ZoomTransitionController.html">ZoomTransitionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker15reuseIdentifier33_03AD837EB5CC149BD40BF8C35C4EC442LLSSvp">reuseIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker15reuseIdentifier33_0E176B8604B5EA4FB1322282645CDD75LLSSvp">reuseIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:12PlantTracker9subsystem33_9996FA4DC4188FE5DE274D5743361A9DLLSSvp">subsystem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DifficultyLevel.html">DifficultyLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LightLevel.html">LightLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PlantInformationIndex.html">PlantInformationIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Season.html">Season</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WateringLevel.html">WateringLevel</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CGRect.html">CGRect</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker4crop5image7toWidth0E6HeightSo7UIImageCAG_S2dtF">crop(image:toWidth:toHeight:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker21getDocumentsDirectory10Foundation3URLVyF">getDocumentsDirectory()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker15getFilePathWith2idS2S_tF">getFilePathWith(id:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker14getFileURLWith2id10Foundation3URLVSS_tF">getFileURLWith(id:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:12PlantTracker6resize5image10targetSizeSo7UIImageCAF_So6CGSizeVtF">resize(image:targetSize:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetPickerFinishedSelectingDelegate.html">AssetPickerFinishedSelectingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EditedImageDelegate.html">EditedImageDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ImagePagingCollectionViewControllerDelegate.html">ImagePagingCollectionViewControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LibraryDetailContainerDelegate.html">LibraryDetailContainerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PagingViewWasTappedDelegate.html">PagingViewWasTappedDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ParentTableViewDelegate.html">ParentTableViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ZoomAnimatorDelegate.html">ZoomAnimatorDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AssetIndexIDTracker.html">AssetIndexIDTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Log.html">Log</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>EditPlantLevelManager</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">EditPlantLevelManager</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC5plantAA0A0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/plant" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC5plantAA0A0Cvp">plant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The plant object to be edited</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">unowned</span> <span class="k">var</span> <span class="nv">plant</span><span class="p">:</span> <span class="kt"><a href="../Classes/Plant.html">Plant</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC06plantsE0AA06PlantsE0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/plantsManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC06plantsE0AA06PlantsE0CSgvp">plantsManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The plants manager to handle global operations on the plants
+such as writing changes to disk</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">unowned</span> <span class="k">var</span> <span class="nv">plantsManager</span><span class="p">:</span> <span class="kt"><a href="../Classes/PlantsManager.html">PlantsManager</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC23parentTableViewDelegateAA06ParentghI0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/parentTableViewDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC23parentTableViewDelegateAA06ParentghI0_pSgvp">parentTableViewDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A delegate to link the editing manager to the table view controller that
+owns it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">parentTableViewDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ParentTableViewDelegate.html">ParentTableViewDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC0aD0O"></a>
+                    <a name="//apple_ref/swift/Enum/PlantLevel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC0aD0O">PlantLevel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The various levels of the plant that can be changed</p>
+
+                        <a href="../Classes/EditPlantLevelManager/PlantLevel.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">PlantLevel</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp"></a>
+                    <a name="//apple_ref/swift/Property/plantLevel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The plant level that is being operated on.</p>
+
+<p>When it is set, this causes a <q>reset</q> for the manager by having it set
+the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC8allItemsSaySSGSgvp">allItems</a></code> array, the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC10plantItemsSaySSGSgvp">plantItems</a></code> array, and making a new editing
+cell.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">plantLevel</span><span class="p">:</span> <span class="kt">EditPlantLevelManager</span><span class="o">.</span><span class="kt"><a href="../Classes/EditPlantLevelManager/PlantLevel.html">PlantLevel</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC8allCasesSayypGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/allCases" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC8allCasesSayypGSgvp">allCases</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All of the cases for the plant level being edited.</p>
+
+<p>For example, if <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a></code> is <code><a href="../Classes/EditPlantLevelManager/PlantLevel.html#/s:12PlantTracker04EditA12LevelManagerC0aD0O13dormantSeasonyA2EmF">PlantLevel.dormantSeason</a></code>, then <code>allCases</code>
+holds all of the possible values in the <code><a href="../Enums/Season.html">Season</a></code> enum.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">allCases</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC8allItemsSaySSGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/allItems" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC8allItemsSaySSGSgvp">allItems</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>All of the raw values (as <code>String</code>s) from the cases in <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC8allCasesSayypGSgvp">allCases</a></code>.</p>
+
+<p>For example, if <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a></code> is <code><a href="../Classes/EditPlantLevelManager/PlantLevel.html#/s:12PlantTracker04EditA12LevelManagerC0aD0O13dormantSeasonyA2EmF">PlantLevel.dormantSeason</a></code>, then <code>allItems</code>
+holds all of the possible raw values in the <code><a href="../Enums/Season.html">Season</a></code> enum.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">allItems</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC10plantItemsSaySSGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/plantItems" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC10plantItemsSaySSGSgvp">plantItems</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The values from <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC8allItemsSaySSGSgvp">allItems</a></code> that are selected for the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC5plantAA0A0Cvp">plant</a></code> object.</p>
+
+<p>For example, if <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a></code> is <code><a href="../Classes/EditPlantLevelManager/PlantLevel.html#/s:12PlantTracker04EditA12LevelManagerC0aD0O13dormantSeasonyA2EmF">PlantLevel.dormantSeason</a></code>, then
+<code>plantItems</code>holds the raw values of the cases of the <code><a href="../Enums/Season.html">Season</a></code> enum for
+which the plant is dormant. The values will be already selected in the
+segmented controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">plantItems</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC28detailLabelOfCellBeingEditedSo7UILabelCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/detailLabelOfCellBeingEdited" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC28detailLabelOfCellBeingEditedSo7UILabelCSgvp">detailLabelOfCellBeingEdited</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The detail label of the cell with the plant&rsquo;s information that is being
+edited.</p>
+
+<p>By keeping it within this manager, it can be live-updated as a new value
+is selected in the editing row.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">detailLabelOfCellBeingEdited</span><span class="p">:</span> <span class="kt">UILabel</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC15editingRowIndexSiSgvp"></a>
+                    <a name="//apple_ref/swift/Property/editingRowIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC15editingRowIndexSiSgvp">editingRowIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The index in the parent table view that is being edited.
+This is mainly used by the owner view controller for tracking the
+cell being edited.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">editingRowIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC11editingCellAA016EditingTableViewG0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/editingCell" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC11editingCellAA016EditingTableViewG0CSgvp">editingCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The actual cell that is presented to the user with the various options
+to select from the change the plant&rsquo;s information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">editingCell</span><span class="p">:</span> <span class="kt"><a href="../Classes/EditingTableViewCell.html">EditingTableViewCell</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC5plant0fD0AcA0A0C_AC0aD0Otcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(plant:plantLevel:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC5plant0fD0AcA0A0C_AC0aD0Otcfc">init(plant:plantLevel:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">plant</span><span class="p">:</span> <span class="kt"><a href="../Classes/Plant.html">Plant</a></span><span class="p">,</span> <span class="nv">plantLevel</span><span class="p">:</span> <span class="kt"><a href="../Classes/EditPlantLevelManager/PlantLevel.html">PlantLevel</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC11setAllItems33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setAllItems()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC11setAllItems33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF">setAllItems()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC8allItemsSaySSGSgvp">allItems</a></code> and <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC8allCasesSayypGSgvp">allCases</a></code> arrays depending on the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setAllItems</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC03setA5Items33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setPlantItems()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC03setA5Items33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF">setPlantItems()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC10plantItemsSaySSGSgvp">plantItems</a></code> array depending on the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC05plantD0AC0aD0OSgvp">plantLevel</a></code> and current
+value(s) set for the plant.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setPlantItems</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC16setupEditingCell33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setupEditingCell()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC16setupEditingCell33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF">setupEditingCell()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prepare the cell to present to the user with a segmented controller
+containing the options to be selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setupEditingCell</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC40setUpEditingCellSegmentedControllerItems33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF"></a>
+                    <a name="//apple_ref/swift/Method/setUpEditingCellSegmentedControllerItems()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC40setUpEditingCellSegmentedControllerItems33_F7C0594EB8C9E60FB08C5A34CD0BA418LLyyF">setUpEditingCellSegmentedControllerItems()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prepare the segmented controller for the editing cell.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">setUpEditingCellSegmentedControllerItems</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC15indexesToSelect33_F7C0594EB8C9E60FB08C5A34CD0BA418LLy10Foundation8IndexSetVXe_tcACF"></a>
+                    <a name="//apple_ref/swift/Method/indexesToSelect(forSegmentedController:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC15indexesToSelect33_F7C0594EB8C9E60FB08C5A34CD0BA418LLy10Foundation8IndexSetVXe_tcACF">indexesToSelect(forSegmentedController:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the indeces to be set for the segmented controller in the editing cell</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">indexesToSelect</span><span class="p">(</span><span class="n">forSegmentedController</span> <span class="nv">segmentedController</span><span class="p">:</span> <span class="kt">MultiSelectSegmentedControl</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IndexSet</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>segmentedController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The segmented controller to be set (it is not actually mutated in this method).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>IndexSet</code> to assign to the segmented controller.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12PlantTracker04EditA12LevelManagerC11multiSelectyyXe_SbSitcACF"></a>
+                    <a name="//apple_ref/swift/Method/multiSelect(_:didChange:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12PlantTracker04EditA12LevelManagerC11multiSelectyyXe_SbSitcACF">multiSelect(_:didChange:at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The method called when the segmented controller changes.</p>
+
+<p>The plant object is updated based on the selected cells in the segmented
+controller. Afterwards, the <code><a href="../Classes/EditPlantLevelManager.html#/s:12PlantTracker04EditA12LevelManagerC06plantsE0AA06PlantsE0CSgvp">plantsManager</a></code> is asked to save the plants
+and the parent table view controller is notified.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">multiSelect</span><span class="p">(</span><span class="n">_</span> <span class="nv">multiSelectSegmentedControl</span><span class="p">:</span> <span class="kt">MultiSelectSegmentedControl</span><span class="p">,</span> <span class="n">didChange</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>multiSelectSegmentedControl</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The segmented controller that has a change in value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Bool</code> for if the value did change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://joshuacook.netlify.com" target="_blank" rel="external">Joshua Cook</a>. All rights reserved. (Last updated: 2019-10-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

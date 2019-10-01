@@ -9,12 +9,20 @@
 import UIKit
 import os
 
-
+/**
+ The view controller for the main table view of the Library collection. Each row is a different plant that can
+ be selected to see detailed information. Swiping to delete is enabled. A new plant can be added through
+ a navigation bar button ("+").
+ */
 class PlantLibraryTableViewController: UITableViewController {
 
+    /// An object that manages the array of `Plant` objects.
     var plantsManager = PlantsManager()
     
+    /// Array of all of the icon images.
     var iconImages = [Plant: UIImage]()
+    
+    /// The index of the last selected row. Is `nil` if no row has been selected.
     var lastSelectedRow: Int? = nil
     
     override func viewDidLoad() {
@@ -80,7 +88,8 @@ class PlantLibraryTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
+    /// If the plant has an icon stored, use that. Otherwise a new one if made (and saved) from the header
+    /// image. If there are no images for the plant, the default image is used.
     func getPlantIcons() {
         os_log("Setting plant icons.", log: Log.plantLibraryTableVC, type: .info)
         for plant in plantsManager.plants {
@@ -98,7 +107,9 @@ class PlantLibraryTableViewController: UITableViewController {
         }
     }
     
-    
+    /// Insert a new plant.
+    ///
+    /// It begins with no name or data and the detail view is automatically pushed.
     @objc func addNewPlant() {
         plantsManager.newPlant()
         
@@ -117,6 +128,13 @@ class PlantLibraryTableViewController: UITableViewController {
 
 extension PlantLibraryTableViewController: LibraryDetailContainerDelegate {
     
+    /// If the plant has an icon stored, use that. Otherwise a new one if made (and saved) from the header
+    /// image. If there are no images for the plant, the default image is used.
+    ///
+    /// - parameter plant: Plant object to set an icon for.
+    ///
+    /// - TODO:
+    /// This looks very simillar to `getPlantIcons()` - they can likely be combined.
     func setIcon(for plant: Plant) {
         os_log("Setting icon for plant %@.", log: Log.plantLibraryTableVC, type: .info, plant.uuid)
         if let iconImageID = plant.smallRoundProfileImage {
@@ -134,7 +152,14 @@ extension PlantLibraryTableViewController: LibraryDetailContainerDelegate {
         tableView.reloadData()
     }
     
-    
+    /// The function for creating an icon.
+    ///
+    /// The final size is 60 x 60 pixels. `resizeForIcon(image:) -> UIImage` is used for the copping
+    /// and resizing.
+    ///
+    /// - parameters:
+    ///   - plant: Plant object to set an icon for.
+    ///   - image: The image to use for the icon.
     func makeNewIconFor(plant: Plant, withImage image: UIImage) -> UIImage {
         os_log("creating icon for plant with UUID %@.", log: Log.plantLibraryTableVC, type: .info, plant.uuid)
         
@@ -163,7 +188,9 @@ extension PlantLibraryTableViewController: LibraryDetailContainerDelegate {
         return iconImage
     }
     
-    
+    /// Make an image the correct size for an icon.
+    ///
+    /// - parameter image: Image to resize.
     func resizeForIcon(image: UIImage) -> UIImage {
         var iconImage = crop(image: image, toWidth: 150, toHeight: 150)
         iconImage = resize(image: iconImage, targetSize: CGSize(width: 60, height: 60))

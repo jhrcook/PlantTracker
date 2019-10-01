@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A custom cell for the collection view in `ImageCollectionViewController`
 class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!

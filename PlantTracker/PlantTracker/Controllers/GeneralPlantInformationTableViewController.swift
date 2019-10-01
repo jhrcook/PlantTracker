@@ -14,6 +14,7 @@ import os
 enum PlantInformationIndex: Int, Equatable {
     case scientificName = 0, commonName, growingSeason, dormantSeason, difficultyLevel, wateringLevel, lightingLevel
     
+    /// Get the number of cases.
     static let count: Int = {
         var max: Int = 0
         while let _ = PlantInformationIndex(rawValue: max) { max += 1 }
@@ -21,7 +22,10 @@ enum PlantInformationIndex: Int, Equatable {
     }()
 }
 
-
+/**
+ Table view controller within the `LibraryDetailViewController` that presents the general information of a plant.
+ The complexity of this view controller is mainly due to the system for editing the plant's atteributes.
+ */
 class GeneralPlantInformationTableViewController: UITableViewController {
 
     
@@ -33,6 +37,7 @@ class GeneralPlantInformationTableViewController: UITableViewController {
     var plantsManager: PlantsManager!
     
     /// Delegate to handle the editing row for collection type information
+    /// - TODO: make private
     var editManager: EditPlantLevelManager?
     
     /// Prepares the view controller by setting it as the delegate for the table view

@@ -1,0 +1,8 @@
+min_acl: private
+output: docs/
+author: Joshua Cook
+author_url: https://joshuacook.netlify.com
+github_url: https://github.com/jhrcook/PlantTracker
+readme: ../README.md
+sdk: iphone
+theme: apple

@@ -9,31 +9,55 @@
 import UIKit
 import os
 
-
+/// Either the source or destination controller for a zoom animation using a `ZoomAnimator`
 protocol ZoomAnimatorDelegate: class {
-    // these two methods are run just before and just after the animation
-    // they are here as helper functions and do not need to do anything
+    /// A function called just before the animation begins.
     func transitionWillStartWith(zoomAnimator: ZoomAnimator)
+    
+    /// A function called just after the animation begins.
     func transitionDidEndWith(zoomAnimator: ZoomAnimator)
     
-    // return the image view that is being zoomed from or to
+    /// A function expected to return the image view that is being zoomed from or to
+    /// (depending on the if the controller is the source or destination).
     func referenceImageView(for zoomAnimator: ZoomAnimator) -> UIImageView?
     
-    // the frame of the image view in the transitioning view
+    /// A function expected to return the frame of the image view in the transitioning view.
     func referenceImageViewFrameInTransitioningView(for zoomAnimator: ZoomAnimator) -> CGRect?
 }
 
-
+/**
+ A custom zoom animation for the transition from an `ImageCollectionViewController` to an
+ `ImagePagingCollectionViewController` when a cell is tapped. It also handles the retraction
+ transition. It was built to mimic the transition used in the native iPhone Photos app.
+ 
+ This custom animation was documented and explained in complete detail in the links provided below.
+ 
+ - SeeAlso:
+    [GitHub](https://github.com/jhrcook/PlantTracker)
+    [EditPlantLevelManager_notes.md](https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md).
+ */
 class ZoomAnimator: NSObject {
     
+    /// The delegate being animated *from*.
     weak var fromDelegate: ZoomAnimatorDelegate?
+    /// The delegate being animated *to*.
     weak var toDelegate: ZoomAnimatorDelegate?
     
+    /// A `Boolean` for is the animation is presenting (or retracting)
     var isPresenting = true
     
+    /// The image view that is animated from the location of the source image to the destination image.
     var transitionImageView: UIImageView?
     
-    
+    /**
+     The animation for the zoom in transition.
+     - parameter transitionContext: The context provided to a transtion that has information about the source.
+     and destination view controllers.
+     
+     - SeeAlso:
+        [GitHub](https://github.com/jhrcook/PlantTracker)
+        [EditPlantLevelManager_notes.md](https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md).
+     */
     fileprivate func animateZoomInTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         // container view of the animation
@@ -109,7 +133,15 @@ class ZoomAnimator: NSObject {
         
     }
     
-    
+    /**
+     The animation for the zoom out transition.
+     - parameter transitionContext: The context provided to a transtion that has information about the source
+     and destination view controllers.
+     
+     - SeeAlso:
+        [GitHub](https://github.com/jhrcook/PlantTracker)
+        [EditPlantLevelManager_notes.md](https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md).
+     */
     fileprivate func animateZoomOutTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         // container view of the animation
@@ -184,7 +216,10 @@ class ZoomAnimator: NSObject {
     
     
     
-    
+    /// Calculates the final frame size for an image during the zoom-in transition.
+    /// - parameter image: The image being zoomed.
+    /// - parameter view: The destination view.
+    /// - returns: A rectangle with the dimensions for the destination of the zoom.
     private func calculateZoomInImageFrame(image: UIImage, forView view: UIView) -> CGRect {
         
         let viewRatio = view.frame.size.width / view.frame.size.height
@@ -206,10 +241,17 @@ class ZoomAnimator: NSObject {
 
 
 extension ZoomAnimator: UIViewControllerAnimatedTransitioning {
+    
+    /// The duration of the transition. It is currently set manually to be 0.5 seconds
+    /// to zoom in (during presentation) and 0.25 to zoom out (not during presentation)
+    /// - parameter transitionContext:The context provided to a transtion that has information about the source
+    /// and destination view controllers.
+    /// - returns: A time interval in seconds.
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return isPresenting ? 0.5 : 0.25
     }
     
+    /// The function called during transition. It is used here to decide which animation to use.
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         if isPresenting {
             animateZoomInTransition(using: transitionContext)

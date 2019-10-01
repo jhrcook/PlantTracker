@@ -8,17 +8,30 @@
 
 import UIKit
 
+/**
+ A custom cell for a plant in the library table view.
+ 
+ - TODO: add a `configureCell(forPlant:)` function.
+ */
 class PlantLibraryTableViewCell: UITableViewCell {
     
+    /// The image view for the icon.
     var iconImageView: UIImageView!
+    /// The label for the scientific name.
     var scientificNameLabel: UILabel!
+    /// The label for the common name.
     var commonNameLabel: UILabel!
     
+    /// The scientific name of the plant.
+    /// - TODO: remove from this view
     var scientificName: String? {
         didSet {
             setScientificLabel()
         }
     }
+    
+    /// The scientific name of the plant.
+    /// - TODO: remove from this view
     var commonName: String? {
         didSet {
             commonNameLabel.text = commonName
@@ -48,12 +61,15 @@ class PlantLibraryTableViewCell: UITableViewCell {
 
 extension PlantLibraryTableViewCell {
     
+    /// Set up the cell subviews.
+    /// - TODO: make private and run during init
     func setupCell() {
         setupConstraints()
         setupCellView()
     }
     
-    
+    /// Assign constraints to organize the subviews.
+    /// - TODO: make private
     func setupConstraints() {
         iconImageView = UIImageView()
         contentView.addSubview(iconImageView)
@@ -79,7 +95,7 @@ extension PlantLibraryTableViewCell {
         }
     }
     
-    
+    /// Sets the scientific label depending on if the plant has one.
     func setScientificLabel() {
         if let scientificName = scientificName {
             scientificNameLabel?.text = scientificName
@@ -91,7 +107,8 @@ extension PlantLibraryTableViewCell {
         scientificNameLabel?.font = UIFont.italicSystemFont(ofSize: scientificNameLabel?.font.pointSize ?? UIFont.systemFontSize)
     }
     
-    
+    /// Set up some smaller details of the cell.
+    /// - TODO: make private and run during init
     func setupCellView() {
         
         // separator inset

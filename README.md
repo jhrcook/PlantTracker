@@ -11,13 +11,32 @@
 
 This is a simple iOS application to help my mom track her cacti and succulent collection. 
 
-**Status** (updated Sept. 10, 2019):
+## Status
 
-I am still working on the detail view for a plant in the Library. Below is an sample of what it looks like.
+(updated October 1, 2019)
 
-The current feature I am working on (in the [`edit_plant_info` branch](https://github.com/jhrcook/PlantTracker/tree/edit-plant-info)) will present a segmented controller to the user to change the plant's properties.
+This app is still under development. Currently, the plant "Library" is pretty much complete. The next step will be to work on the plant "Collection" (or "Garden"?). Finally, I will add a To-Do list area with the ability to add custom push notifications.
+
+Below is a screen recording of the plant "Library".
 
 <img src="progress_screenshots/Aug-10-2019 08-20-06.gif" width="300"/>
+
+
+## Related Resources
+
+### Photo zoom anitated transition
+
+I wrote-up a detailed explanation for the custom zoom animated transition used between the `ImageCollectionViewController ` and `ImagePagingCollectionViewController`. It was also implemented as a stand-alone demonstration app. Both are linked below.
+
+[Photo Zoom Animator in iOS](https://joshuacook.netlify.com/post/photo-zoom-animator/)  
+[PhotoZoomAnimator](https://github.com/jhrcook/PhotoZoomAnimator)
+
+
+### Editing a row in the information table
+
+I wrote out an explantion of the code for how I implmented the editing row system in the `LibraryDetailViewController`.
+It is available as a markdown file on the GitHub repository: [Notes on implementation of drop-down multi-selection menu](https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md)
+
 
 ---
 **External Libraries**
@@ -26,12 +45,10 @@ The current feature I am working on (in the [`edit_plant_info` branch](https://g
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
 * [Floaty](https://github.com/kciter/Floaty)
+* [KeyboardObserver]()
 * [TOCropViewController](https://github.com/TimOliver/TOCropViewController)
+* [MultiSelectSegmentedControl](https://github.com/yonat/MultiSelectSegmentedControl)
 
-
-**Related Repositories**	
-
-I developed the interactive transition from the image collection view to the paging image view in a separate app, [PhotoZoomAnimator](https://github.com/jhrcook/PhotoZoomAnimator). The system if fully explained in the README.
 
 **Assets**
 

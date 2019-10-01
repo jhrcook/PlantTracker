@@ -14,18 +14,35 @@ private let reuseIdentifier = "image"
 
 class ImageCollectionViewController: UICollectionViewController {
     
+    /// An array of `UIImage` objects to display.
     var images = [UIImage]()
     
+    /// A label that apppears if there are no images.
+    /// - TODO: use closure syntax to set it up at declaration
+    /// - TODO: make private and lazy
     var noImagesLabel = UILabel()
     
+    /// The currently selected index.
+    ///
+    /// This is mainly used for interactions with a `ImagePagingCollectionViewController`
     var currentIndex = 0
     
+    /// The `Plant` object whose images are being displayed.
     var plant: Plant!
+    
+    /// An object that manages the array of `Plant` objects.
     var plantsManager: PlantsManager!
     
+    /// The number of images in a row
+    /// - TODO: make private
     let numberOfImagesPerRow: CGFloat = 4.0
+    
+    /// The spacing between images.
+    /// - TODO: make private
     let spacingBetweenCells: CGFloat = 0.5
     
+    /// A `boolean` indicating whether multiple cells be selected. The selected images can then be shared or deleted.
+    /// - TODO: make private
     var inMultiSelectMode = false {
         didSet {
             
@@ -42,7 +59,13 @@ class ImageCollectionViewController: UICollectionViewController {
             }
         }
     }
+    
+    /// Indices of selected images.
+    /// - TODO: make private
     var selectedImageIndices = [Int]()
+    
+    /// The standard title to use when *not* in multi-select mode (`inMultiSelectMode == false`). It is set to the same `String` as `self.title`
+    /// in `viewDidLoad()`.
     var standardTitle: String?
     
     
@@ -68,7 +91,9 @@ class ImageCollectionViewController: UICollectionViewController {
         setupToolbar()
     }
     
-    
+    /// Load the images of a plant into `images: [UIImage]`. It is called once during set up and when the user is done selecting new images.
+    /// - TODO: experiment with loading the images in `cellForRowAt:`
+    /// - TODO: make private
     func loadImages() {
         os_log("Setting up %d images.", log: Log.imageCollectionVC, type: .info, plant.images.count)
         images.removeAll(keepingCapacity: true)
@@ -102,7 +127,7 @@ class ImageCollectionViewController: UICollectionViewController {
         if inMultiSelectMode { inMultiSelectMode = false }
     }
     
-    
+    /// An action sheet is presented to imort or edit images.
     @objc func editButtonTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Import images", style: .default, handler: addImages))
@@ -175,6 +200,8 @@ extension ImageCollectionViewController {
 
 extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
     
+    /// Add images to the plant using `PlantAssetsPickerViewController`. `self` is set as the delegate.
+    /// - parameter alert: The alert action that called the function (not used).
     @objc func addImages(_ alert: UIAlertAction) {
         let imagePicker = PlantAssetsPickerViewController()
         imagePicker.plant = plant
@@ -185,7 +212,9 @@ extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
         present(imagePicker, animated: true)
     }
     
-    
+    /// This function is called when the user is done selecting images. It saves the plants,
+    /// loads the images into `images: [UIImage]` and reloads the data.
+    /// - parameter assetPicker: The `PlantAssetsPickerViewController` that called the function.
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         os_log("AssetPicker did finish selecting.", log: Log.detailLibraryVC, type: .info)
         
@@ -201,10 +230,11 @@ extension ImageCollectionViewController: AssetPickerFinishedSelectingDelegate {
 
 
 
-// for multi-selection editing
+// MARK: Multi-select mode
 
 extension ImageCollectionViewController {
     
+    /// Organize the tool bar for multi-select mode. The tool bar will have a trash and a share icons for deleting or sharing images.
     func setupToolbar() {
         let trashToolbarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteSelectedImages))
         let shareToolbarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareSelectedImages))
@@ -213,12 +243,15 @@ extension ImageCollectionViewController {
         navigationController?.setToolbarHidden(true, animated: false)
     }
     
-    
+    /// Called to turn on miltu-select mode by setting `inMultiSelectMode` to `true`.
+    /// - parameter alert: The alert action that called the function (not used).
     @objc func selectMultipleImages(_ alert: UIAlertAction) {
         inMultiSelectMode = true
     }
     
-    
+    /// Delete the currently selected images. The images are deleted from `images: [UIImage]`, the `plant.images: [String]`, removed from disk
+    /// And from the collection view. The deletion is animated by calling `collectionView.deleteItems(at: [IndexPath])`.
+    /// - parameter alert: The alert action that called the function (not used).
     @objc func deleteSelectedImages(_ alert: UIAlertAction) {
         if selectedImageIndices.count > 0 {
             let ac = UIAlertController(title: "Delete \(selectedImageIndices.count) images?", message: "Are you sure you want to delete the selected images?", preferredStyle: .alert)
@@ -241,7 +274,8 @@ extension ImageCollectionViewController {
         }
     }
     
-    
+    /// Share the currently selected images using the satandard `UIActivityViewController(activityItems:applicationActivities:)`.
+    /// - parameter alert: The alert action that called the function (not used).
     @objc func shareSelectedImages(_ alert: UIAlertAction) {
         if selectedImageIndices.count > 0 {
             var imagesToShare = [UIImage]()
@@ -257,7 +291,7 @@ extension ImageCollectionViewController {
         }
     }
     
-    
+    /// Deactivate multi-select mode by setting `inMultiSelectMode` to `false`.
     @objc func exitMultiSelectionMode(_ alert: UIAlertAction) {
         inMultiSelectMode = false
         collectionView.reloadData()
@@ -290,7 +324,7 @@ extension ImageCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 
 
-// MARK: segues
+// MARK: Segues
 
 extension ImageCollectionViewController {
     
@@ -343,6 +377,8 @@ extension ImageCollectionViewController: ZoomAnimatorDelegate {
         os_log("`ZoomAnimatorDelegate` is finishing.", log: Log.imageCollectionVC, type: .info)
     }
     
+    /// Retrieve the cell at `currentIndex` for a zoom animation.
+    /// - parameter zoomAnimator: The `ZoomAnimator` object organizing the transition animation.
     func getCell(for zoomAnimator: ZoomAnimator) -> ImageCollectionViewCell? {
         
         let indexPath = zoomAnimator.isPresenting ? collectionView.indexPathsForSelectedItems?.first : IndexPath(item: currentIndex, section: 0)
@@ -376,12 +412,26 @@ extension ImageCollectionViewController: ZoomAnimatorDelegate {
 // MARK: ImagePagingCollectionViewControllerDelegate
 
 extension ImageCollectionViewController: ImagePagingCollectionViewControllerDelegate {
+    
+    /// Respond to a change in index of the current image when in the paging view.
+    /// - parameters:
+    ///     - containerViewController: The view controller that called the function.
+    ///     - currentIndex: The index of the paging view controller. `self.currentIndex` is assigned this value to stay in sync.
+    ///
+    /// - TODO: change name of first parameter to `imagePagingCollectionViewController`
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int) {
         self.currentIndex = currentIndex
         os_log("Setting new current index value.", log: Log.imageCollectionVC, type: .info)
         collectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredVertically, animated: false)
     }
     
+    /// A notification from the `ImagePagingCollectionViewController` to delete the image at an index.
+    /// - parameter index: Index at which to delete the image.
+    ///
+    /// - Note: The image is already deleted from the plant, erased from disk, and removed from `images: [UIImage]`. The only task to be done, here,
+    /// is to remove the image from the collection view using `collectionView.deleteItems(at: [IndexPath])`.
+    ///
+    /// - TODO: add first paramter as `_ containerViewController: ImagePagingCollectionViewController`
     func removeCell(at index: Int) {
         collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
     }
@@ -389,14 +439,19 @@ extension ImageCollectionViewController: ImagePagingCollectionViewControllerDele
 
 
 
-// MARK: SaveEditedImageDelegate
+// MARK: EditedImageDelegate
 
 extension ImageCollectionViewController: EditedImageDelegate {
+    
+    /// Set the profile or the `plant: Plant` using the image at the specified index of `images: [UIImage]`.
+    /// - parameter index: index of `images: [UIImage]` for which to pull the image for the profile image.
     func setProfileAs(imageAt index: Int) {
         plant.profileImage = plant.images[index]
         plantsManager.savePlants()
     }
     
+    /// Delete an image from `plant: Plant` at the specific index.
+    /// - parameter index: index of `images: [UIImage]` and the `plant: Plant` object's image array.
     func deleteImage(at index: Int) {
         images.remove(at: index)
         let imageUUID = plant.images[index]
@@ -404,6 +459,12 @@ extension ImageCollectionViewController: EditedImageDelegate {
         plantsManager.savePlants()
     }
     
+    /// Save changes to an image at the specific index.
+    /// - parameter image: The new (edited) image to replace the old one with.
+    /// - parameter index: The index of the image being replaced.
+    ///
+    /// - Note: The image is *replaced*, not appended. Therefore, it retains the same file name and UUID. Therefore, anything that
+    /// references this image (eg. the header image) will be affected by the change. 
     func save(image: UIImage, withIndex index: Int) {
         let fileURL = getFileURLWith(id: plant.images[index])
         images[index] = image
