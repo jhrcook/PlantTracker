@@ -222,13 +222,27 @@
 
 <p>This is a simple iOS application to help my mom track her cacti and succulent collection. </p>
 
-<p><strong>Status</strong> (updated Sept. 10, 2019):</p>
+<p>Documentation: <a href="https://jhrcook.github.io/PlantTracker/">https://jhrcook.github.io/PlantTracker/</a></p>
+<h2 id='status' class='heading'>Status</h2>
 
-<p>I am still working on the detail view for a plant in the Library. Below is an sample of what it looks like.</p>
+<p>(updated October 1, 2019)</p>
 
-<p>The current feature I am working on (in the <a href="https://github.com/jhrcook/PlantTracker/tree/edit-plant-info"><code>edit_plant_info</code> branch</a>) will present a segmented controller to the user to change the plant&rsquo;s properties.</p>
+<p>This app is still under development. Currently, the plant <q>Library</q> is pretty much complete. The next step will be to work on the plant <q>Collection</q> (or <q>Garden</q>?). Finally, I will add a To-Do list area with the ability to add custom push notifications.</p>
+
+<p>Below is a screen recording of the plant <q>Library</q>.</p>
 
 <p><img src="progress_screenshots/Aug-10-2019 08-20-06.gif" width="300"/></p>
+<h2 id='related-resources' class='heading'>Related Resources</h2>
+<h3 id='photo-zoom-anitated-transition' class='heading'>Photo zoom anitated transition</h3>
+
+<p>I wrote-up a detailed explanation for the custom zoom animated transition used between the <code><a href="Classes/ImageCollectionViewController.html">ImageCollectionViewController</a></code> and <code><a href="Classes/ImagePagingCollectionViewController.html">ImagePagingCollectionViewController</a></code>. It was also implemented as a stand-alone demonstration app. Both are linked below.</p>
+
+<p><a href="https://joshuacook.netlify.com/post/photo-zoom-animator/">Photo Zoom Animator in iOS</a><br>
+<a href="https://github.com/jhrcook/PhotoZoomAnimator">PhotoZoomAnimator</a></p>
+<h3 id='editing-a-row-in-the-information-table' class='heading'>Editing a row in the information table</h3>
+
+<p>I wrote out an explantion of the code for how I implmented the editing row system in the <code><a href="Classes/LibraryDetailViewController.html">LibraryDetailViewController</a></code>.
+It is available as a markdown file on the GitHub repository: <a href="https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md">Notes on implementation of drop-down multi-selection menu</a></p>
 
 <hr>
 
@@ -243,10 +257,6 @@
 <li><a href="https://github.com/TimOliver/TOCropViewController">TOCropViewController</a></li>
 <li><a href="https://github.com/yonat/MultiSelectSegmentedControl">MultiSelectSegmentedControl</a></li>
 </ul>
-
-<p><strong>Related Repositories</strong>    </p>
-
-<p>I developed the interactive transition from the image collection view to the paging image view in a separate app, <a href="https://github.com/jhrcook/PhotoZoomAnimator">PhotoZoomAnimator</a>. The system if fully explained in the README.</p>
 
 <p><strong>Assets</strong></p>
 

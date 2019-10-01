@@ -1,1139 +1,1139 @@
 {
   "warnings": [
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.commonName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.difficultyLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.dormantSeason",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.growingSeason",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.lightingLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.scientificName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 15,
       "symbol": "PlantInformationIndex.wateringLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 77,
       "symbol": "GeneralPlantInformationTableViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 141,
       "symbol": "GeneralPlantInformationTableViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 229,
       "symbol": "GeneralPlantInformationTableViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 237,
       "symbol": "GeneralPlantInformationTableViewController.tableView(_:heightForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 260,
       "symbol": "GeneralPlantInformationTableViewController.PlantName",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 260,
       "symbol": "GeneralPlantInformationTableViewController.PlantName.commonName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/GeneralPlantInformationTableViewController.swift",
       "line": 260,
       "symbol": "GeneralPlantInformationTableViewController.PlantName.scientificName",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 13,
       "symbol": "reuseIdentifier",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 15,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 72,
       "symbol": "ImageCollectionViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 106,
       "symbol": "ImageCollectionViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 126,
       "symbol": "ImageCollectionViewController.viewWillDisappear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 144,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 146,
       "symbol": "ImageCollectionViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 150,
       "symbol": "ImageCollectionViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 154,
       "symbol": "ImageCollectionViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 170,
       "symbol": "ImageCollectionViewController.collectionView(_:didSelectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 185,
       "symbol": "ImageCollectionViewController.collectionView(_:didDeselectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 201,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 235,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 308,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 310,
       "symbol": "ImageCollectionViewController.collectionView(_:layout:sizeForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 316,
       "symbol": "ImageCollectionViewController.collectionView(_:layout:minimumInteritemSpacingForSectionAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 320,
       "symbol": "ImageCollectionViewController.collectionView(_:layout:minimumLineSpacingForSectionAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 329,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 331,
       "symbol": "ImageCollectionViewController.shouldPerformSegue(withIdentifier:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 341,
       "symbol": "ImageCollectionViewController.prepare(for:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 369,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 414,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImageCollectionViewController.swift",
       "line": 444,
       "symbol": "ImageCollectionViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 18,
       "symbol": "ImagePagingCollectionViewControllerDelegate.containerViewController(_:indexDidChangeTo:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 19,
       "symbol": "ImagePagingCollectionViewControllerDelegate.removeCell(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 24,
       "symbol": "EditedImageDelegate.save(image:withIndex:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 25,
       "symbol": "EditedImageDelegate.setProfileAs(imageAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 26,
       "symbol": "EditedImageDelegate.deleteImage(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 59,
       "symbol": "ImagePagingCollectionViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 112,
       "symbol": "ImagePagingCollectionViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 116,
       "symbol": "ImagePagingCollectionViewController.collectionView(_:numberOfItemsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 120,
       "symbol": "ImagePagingCollectionViewController.collectionView(_:cellForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 140,
       "symbol": "ImagePagingCollectionViewController.scrollViewDidScroll(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 147,
       "symbol": "ImagePagingCollectionViewController.scrollViewDidEndDecelerating(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 160,
       "symbol": "ImagePagingCollectionViewController.collectionView(_:layout:sizeForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 165,
       "symbol": "ImagePagingCollectionViewController.collectionView(_:layout:minimumInteritemSpacingForSectionAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 169,
       "symbol": "ImagePagingCollectionViewController.collectionView(_:layout:minimumLineSpacingForSectionAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 353,
       "symbol": "ImagePagingCollectionViewController.cropViewController(_:didFinishCancelled:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/ImagePagingCollectionViewController.swift",
       "line": 358,
       "symbol": "ImagePagingCollectionViewController.cropViewController(_:didCropToImage:withRect:angle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 19,
       "symbol": "LibraryDetailContainerDelegate.setIcon(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 23,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 82,
       "symbol": "LibraryDetailViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 120,
       "symbol": "LibraryDetailViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 192,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 226,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 230,
       "symbol": "LibraryDetailViewController.TextViewState.blank",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 230,
       "symbol": "LibraryDetailViewController.TextViewState.content",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 321,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 341,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 356,
       "symbol": "LibraryDetailViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LibraryDetailViewController.swift",
       "line": 359,
       "symbol": "LibraryDetailViewController.prepare(for:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 15,
       "symbol": "LinksTableViewController.plant",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 16,
       "symbol": "LinksTableViewController.plantsManager",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 18,
       "symbol": "LinksTableViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 33,
       "symbol": "LinksTableViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 38,
       "symbol": "LinksTableViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 44,
       "symbol": "LinksTableViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 50,
       "symbol": "LinksTableViewController.tableView(_:heightForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/LinksTableViewController.swift",
       "line": 54,
       "symbol": "LinksTableViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
       "line": 16,
       "symbol": "AssetPickerFinishedSelectingDelegate.didFinishSelecting(assetPicker:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
       "line": 50,
       "symbol": "PlantAssetsPickerViewController.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantAssetsPickerViewController.swift",
       "line": 54,
       "symbol": "PlantAssetsPickerViewController.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 28,
       "symbol": "PlantLibraryTableViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 48,
       "symbol": "PlantLibraryTableViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 56,
       "symbol": "PlantLibraryTableViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 61,
       "symbol": "PlantLibraryTableViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 86,
       "symbol": "PlantLibraryTableViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 209,
       "symbol": "PlantLibraryTableViewController.tableView(_:commit:forRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 241,
       "symbol": "PlantLibraryTableViewController.prepare(for:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Controllers/PlantLibraryTableViewController.swift",
       "line": 254,
       "symbol": "PlantLibraryTableViewController.unwindToLibraryTableView(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/AssetIndexIDTracker.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/AssetIndexIDTracker.swift",
       "line": 12,
       "symbol": "AssetIndexIDTracker",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 14,
       "symbol": "ParentTableViewDelegate",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 15,
       "symbol": "ParentTableViewDelegate.plantLevelDidChange()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 19,
       "symbol": "EditPlantLevelManager",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 34,
       "symbol": "EditPlantLevelManager.PlantLevel.growingSeason",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 35,
       "symbol": "EditPlantLevelManager.PlantLevel.difficultyLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 36,
       "symbol": "EditPlantLevelManager.PlantLevel.dormantSeason",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 37,
       "symbol": "EditPlantLevelManager.PlantLevel.wateringLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 38,
       "symbol": "EditPlantLevelManager.PlantLevel.lightingLevel",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 102,
       "symbol": "EditPlantLevelManager.init(plant:plantLevel:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/EditPlantLevelManager.swift",
       "line": 214,
       "symbol": "EditPlantLevelManager",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 13,
       "symbol": "Plant",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 155,
       "symbol": "Season.fall",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 155,
       "symbol": "Season.spring",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 155,
       "symbol": "Season.summer",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 155,
       "symbol": "Season.winter",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 160,
       "symbol": "DifficultyLevel.easy",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 160,
       "symbol": "DifficultyLevel.hard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 160,
       "symbol": "DifficultyLevel.medium",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 165,
       "symbol": "WateringLevel.dry",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 165,
       "symbol": "WateringLevel.moist",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 165,
       "symbol": "WateringLevel.veryDry",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 165,
       "symbol": "WateringLevel.wet",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.afternoon",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.allDay",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.filtered",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.indirect",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.low",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.morning",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 170,
       "symbol": "LightLevel.shade",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 186,
       "symbol": "Seller.init(name:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 190,
       "symbol": "Seller.init(name:business:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Models/Plant.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Models/Plant.swift",
       "line": 195,
       "symbol": "Seller.init(business:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 12,
       "symbol": "AppDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 14,
       "symbol": "AppDelegate.window",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 17,
       "symbol": "AppDelegate.application(_:didFinishLaunchingWithOptions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 22,
       "symbol": "AppDelegate.applicationWillResignActive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 27,
       "symbol": "AppDelegate.applicationDidEnterBackground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 32,
       "symbol": "AppDelegate.applicationWillEnterForeground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 36,
       "symbol": "AppDelegate.applicationDidBecomeActive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Supporting Files/AppDelegate.swift",
       "line": 40,
       "symbol": "AppDelegate.applicationWillTerminate(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 12,
       "symbol": "subsystem",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 14,
       "symbol": "Log",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 15,
       "symbol": "Log.plantLibraryTableVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 16,
       "symbol": "Log.detailLibraryVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 17,
       "symbol": "Log.detailLibraryGeneralInfoVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 18,
       "symbol": "Log.imageCollectionVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 19,
       "symbol": "Log.pagingImageVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 20,
       "symbol": "Log.assetPickerVC",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 21,
       "symbol": "Log.zoomAnimator",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 23,
       "symbol": "Log.plantsObject",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 24,
       "symbol": "Log.plantsManager",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/Log.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/Log.swift",
       "line": 25,
       "symbol": "Log.editPlantManager",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 13,
       "symbol": "getDocumentsDirectory()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 18,
       "symbol": "getFileURLWith(id:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 23,
       "symbol": "getFilePathWith(id:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 31,
       "symbol": "resize(image:targetSize:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 60,
       "symbol": "crop(image:toWidth:toHeight:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Utilities/utilities.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Utilities/utilities.swift",
       "line": 98,
       "symbol": "CGRect.init(center:size:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
       "line": 22,
       "symbol": "EditingTableViewCell.init(style:reuseIdentifier:items:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
       "line": 31,
       "symbol": "EditingTableViewCell.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
       "line": 35,
       "symbol": "EditingTableViewCell.awakeFromNib()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/EditingTableViewCell.swift",
       "line": 40,
       "symbol": "EditingTableViewCell.setSelected(_:animated:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/GeneralInformtationTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/GeneralInformtationTableViewCell.swift",
       "line": 13,
       "symbol": "GeneralInformtationTableViewCell.init(style:reuseIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/GeneralInformtationTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/GeneralInformtationTableViewCell.swift",
       "line": 19,
       "symbol": "GeneralInformtationTableViewCell.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
       "line": 14,
       "symbol": "ImageCollectionViewCell.imageView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
       "line": 15,
       "symbol": "ImageCollectionViewCell.shadingView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImageCollectionViewCell.swift",
       "line": 16,
       "symbol": "ImageCollectionViewCell.borderView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
       "line": 14,
       "symbol": "PagingViewWasTappedDelegate.pagingViewCell(_:shouldBeTurnedBlack:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
       "line": 53,
       "symbol": "ImagePagingViewCell.init(frame:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
       "line": 93,
       "symbol": "ImagePagingViewCell.init(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
       "line": 148,
       "symbol": "ImagePagingViewCell.scrollViewDidZoom(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/ImagePagingViewCell.swift",
       "line": 162,
       "symbol": "ImagePagingViewCell.viewForZooming(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/LibraryDetailView.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/LibraryDetailView.swift",
       "line": 15,
       "symbol": "LibraryDetailView",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/LibraryDetailView.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/LibraryDetailView.swift",
       "line": 94,
       "symbol": "LibraryDetailView",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/PlantLibraryTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/PlantLibraryTableViewCell.swift",
       "line": 43,
       "symbol": "PlantLibraryTableViewCell.awakeFromNib()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Views/PlantLibraryTableViewCell.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Views/PlantLibraryTableViewCell.swift",
       "line": 49,
       "symbol": "PlantLibraryTableViewCell.setSelected(_:animated:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/PlantTracker/Zoom Animation/ZoomTransitionController.swift",
+      "file": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker/Zoom Animation/ZoomTransitionController.swift",
       "line": 41,
       "symbol": "ZoomTransitionController.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/admin/Documents/Swift/PlantTracker/PlantTracker"
+  "source_directory": "/Users/admin/Documents/Swift/PlantTracker"
 }
