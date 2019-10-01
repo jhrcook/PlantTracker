@@ -28,6 +28,7 @@ The current feature I am working on (in the [`edit_plant_info` branch](https://g
 * [Floaty](https://github.com/kciter/Floaty)
 * [KeyboardObserver]()
 * [TOCropViewController](https://github.com/TimOliver/TOCropViewController)
+* [MultiSelectSegmentedControl](https://github.com/yonat/MultiSelectSegmentedControl)
 
 
 **Related Repositories**	

@@ -10,8 +10,13 @@ import UIKit
 import SnapKit
 import MultiSelectSegmentedControl
 
+/// The custom cell for editing the information in the general information table view.
+/// It contains a segmented controller that can have multiple selections.
 class EditingTableViewCell: UITableViewCell {
     
+    /// A multi-select segmented control.
+    /// - Note: The `MultiSelectSegmentedControl` class if from the
+    ///  ['MultiSelectSegmentedControl'](https://github.com/yonat/MultiSelectSegmentedControl) library
     var segmentedControl: MultiSelectSegmentedControl
     
     init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, items: [Any]?) {
@@ -38,6 +43,7 @@ class EditingTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    /// Set up the segmented controller's view.
     fileprivate func setUpSegmentedView() {
         contentView.addSubview(segmentedControl)
         segmentedControl.snp.makeConstraints { make in
@@ -46,8 +52,5 @@ class EditingTableViewCell: UITableViewCell {
         
         segmentedControl.borderRadius = 0
         segmentedControl.borderWidth = 0
-        
-        // segmentedControl.backgroundColor = UIColor(red: 247, green: 253, blue: 255)
-        // segmentedControl.tintColor = UIColor(red: 128, green: 217, blue: 255)
     }
 }
