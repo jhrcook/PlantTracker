@@ -38,13 +38,13 @@ class EditPlantLevelManager: NSObject {
         case lightingLevel = "Lighting Level"
     }
     
-    /*
+    /**
      The plant level that is being operated on.
      
-     Whe it is set, this causes a "reset" for the manager by having it set
+     When it is set, this causes a "reset" for the manager by having it set
      the `allItems` array, the `plantItems` array, and making a new editing
      cell.
-    */
+     */
     var plantLevel: PlantLevel? {
         didSet {
             os_log("plant level of edit manager was set: %@", log: Log.editPlantManager, type: .info, plantLevel?.rawValue ?? "NIL")
@@ -54,39 +54,39 @@ class EditPlantLevelManager: NSObject {
         }
     }
     
-    /*
+    /**
      All of the cases for the plant level being edited.
      
      For example, if `plantLevel` is `PlantLevel.dormantSeason`, then `allCases`
      holds all of the possible values in the `Season` enum.
-    */
+     */
     var allCases: [Any]?
     
-    /*
+    /**
      All of the raw values (as `String`s) from the cases in `allCases`.
      
      For example, if `plantLevel` is `PlantLevel.dormantSeason`, then `allItems`
      holds all of the possible raw values in the `Season` enum.
-    */
+     */
     var allItems: [String]?
     
-    /*
+    /**
      The values from `allItems` that are selected for the `plant` object.
      
      For example, if `plantLevel` is `PlantLevel.dormantSeason`, then
      `plantItems`holds the raw values of the cases of the `Season` enum for
      which the plant is dormant. The values will be already selected in the
      segmented controller.
-    */
+     */
     var plantItems: [String]?
     
-    /*
+    /**
      The detail label of the cell with the plant's information that is being
      edited.
      
      By keeping it within this manager, it can be live-updated as a new value
      is selected in the editing row.
-    */
+     */
     var detailLabelOfCellBeingEdited: UILabel?
     
     /// The index in the parent table view that is being edited.
