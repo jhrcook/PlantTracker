@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Table view cells for the general information of a plant.
 class GeneralInformtationTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -19,6 +20,8 @@ class GeneralInformtationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Changes a bit of the styling from the standard iOS `UITableViewCell`.
+    /// - TODO: make private
     func changeStyling() {
         textLabel?.font = UIFont.boldSystemFont(ofSize: textLabel?.font.pointSize ?? UIFont.systemFontSize)
         detailTextLabel?.textColor = .black
