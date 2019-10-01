@@ -208,7 +208,6 @@ extension LibraryDetailView {
         
         generalInfoTableView = UITableView.init(frame: CGRect.zero, style: .plain)
         generalInfoTableView.register(GeneralInformtationTableViewCell.self, forCellReuseIdentifier: "generalInfoCell")
-        generalInfoTableView.allowsSelection = false
         notesTextView = UITextView()
         linksTableView = UITableView.init(frame: CGRect.zero, style: .plain)
         linksTableView.register(UITableViewCell.self, forCellReuseIdentifier: "linksCell")

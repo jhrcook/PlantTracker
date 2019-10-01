@@ -15,14 +15,24 @@ import Floaty
 import os
 
 
+protocol LibraryDetailContainerDelegate {
+    func setIcon(for plant: Plant)
+}
 
 
 class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var plant: Plant!
-    var plantsDelegate: PlantsDelegate?
+    var plantsManager: PlantsManager!
+    
+    var editingRowIndex: Int?
+    var editManager: EditPlantLevelManager?
+    
+    var containerDelegate: LibraryDetailContainerDelegate!
     
     var libraryDetailView: LibraryDetailView! = nil
+    let generalInfomationViewController = GeneralPlantInformationTableViewController()
+    let linksTableViewController = LinksTableViewController()
     
     let keyboard = KeyboardObserver()
     
@@ -54,10 +64,17 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         
         libraryDetailView.mainScrollView.delegate = self
         libraryDetailView.twicketSegementedControl.delegate = self
-        libraryDetailView.generalInfoTableView.delegate = self
-        libraryDetailView.generalInfoTableView.dataSource = self
-        libraryDetailView.linksTableView.delegate = self
-        libraryDetailView.linksTableView.dataSource = self
+        
+        // set up general information table view controller
+        generalInfomationViewController.tableView = libraryDetailView.generalInfoTableView
+        generalInfomationViewController.plant = plant
+        generalInfomationViewController.plantsManager = plantsManager
+        generalInfomationViewController.setupViewController()
+        
+        // set up links table view controller
+        linksTableViewController.tableView = libraryDetailView.linksTableView
+        linksTableViewController.plant = plant
+        linksTableViewController.plantsManager = plantsManager
         
         title = plant.scientificName ?? plant.commonName ?? ""
         
@@ -71,7 +88,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         os_log("View will appear.", log: Log.detailLibraryVC, type: .debug)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsDelegate?.savePlants()
+        plantsManager.savePlants()
     }
     
     
@@ -133,94 +150,6 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
 }
 
 
-
-
-extension LibraryDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return 7
-        case libraryDetailView.linksTableView:
-            return 3
-        default:
-            os_log("Unforseen table view requesting some number of cells.", log: Log.detailLibraryVC, type: .error)
-            fatalError("Unforeseen table view requesting number of cells")
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "generalInfoCell", for: indexPath)
-            var main: String?
-            var detail: String?
-            switch indexPath.row {
-            case 0:
-                main = "Scientific name"
-                detail = plant.scientificName
-                cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: cell.detailTextLabel?.font.pointSize ?? UIFont.systemFontSize)
-            case 1:
-                main = "Common name"
-                detail = plant.commonName
-            case 2:
-                main = "Growing season(s)"
-                detail = plant.printableGrowingSeason()
-            case 3:
-                main = "Dormant season(s)"
-                detail = plant.printableDormantSeason()
-            case 4:
-                main = "Difficulty"
-                if let difficulty = plant.difficulty { detail = String(difficulty.rawValue) }
-            case 5:
-                main = "Watering level(s)"
-                detail = plant.printableWatering()
-            case 6:
-                main = "Lighting level(s)"
-                detail = plant.printableLighting()
-            default:
-                main = nil
-                detail = nil
-            }
-            cell.textLabel?.text = main
-            cell.detailTextLabel?.text = detail
-            return cell
-        case libraryDetailView.linksTableView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "linksCell", for: indexPath)
-            cell.textLabel?.text = "TEST LINKS - row\(indexPath.row)"
-            return cell
-        default:
-            os_log("Unforseen table view requesting a `UITableViewCell`.", log: Log.detailLibraryVC, type: .error)
-            fatalError("Unforeseen table view requesting a `UITableViewCell`")
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return 50
-        case libraryDetailView.linksTableView:
-            return 75
-        default:
-            return 44
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        switch tableView {
-        case libraryDetailView.generalInfoTableView:
-            return true
-        default:
-            return false
-        }
-    }
-}
-
-
-
-
 // MARK: TwicketSegmentedControlDelegate
 
 extension LibraryDetailViewController: TwicketSegmentedControlDelegate {
@@ -262,7 +191,6 @@ extension LibraryDetailViewController {
     
     
     func setNotesTextView(to textViewState: TextViewState) {
-        
         switch textViewState {
         case .blank:
             libraryDetailView.notesTextView.text = "Notes"
@@ -297,7 +225,7 @@ extension LibraryDetailViewController {
                         self?.setNotesTextView(to: .blank)
                     } else {
                         self?.plant.notes = self?.libraryDetailView.notesTextView.text ?? ""
-                        self?.plantsDelegate?.savePlants()
+                        self?.plantsManager.savePlants()
                     }
                     
                 case .willShow, .willChangeFrame:
@@ -362,8 +290,8 @@ extension LibraryDetailViewController: AssetPickerFinishedSelectingDelegate {
     func didFinishSelecting(assetPicker: PlantAssetsPickerViewController) {
         os_log("AssetPickerFinishedSelectingDelegate is running `didFinishSelecting(assetPicker:)` method.", log: Log.detailLibraryVC, type: .info)
         libraryDetailView.headerImage = getHeaderImage()
-        plantsDelegate?.setIcon(for: plant)
-        plantsDelegate?.savePlants()
+        containerDelegate.setIcon(for: plant)
+        plantsManager.savePlants()
     }
 }
 
@@ -378,7 +306,7 @@ extension LibraryDetailViewController {
         if let vc = segue.destination as? ImageCollectionViewController {
             os_log("Sending images to `ImageCollectionViewController`.", log: Log.detailLibraryVC, type: .default)
             vc.plant = plant
-            vc.plantsDelegate = self.plantsDelegate
+            vc.plantsManager = self.plantsManager
             vc.title = self.title
         }
     }

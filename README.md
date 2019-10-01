@@ -4,16 +4,18 @@
 **date: 2019-07-08**
 
 ![100DaysOfCodeSwift](https://img.shields.io/badge/Swift-Plant_Tracker-FA7343.svg?style=flat&logo=swift)
-![ios](https://img.shields.io/badge/iOS-Plant_Tracker-999999.svg?style=flat&logo=apple)  
+[![ios](https://img.shields.io/badge/iOS-Plant_Tracker-999999.svg?style=flat&logo=apple)](https://github.com/jhrcook/PlantTracker)  
 [![jhc github](https://img.shields.io/badge/GitHub-jhrcook-181717.svg?style=flat&logo=github)](https://github.com/jhrcook)
-[![jhc twitter](https://img.shields.io/badge/Twitter-JoshDoesaThing-00aced.svg?style=flat&logo=twitter)](https://twitter.com/JoshDoesa)
-[![jhc website](https://img.shields.io/badge/Website-JoshDoesaThing-5087B2.svg?style=flat&logo=telegram)](https://www.joshdoesathing.com)
+[![jhc twitter](https://img.shields.io/badge/Twitter-@JoshDoesA-00aced.svg?style=flat&logo=twitter)](https://twitter.com/JoshDoesa)
+[![jhc website](https://img.shields.io/badge/Website-Joshua_Cook-5087B2.svg?style=flat&logo=telegram)](https://joshuacook.netlify.com)
 
 This is a simple iOS application to help my mom track her cacti and succulent collection. 
 
-**July 18, 2019**
+**Status** (updated Sept. 10, 2019):
 
 I am still working on the detail view for a plant in the Library. Below is an sample of what it looks like.
+
+The current feature I am working on (in the [`edit_plant_info` branch](https://github.com/jhrcook/PlantTracker/tree/edit-plant-info)) will present a segmented controller to the user to change the plant's properties.
 
 <img src="progress_screenshots/Aug-10-2019 08-20-06.gif" width="300"/>
 
