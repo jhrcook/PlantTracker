@@ -25,7 +25,7 @@ enum PlantInformationIndex: Int, Equatable {
 /**
  Table view controller within the `LibraryDetailViewController` that presents the general information of a plant.
  The complexity of this view controller is mainly due to the system for editing the plant's atteributes.
-*/
+ */
 class GeneralPlantInformationTableViewController: UITableViewController {
 
     

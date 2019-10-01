@@ -13,7 +13,7 @@ import os
  The view controller for the main table view of the Library collection. Each row is a different plant that can
  be selected to see detailed information. Swiping to delete is enabled. A new plant can be added through
  a navigation bar button ("+").
-*/
+ */
 class PlantLibraryTableViewController: UITableViewController {
 
     /// An object that manages the array of `Plant` objects.
