@@ -10,36 +10,50 @@ import UIKit
 import os
 import CropViewController
 
+/// The reuse identifier `String` for the cells used in `ImagePagingCollectionViewControllerDelegate`
 private let reuseIdentifier = "scrollingImageCell"
 
-
+/// A protocol for communicating with the `ImageCollectionViewController` parent view controller.
 protocol ImagePagingCollectionViewControllerDelegate {
     func containerViewController(_ containerViewController: ImagePagingCollectionViewController, indexDidChangeTo currentIndex: Int)
     func removeCell(at index: Int)
 }
 
-
+/// A protocol for relaying changes to images to the `ImagePagingCollectionViewControllerDelegate` parent view controller.
 protocol EditedImageDelegate {
     func save(image: UIImage, withIndex index: Int)
     func setProfileAs(imageAt index: Int)
     func deleteImage(at index: Int)
 }
 
-
+/// A collection view that presents images in a horizontal paging view. Images can be edited (cropped).
 class ImagePagingCollectionViewController: UICollectionViewController {
 
+    /// The index to open to.
     var startingIndex: Int = 0
+    
+    /// The array of images to present.
     var images = [UIImage]()
     
+    /// The index of the image currently being displayed to the user.
     var currentIndex: Int = 0 {
         didSet {
             self.title = "Image \(Int(currentIndex) + 1) of \(images.count)"
         }
     }
     
+    /// Used to know if the image view of the current cell is hidden. This is required for a smooth transition from the parent
+    /// image view collection. The image is hidden during the transition, and then un-hidden, afterwards.
+    /// - TODO: make private
     var hideCellImageViews = false
+    
+    /// The controller for the zooming transition animation.
     var transitionController = ZoomTransitionController()
+    
+    /// Delegate to respond to changes in the image array `images: [UIImage]`.
     var containerDelegate: ImagePagingCollectionViewControllerDelegate?
+    
+    /// A delegate to respond to changes in a specific image in `images: [UIImage]`
     var saveEditsDelegate: EditedImageDelegate?
     
     override func viewDidLoad() {
@@ -65,6 +79,8 @@ class ImagePagingCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionView
     
+    /// Set up the collection view so it has a horizontal paging view. This is called during `viewDidLoad()`.
+    /// - TODO: make private
     func setupCollectionView() {
         
         collectionView.backgroundColor = .white
@@ -160,6 +176,7 @@ extension ImagePagingCollectionViewController: UICollectionViewDelegateFlowLayou
 // MARK: ZoomAnimatorDelegate
 
 extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
+    
     func transitionWillStartWith(zoomAnimator: ZoomAnimator) {
         // add code here to be run just before the transition animation
         os_log("`ZoomAnimatorDelegate` is starting.", log: Log.pagingImageVC, type: .info)
@@ -198,6 +215,7 @@ extension ImagePagingCollectionViewController: ZoomAnimatorDelegate {
 
 extension ImagePagingCollectionViewController {
     
+    /// Respond to a pan gesture to dismiss the view controller. The zoom animation transition is initiated.
     @objc func userDidPanWith(gestureRecognizer: UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
@@ -231,6 +249,9 @@ extension ImagePagingCollectionViewController {
 // MARK: NavigationBarHidingAndShowingDelegate
 
 extension ImagePagingCollectionViewController: PagingViewWasTappedDelegate {
+    
+    /// Turn the cell background black or white when a user taps on the cell
+    /// - TODO: this will need a creative solution for iOS 13 Dark Mode
     func pagingViewCell(_ pagingViewCell: ImagePagingViewCell, shouldBeTurnedBlack: Bool) {
         collectionView.backgroundColor = shouldBeTurnedBlack ? UIColor.black : UIColor.white
         navigationController?.setNavigationBarHidden(shouldBeTurnedBlack, animated: true)
@@ -242,6 +263,9 @@ extension ImagePagingCollectionViewController: PagingViewWasTappedDelegate {
 // MARK: tappedRightBarButton
 
 extension ImagePagingCollectionViewController {
+    
+    /// Responds to a user tappinng the Edit button the navigation bar. The options are to Edit, Share, make the header image of the `Plant` object,
+    /// or Delete the image. Each of those options has a specific handler function.
     @objc func tappedActionButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Edit...", style: .default, handler: editPhoto))
@@ -253,7 +277,11 @@ extension ImagePagingCollectionViewController {
     }
     
     
-    // edit photo
+    /// Edit a photo using a `CropViewController`.
+    /// - parameter alert: The alert action that called the function.
+    /// - Note: The `CropViewController` is from the swift package ['TOCropViewController'](https://github.com/TimOliver/TOCropViewController).
+    ///
+    /// - TODO: make private
     func editPhoto(_ alert: UIAlertAction) {
         let image = images[currentIndex]
         let cropViewController = CropViewController(croppingStyle: .default, image: image)
@@ -262,19 +290,29 @@ extension ImagePagingCollectionViewController {
     }
     
     
-    // share using UIActivityViewController
+    /// Share an image using the standard `UIActivityViewController`.
+    /// - parameter alert: The alert action that called the function.
+    ///
+    /// - TODO: make private
     func shareImage(_ alert: UIAlertAction) {
         let image = images[currentIndex]
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(activityVC, animated: true)
     }
     
-    
+    /// Set the header image of the plant by calling `EditedImageDelegate.setProfileAs(imageAt:)`
+    /// - parameter alert: The alert action that called the function.
+    ///
+    /// - TODO: make private
     func setHeaderImage(_ alert: UIAlertAction) {
         saveEditsDelegate?.setProfileAs(imageAt: currentIndex)
     }
     
-    
+    /// Delete the current image. This requires the image be deleted from this collection view, the parent collection view, the `Plant` object's image array
+    /// and from disk. All but the first of these tasks are completed by delegates.
+    /// - parameter alert: The alert action that called the function.
+    ///
+    /// - TODO: make private
     func deleteImageTapped(_ alert: UIAlertAction) {
         let alertController = UIAlertController(title: "Delete image?", message: "Are you sure you want to delete the image from your library?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -311,11 +349,12 @@ extension ImagePagingCollectionViewController {
 
 extension ImagePagingCollectionViewController: CropViewControllerDelegate {
     
+    // cropping was canceled
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
         dismiss(animated: true)
     }
     
-    
+    // cropping was saved
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         images[currentIndex] = image
         if let delegate = saveEditsDelegate {
