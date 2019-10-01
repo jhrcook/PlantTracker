@@ -13,5 +13,6 @@ target 'PlantTracker' do
   pod 'ImageTransition'
   pod 'Floaty', '~> 4.2.0'
   pod 'CropViewController'
+  pod 'MultiSelectSegmentedControl'
 end
 
