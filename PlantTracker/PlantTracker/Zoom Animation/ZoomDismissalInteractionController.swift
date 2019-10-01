@@ -8,14 +8,35 @@
 
 import UIKit
 
+
+/**
+ A custom interactive dismissal zoom transition for the transition from an `ImagePagingCollectionViewController`
+ to an `ImageCollectionViewController` when  the cell recognizes a pan gesture. It was built to mimic the transition used in the native iPhone Photos app.
+ 
+ This custom animation was documented and explained in complete detail in the links provided below.
+
+- SeeAlso:
+    [GitHub](https://github.com/jhrcook/PlantTracker)
+    [EditPlantLevelManager_notes.md](https://github.com/jhrcook/PlantTracker/blob/master/EditPlantLevelManager_notes.md).
+*/
 class ZoomDismissalInteractionController: NSObject {
     
+    /// The context provided to a transtion that has information about the source.
     var transitionContext: UIViewControllerContextTransitioning?
+    
+    /// The animator for the transition.
     var animator: UIViewControllerAnimatedTransitioning?
     
+    /// The frame of the destination image view.
     var fromReferenceImageViewFrame: CGRect?
+    /// The frame of the source image view.
     var toReferenceImageViewFrame: CGRect?
     
+    /// The dismissal transition triggered by a panning gesture.
+    /// - parameter gestureRecognizer: The pan gesture responsible for the dismissal.
+    ///
+    /// The dismissal only completes if the gesture is released with the image below the starting location and the gesture not
+    /// moving up the screen. It otherwise cancels and the transition view returns to the source image view.
     func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
         
         guard
@@ -133,7 +154,10 @@ class ZoomDismissalInteractionController: NSObject {
     
     
     
-    
+    /// Calculates the alpha of the backgroud of the source or destination view based on the displacement of the
+    /// transition view.
+    /// - parameter view: The view being adjusted. It's frame is used to measure the displacement.
+    /// - parameter delta: The current displacement of the image from its origin.
     func calculateBrackgroundAlphaFor(_ view: UIView, atDelta delta: CGFloat) -> CGFloat {
         let startingAlpha: CGFloat = 1.0
         let finalAlpha: CGFloat = 0.0
@@ -145,7 +169,9 @@ class ZoomDismissalInteractionController: NSObject {
         return startingAlpha - (deltaAsPercentageOfMaximun * totalAvailableAlpha)
     }
     
-    
+    /// Calculate the scale of the transition image based on its displacement from its origin.
+    /// - parameter view: The view being adjusted. It's frame is used to measure the displacement.
+    /// - parameter delta: The current displacement of the image from its origin.
     func calculateScaleIn(_ view: UIView, atDelta delta: CGFloat) -> CGFloat {
         let startingScale: CGFloat = 1.0
         let finalScale: CGFloat = 0.5
@@ -162,6 +188,8 @@ class ZoomDismissalInteractionController: NSObject {
 
 extension ZoomDismissalInteractionController: UIViewControllerInteractiveTransitioning {
     
+    /// Called when an interactive transition is initiated. It is used here to prepare the
+    /// transition controller.
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         
         self.transitionContext = transitionContext
