@@ -11,6 +11,8 @@
 
 This is a simple iOS application to help my mom track her cacti and succulent collection. 
 
+Documentation: https://jhrcook.github.io/PlantTracker/
+
 ## Status
 
 (updated October 1, 2019)
