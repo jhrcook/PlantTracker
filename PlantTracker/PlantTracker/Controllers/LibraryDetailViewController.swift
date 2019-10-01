@@ -71,7 +71,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
     /// This manages the assets during active selection of the images in the image picker. When an image
     /// is selected, it is downloaded. When an image is unselected, it is removed. When the user either
     /// saves or cancels, the manager has the list of images to ensure are saved or deleted.
-    /// - TODO: make private 
+    /// - TODO: make private
     var assetTracker = AssetIndexIDTracker()
     
     /// Blur effect for the header image.
@@ -149,7 +149,7 @@ class LibraryDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    /// An alert sheet is presented when the "Edit" navigation bar button is tapped.
+    /// An action sheet is presented when the "Edit" navigation bar button is tapped.
     /// - TODO: make private.
     @objc func editDetailAction() {
 
