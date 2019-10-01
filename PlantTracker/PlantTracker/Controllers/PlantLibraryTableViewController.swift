@@ -16,9 +16,13 @@ import os
 */
 class PlantLibraryTableViewController: UITableViewController {
 
+    /// An object that manages the array of `Plant` objects.
     var plantsManager = PlantsManager()
     
+    /// Array of all of the icon images.
     var iconImages = [Plant: UIImage]()
+    
+    /// The index of the last selected row. Is `nil` if no row has been selected.
     var lastSelectedRow: Int? = nil
     
     override func viewDidLoad() {

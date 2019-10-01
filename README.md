@@ -26,6 +26,7 @@ The current feature I am working on (in the [`edit_plant_info` branch](https://g
 * [TwicketSegmentedControl](https://github.com/twicketapp/TwicketSegmentedControl)
 * [AssetsPickerViewController](https://github.com/DragonCherry/AssetsPickerViewController)
 * [Floaty](https://github.com/kciter/Floaty)
+* [KeyboardObserver]()
 * [TOCropViewController](https://github.com/TimOliver/TOCropViewController)
 
 
