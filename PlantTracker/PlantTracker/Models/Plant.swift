@@ -12,44 +12,57 @@ import os
 
 class Plant: NSObject, Codable {
 
-    // unique, unchanging identifier
+    /// A unique, unchanging identifier for the plant.
     let uuid = UUID().uuidString
     
-    // naming
+    /// The scientific name of the plant.
     var scientificName: String?
+    
+    /// The common name of the plant.
     var commonName: String?
     
-    // images
+    /// All of the images for the plant.
     var images = [String]()
+    
+    /// Images that have been specifically "Favorited" by the user.
     var favoriteImages = [String]()
+    
+    /// The profile image to use for the plant.
     var profileImage: String?
+    
+    /// The small, round image to use for an icon image.
     var smallRoundProfileImage: String?
     
-    // information
+    /// The growing season(s) of the plant.
     var growingSeason = [Season]()
+    /// The dormant season(s) of the plant.
     var dormantSeason = [Season]()
+    /// The difficulty level of the plant.
     var difficulty: DifficultyLevel?
+    /// The water level(s) the plant can tolerate.
     var watering = [WateringLevel]()
+    /// The lighting level(s) the plant can tolerate.
     var lighting = [LightLevel]()
     
-    // purchase information
+    /// Date of purchasing the plant.
     var purchaseDate: Date?
+    /// From whom/where the plant was purchased.
     var purchasedFrom: Seller?
     
-    // notes
+    /// Notes about the plant.
     var notes = ""
 
     
-    // ---- Initializers ---- //
+    /// Initialize a plant object with a scientific and common name.
     init(scientificName: String?, commonName: String?) {
         self.scientificName = scientificName
         self.commonName = commonName
     }
     
-    
-    // ---- Deleting images ---- //
-    // make sure to remove the file from the phone
-    
+    /// Delete an image from a plant. The `images: [UIImage]` array just holds the UUIDs of the images. The file must specifically be
+    /// deleted using a `FileManager`.
+    /// - parameter imageUUID: The UUID of the image to be deleted. It is deleted from disk and all properties of the plant object that
+    /// hold image UUIDs.
     func deleteImage(with imageUUID: String) {
         let filePath = getFilePathWith(id: imageUUID)
         do {
@@ -67,6 +80,9 @@ class Plant: NSObject, Codable {
         if smallRoundProfileImage == imageUUID { smallRoundProfileImage = nil }
     }
     
+    /// Delete all images from a plant.
+    ///
+    /// - Important: Make sure to offer the user a second chance before running this destructive task.
     func deleteAllImages() {
         // delete files
         for image in images {
@@ -81,6 +97,8 @@ class Plant: NSObject, Codable {
         smallRoundProfileImage = nil
     }
     
+    
+    /// Prints a simple description of the plant.
     func printSimpleDescription() {
         if let sn = scientificName, let cn = commonName {
             print("\(sn) - \(cn)")
@@ -91,6 +109,7 @@ class Plant: NSObject, Codable {
         }
     }
     
+    /// Get the best single image for a plant. The priority is as follows: `profileImage`> the first image of `favoriteImages` > the first image in`images`.
     func bestSingleImage() -> String? {
         if profileImage != nil { return profileImage! }
         if favoriteImages.count > 0 { return favoriteImages[0] }
@@ -98,19 +117,26 @@ class Plant: NSObject, Codable {
         return nil
     }
     
-    
+    /// A printable statement of the `growingSeason` property.
+    /// - returns: A single string with multiple growing seasons separated by commas.
     func printableGrowingSeason() -> String {
         return growingSeason.map { $0.rawValue }.joined(separator: ", ")
     }
     
+    /// A printable statement of the `dormantSeason` property.
+    /// - returns: A single string with multiple dormant seasons separated by commas.
     func printableDormantSeason() -> String {
         return dormantSeason.map { $0.rawValue }.joined(separator: ", ")
     }
     
+    /// A printable statement of the `watering` property.
+    /// - returns: A single string with multiple waering levels separated by commas.
     func printableWatering() -> String {
         return watering.map { $0.rawValue }.joined(separator: ", ")
     }
     
+    /// A printable statement of the `lighting` property.
+    /// - returns: A single string with lighting levels separated by commas.
     func printableLighting() -> String {
         return lighting.map { $0.rawValue }.joined(separator: ", ")
     }
@@ -119,29 +145,42 @@ class Plant: NSObject, Codable {
 }
 
 
-// ---- Enums for information attributes ---- //
 
+
+
+// MARK: Enums for plant information
+
+/// The seasons of the year.
 enum Season: String, Codable, CaseIterable {
     case summer, fall, winter, spring
 }
 
+/// Three difficulty levels.
 enum DifficultyLevel: String, Codable, CaseIterable {
     case easy, medium, hard
 }
 
+/// Various levels of watering from driest to wettest.
 enum WateringLevel: String, Codable, CaseIterable {
     case veryDry = "very dry", dry, moist, wet
 }
 
+/// Various levels of lighting from constant/all-day to low
 enum LightLevel: String, Codable, CaseIterable {
     case allDay = "all day", morning, afternoon, filtered, indirect, shade, low
 }
 
-// ---- ---- //
 
 
+
+
+// MARK: Seller
+
+/// A model for a seller of plants.
 class Seller: Codable {
+    /// Name of seller.
     var name: String?
+    /// Name of business (nursery).
     var business: String?
     
     init(name: String?) {
